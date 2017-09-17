@@ -10,7 +10,7 @@
         AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen"
         >
     <Window.Background>
-        <ImageBrush ImageSource="assets/images/login.png"/>
+        <ImageBrush ImageSource="../assets/images/login.png"/>
     </Window.Background>
     <Grid>
 
