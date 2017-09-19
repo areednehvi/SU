@@ -1,8 +1,8 @@
 ﻿<Application x:Class="School_Universe.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:School_Universe"
-             StartupUri="views/login.xaml">
+             xmlns:local="clr-namespace:School_Universe.ViewModel"
+             StartupUri="views/main.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
