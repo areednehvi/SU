@@ -25,10 +25,7 @@ namespace School_Universe
             InitializeComponent();
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(txtUserName.Text + " " + txtPassword.Password);
-        }
+        
 
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {

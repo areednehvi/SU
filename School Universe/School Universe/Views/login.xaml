@@ -4,19 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:School_Universe"
+        xmlns:local1="clr-namespace:School_Universe.ViewModel"
         mc:Ignorable="d"
         Title="Login"
         Height="600" Width="525"
         AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen"
         >
+    <Window.Resources>
+        <local1:LoginViewModel x:Key="LoginViewModel" />
+    </Window.Resources>
     <Window.Background>
         <ImageBrush ImageSource="../assets/images/login.png"/>
     </Window.Background>
-    <Grid>
-
-        <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Height="23" Margin="321,370,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="151" ToolTip="Enter your username"/>
-        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" Margin="321,414,0,0" VerticalAlignment="Top" Width="151" ToolTip="Enter your password"/>
-        <Button x:Name="btnLogin" Content="" HorizontalAlignment="Left" Margin="372,512,0,0" VerticalAlignment="Top" Width="100" Opacity="0" Height="25" Click="btnLogin_Click" ToolTip="Login into your account"/>
+    <Grid DataContext="{Binding Source={StaticResource LoginViewModel}}">
+        <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Height="23" Margin="321,370,0,0" TextWrapping="NoWrap" Text="{Binding Login.Username,Mode=TwoWay}" VerticalAlignment="Top" Width="151" ToolTip="Enter your username"/>
+        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" Margin="321,414,0,0" VerticalAlignment="Top" Width="151" ToolTip="Enter your password" />
+        <Button x:Name="btnLogin" Content="" HorizontalAlignment="Left" Margin="372,512,0,0" VerticalAlignment="Top" Width="100" Opacity="0" Height="25" ToolTip="Login into your account" Command="{Binding LoginCommand}" />
         <Button x:Name="btnClose" Content="X" Click="btnClose_Click"
         Height="20" Margin="484,180,21,400" RenderTransformOrigin="0.5,0.5" Width="20" ToolTip="Close School Universe">
             <Button.RenderTransform>
