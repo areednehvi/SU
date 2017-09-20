@@ -1,11 +1,13 @@
 ﻿using School_Universe.Models;
 using School_Universe.Shared;
+using School_Universe.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace School_Universe.ViewModel
@@ -18,10 +20,11 @@ namespace School_Universe.ViewModel
         {
             _login = new Login
             {
-                Username = "Areed"
+                Username = "",
+                Password = "",
                 
             };
-            _chkLogin = new RelayCommand(CheckLogin, CanAdd);
+            _chkLogin = new RelayCommand(CheckLogin, CanLogin);
         }
 
         public ICommand LoginCommand
@@ -45,19 +48,27 @@ namespace School_Universe.ViewModel
         #region LoginCommand
 
       
-        public bool CanAdd(object obj)
+        public bool CanLogin(object obj)
         {
           
-            //if (Login.Username != string.Empty)
+            if (Login.Username != string.Empty)
                 return true;
-            //return false;
+            return false;
         }
 
        
         public void CheckLogin(object obj)
         {
-            MessageBox.Show(Login.Username);
-            Login.Username = "Arif";
+            PasswordBox pwBox = obj as PasswordBox;
+            Login.Password = pwBox.Password;
+            //MessageBox.Show(Login.Username + " " + Login.Password);
+            main lw = new main();
+            lw.Show();
+            
+            
+            
+            
+            //Login.Username = "Arif";
         }
         #endregion
 
