@@ -15,7 +15,11 @@ namespace School_Universe.ViewModel
     class LoginViewModel
     {
         private Login _login;
-        private ICommand _chkLogin;
+        private ICommand _loginCommand;
+        private ICommand _closeCommand;
+        private ICommand _minimizeCommand;
+
+        #region Constructor
         public LoginViewModel()
         {
             _login = new Login
@@ -24,13 +28,11 @@ namespace School_Universe.ViewModel
                 Password = "",
                 
             };
-            _chkLogin = new RelayCommand(CheckLogin, CanLogin);
+            _loginCommand = new RelayCommand(CheckLogin, CanLogin);
+            _closeCommand = new RelayCommand(CloseLogin, CanClose);
+            _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
         }
-
-        public ICommand LoginCommand
-        {
-            get { return _chkLogin; }        
-        }
+        #endregion
 
         public Login Login
         {
@@ -46,6 +48,10 @@ namespace School_Universe.ViewModel
 
 
         #region LoginCommand
+        public ICommand LoginCommand
+        {
+            get { return _loginCommand; }        
+        }
 
       
         public bool CanLogin(object obj)
@@ -69,6 +75,48 @@ namespace School_Universe.ViewModel
             
             
             //Login.Username = "Arif";
+        }
+        #endregion
+
+        #region CloseCommand
+
+        public ICommand CloseCommand
+        {
+            get { return _closeCommand; }
+        }
+
+
+        public bool CanClose(object obj)
+        {
+            return true;
+        }
+
+
+        public void CloseLogin(object obj)
+        {
+            Window objWindow = (Window)obj;          
+            objWindow.Close();            
+        }
+        #endregion
+
+        #region MinimizeCommand
+
+        public ICommand MinimizeCommand
+        {
+            get { return _minimizeCommand; }
+        }
+
+
+        public bool CanMinimize(object obj)
+        {
+            return true;
+        }
+
+
+        public void MinimizeLogin(object obj)
+        {
+            Window objWindow = (Window)obj;
+            objWindow.WindowState = WindowState.Minimized;
         }
         #endregion
 
