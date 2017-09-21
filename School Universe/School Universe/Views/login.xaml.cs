@@ -1,4 +1,5 @@
-﻿using System;
+﻿using School_Universe.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,10 @@ namespace School_Universe
         public LoginWindow()
         {
             InitializeComponent();
+
+            //((LoginViewModel)DataContext).S = "ssssss";
+            //((LoginViewModel)grdLogin.DataContext).Login.Username = "sssss";
+            ((LoginViewModel)grdLogin.DataContext).Window = this;
         }
 
     }

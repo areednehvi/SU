@@ -15,6 +15,7 @@ namespace School_Universe.ViewModel
     class LoginViewModel
     {
         private Login _login;
+        private Window _window;
         private ICommand _loginCommand;
         private ICommand _closeCommand;
         private ICommand _minimizeCommand;
@@ -43,6 +44,18 @@ namespace School_Universe.ViewModel
             set
             {
                 _login = value;
+            }
+        }
+
+        public Window Window
+        {
+            get
+            {
+                return _window;
+            }
+            set
+            {
+                _window = value;
             }
         }
 
@@ -94,8 +107,9 @@ namespace School_Universe.ViewModel
 
         public void CloseLogin(object obj)
         {
-            Window objWindow = (Window)obj;          
-            objWindow.Close();            
+            //Window objWindow = (Window)obj;          
+            //objWindow.Close();            
+            Window.Close();
         }
         #endregion
 
