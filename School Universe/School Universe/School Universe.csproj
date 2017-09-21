@@ -79,9 +79,17 @@
     </ApplicationDefinition>
     <Compile Include="Shared\RelayCommand.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Views\grid.xaml.cs">
+      <DependentUpon>grid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\main.xaml.cs">
       <DependentUpon>main.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Student.cs" />
+    <Page Include="Views\grid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
