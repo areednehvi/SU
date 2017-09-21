@@ -1,4 +1,4 @@
-﻿using School_Universe.ViewModel;
+﻿using School_Universe.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,18 +16,12 @@ using System.Windows.Shapes;
 
 namespace School_Universe
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class LoginWindow : Window
     {
         public LoginWindow()
         {
             InitializeComponent();
-
-            //((LoginViewModel)DataContext).S = "ssssss";
-            //((LoginViewModel)grdLogin.DataContext).Login.Username = "sssss";
-            ((LoginViewModel)grdLogin.DataContext).Window = this;
+            ((LoginController)grdLogin.DataContext).Window = this;
         }
 
     }

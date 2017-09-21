@@ -9,18 +9,20 @@ namespace School_Universe.Models
 {
     public class Login : INotifyPropertyChanged
     {        
-        private string username;
-        private string password;
+        private string _username;
+        private string _password;
+        private string _message;
 
         public string Username
         {
             get
             {
-                return username;
+                return _username;
             }
             set
             {
-                username = value;
+                _username = value;
+                Message = null;
                 OnPropertyChanged("Username");
             }
         }
@@ -29,15 +31,30 @@ namespace School_Universe.Models
         {
             get
             {
-                return password;
+                return _password;
             }
             set
             {
-                password = value;
+                _password = value;
+                Message = null;
                 OnPropertyChanged("Password");
             }
 
-        }        
+        }
+
+        public string Message
+        {
+            get
+            {
+                return _message;
+            }
+            set
+            {
+                _message = value;
+                OnPropertyChanged("Message");
+            }
+
+        }
 
 
         #region INotifyPropertyChanged Members

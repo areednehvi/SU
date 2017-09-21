@@ -23,6 +23,7 @@ namespace School_Universe.Views
         public main()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
         }
     }
 }

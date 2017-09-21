@@ -1,6 +1,7 @@
 ﻿using School_Universe.Models;
 using School_Universe.Shared;
 using School_Universe.Views;
+using School_Universe_Businness_Layer.Businness;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,31 +11,29 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace School_Universe.ViewModel
+namespace School_Universe.Controllers
 {
-    class LoginViewModel
+    class LoginController
     {
+        #region Fields
         private Login _login;
         private Window _window;
         private ICommand _loginCommand;
         private ICommand _closeCommand;
         private ICommand _minimizeCommand;
+        #endregion
 
         #region Constructor
-        public LoginViewModel()
+        public LoginController()
         {
-            _login = new Login
-            {
-                Username = "",
-                Password = "",
-                
-            };
-            _loginCommand = new RelayCommand(CheckLogin, CanLogin);
+            _login = new Login();
+            _loginCommand = new RelayCommand(AuthenticateUser, CanLogin);
             _closeCommand = new RelayCommand(CloseLogin, CanClose);
             _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
         }
         #endregion
 
+        #region Properties
         public Login Login
         {
             get
@@ -58,7 +57,7 @@ namespace School_Universe.ViewModel
                 _window = value;
             }
         }
-
+        #endregion
 
         #region LoginCommand
         public ICommand LoginCommand
@@ -70,24 +69,38 @@ namespace School_Universe.ViewModel
         public bool CanLogin(object obj)
         {
           
-            if (Login.Username != string.Empty)
+            if (Login.Username != null)
                 return true;
             return false;
         }
 
        
-        public void CheckLogin(object obj)
+        public void AuthenticateUser(object obj)
         {
-            PasswordBox pwBox = obj as PasswordBox;
-            Login.Password = pwBox.Password;
-            //MessageBox.Show(Login.Username + " " + Login.Password);
-            main lw = new main();
-            lw.Show();
+            try
+            {
+                PasswordBox pwBox = obj as PasswordBox;
+                Login.Password = pwBox.Password;
+                if (LoginManager.ValidateUser(Login))
+                {
+                    main lw = new main();
+                    lw.Show();
+                    Window.Close();
+                }
+                else
+                    Login.Message = "Username and password are incorrect";
+                
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                MessageBox.Show(errorMessage);
+            }
+            finally
+            {
+
+            }
             
-            
-            
-            
-            //Login.Username = "Arif";
         }
         #endregion
 
@@ -106,9 +119,7 @@ namespace School_Universe.ViewModel
 
 
         public void CloseLogin(object obj)
-        {
-            //Window objWindow = (Window)obj;          
-            //objWindow.Close();            
+        {           
             Window.Close();
         }
         #endregion
@@ -129,8 +140,7 @@ namespace School_Universe.ViewModel
 
         public void MinimizeLogin(object obj)
         {
-            Window objWindow = (Window)obj;
-            objWindow.WindowState = WindowState.Minimized;
+            Window.WindowState = WindowState.Minimized;
         }
         #endregion
 

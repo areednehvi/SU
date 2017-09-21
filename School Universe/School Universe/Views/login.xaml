@@ -4,19 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:School_Universe"
-        xmlns:local1="clr-namespace:School_Universe.ViewModel"
+        xmlns:vm="clr-namespace:School_Universe.Controllers"
         mc:Ignorable="d"
         Title="Login"
         Height="600" Width="525"
         AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen"
         >
     <Window.Resources>
-        <local1:LoginViewModel x:Key="LoginViewModel" />
+        <vm:LoginController x:Key="LoginController" />
     </Window.Resources>
     <Window.Background>
         <ImageBrush ImageSource="../assets/images/login.png"/>
     </Window.Background>
-    <Grid x:Name="grdLogin" DataContext="{Binding Source={StaticResource LoginViewModel}}" FocusManager.FocusedElement="{Binding ElementName=txtUserName}">
+    <Grid x:Name="grdLogin" DataContext="{Binding Source={StaticResource LoginController}}" FocusManager.FocusedElement="{Binding ElementName=txtUserName}">
         <TextBox x:Name="txtUserName"  HorizontalAlignment="Left" Height="23" Margin="321,370,0,0" TextWrapping="NoWrap" Text="{Binding Login.Username,Mode=TwoWay}" VerticalAlignment="Top" Width="151" ToolTip="Enter your username"/>
         <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" Margin="321,414,0,0" VerticalAlignment="Top" Width="151" ToolTip="Enter your password" />
         <Button x:Name="btnLogin" Content="" HorizontalAlignment="Left" Margin="372,512,0,0" VerticalAlignment="Top" Width="100" Opacity="0" Height="25" ToolTip="Login into your account" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=txtPassword}" />
@@ -95,6 +95,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <Label x:Name="lblMsg" ToolTip="{Binding Login.Message}" Content="{Binding Login.Message}" HorizontalAlignment="Left" Margin="220,442,0,0" VerticalAlignment="Top" Width="252" Foreground="#DDFF0C0C" IsManipulationEnabled="True" FontSize="14" Height="43" FontWeight="Medium"/>
 
 
 
