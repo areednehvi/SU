@@ -41,5 +41,51 @@ namespace School_Universe_Data_Layer.DataAccess
             }
             return objDatabale;
         }
+
+        public static object GetScalar(string storedProcedure, List<SqlParameter> lstSqlParameters)
+        {
+            object value;
+            SqlCommand objSqlCommand = new SqlCommand(storedProcedure, objSqlConnection);
+            try
+            {
+                objSqlConnection.Open();
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
+                objSqlCommand.Parameters.AddRange(lstSqlParameters.ToArray());
+                value = objSqlCommand.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                objSqlCommand.Dispose();
+                objSqlConnection.Close();
+            }
+            return value;
+        }
+
+        public static Boolean ExecuteNonQuery(string storedProcedure, List<SqlParameter> lstSqlParameters)
+        {
+            Boolean success = false;
+            SqlCommand objSqlCommand = new SqlCommand(storedProcedure, objSqlConnection);
+            try
+            {
+                objSqlConnection.Open();
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
+                objSqlCommand.Parameters.AddRange(lstSqlParameters.ToArray());
+                objSqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                objSqlCommand.Dispose();
+                objSqlConnection.Close();
+            }
+            return success;
+        }
     }
 }

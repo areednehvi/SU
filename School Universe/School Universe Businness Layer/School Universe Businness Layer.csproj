@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Businness\LoginManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\StoredProcedures.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\School Universe Data Layer\School Universe Data Layer.csproj">

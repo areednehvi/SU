@@ -1,4 +1,5 @@
 ﻿using School_Universe.Models;
+using School_Universe_Businness_Layer.Shared;
 using School_Universe_Data_Layer.DataAccess;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,12 @@ using System.Threading.Tasks;
 namespace School_Universe_Businness_Layer.Businness
 {
     public class LoginManager
-    {
+    {        
         public static Boolean ValidateUser(Login objLogin)
         {
             Boolean isValidUser = false;  
 
+         
             try
             {
                 List<SqlParameter> lstSqlParameters = new List<SqlParameter>()
@@ -24,7 +26,7 @@ namespace School_Universe_Businness_Layer.Businness
                     new SqlParameter() {ParameterName = "@Username",     SqlDbType = SqlDbType.NVarChar, Value = objLogin.Username},
                     new SqlParameter() {ParameterName = "@Password",  SqlDbType = SqlDbType.NVarChar, Value = objLogin.Password}
                 };
-                DataTable objDatable = DataAccess.GetDataTable("AuthenticateUser",lstSqlParameters);
+                DataTable objDatable = DataAccess.GetDataTable(StoredProcedures.AuthenticateUser,lstSqlParameters);
                 if (objDatable.Rows.Count > 0)
                     isValidUser = true;
             }
