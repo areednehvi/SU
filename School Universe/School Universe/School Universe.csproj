@@ -85,6 +85,9 @@
     <Compile Include="Views\main.xaml.cs">
       <DependentUpon>main.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\pagination.xaml.cs">
+      <DependentUpon>pagination.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Student.cs" />
     <Page Include="Views\grid.xaml">
       <SubType>Designer</SubType>
@@ -106,6 +109,10 @@
     <Page Include="Views\main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\pagination.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
