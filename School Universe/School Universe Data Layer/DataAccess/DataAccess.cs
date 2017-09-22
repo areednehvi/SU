@@ -27,9 +27,35 @@ namespace School_Universe_Data_Layer.DataAccess
             {                                
                 objSqlConnection.Open();                
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
-                objSqlCommand.Parameters.AddRange(lstSqlParameters.ToArray());
+                objSqlCommand.CommandTimeout = 3000;
+                if(lstSqlParameters != null)
+                    objSqlCommand.Parameters.AddRange(lstSqlParameters.ToArray());
                 SqlDataAdapter da = new SqlDataAdapter(objSqlCommand);
                 da.Fill(objDatabale);               
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                objSqlCommand.Dispose();
+                objSqlConnection.Close();
+            }
+            return objDatabale;
+        }
+
+        public static DataTable GetDataTable(string query)
+        {
+            DataTable objDatabale = new DataTable();
+            SqlCommand objSqlCommand = new SqlCommand(query, objSqlConnection);
+            try
+            {
+                objSqlConnection.Open();
+                objSqlCommand.CommandType = CommandType.Text;
+            
+                SqlDataAdapter da = new SqlDataAdapter(objSqlCommand);
+                da.Fill(objDatabale);
             }
             catch (Exception ex)
             {

@@ -9,5 +9,6 @@ namespace School_Universe_Businness_Layer.Shared
     static class StoredProcedures
     {
          public static string AuthenticateUser = "AuthenticateUser";
+         public static string GetStudentFeeAllocatedList = "GetStudentFeeAllocatedList";
     }
 }
