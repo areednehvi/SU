@@ -23,6 +23,7 @@ namespace School_Universe.Views
         {
             InitializeComponent();
            // WindowState = WindowState.Maximized;
+           //dataGrid.ItemsSource = 
         }
     }
 }
