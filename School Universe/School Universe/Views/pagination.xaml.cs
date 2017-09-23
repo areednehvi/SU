@@ -115,5 +115,13 @@ namespace School_Universe.Views
             }
 
         }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            Student s = (Student)dataGrid.SelectedItem;
+            form fm = new form(ref s);
+            fm.Show();
+
+        }
     }
 }

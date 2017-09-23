@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:School_Universe.Views"
         mc:Ignorable="d"
-        Title="pagination" Height="555.508" Width="1224.637">
-    <Grid Margin="0,0,2,1">
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1198" Height="421"/>
+        Title="pagination" Height="555.508" Width="934.539">
+    <Grid Margin="0,0,144.4,0.6">
+        <DataGrid x:Name="dataGrid" VerticalAlignment="Top" Height="421" Margin="0,0,-135.2,0" HorizontalAlignment="Left" Width="882" SelectedItem="{Binding ChosenItem}" />
         <Button x:Name="button" Content="Previous" HorizontalAlignment="Left" Margin="500,447,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
         <Button x:Name="button1" Content="Next" HorizontalAlignment="Left" Margin="618,447,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
+        <Button x:Name="button2" Content="Button" HorizontalAlignment="Left" Margin="59,447,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
 
     </Grid>
 </Window>
