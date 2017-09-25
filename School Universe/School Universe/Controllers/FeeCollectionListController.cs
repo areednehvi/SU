@@ -31,7 +31,7 @@ namespace School_Universe.Controllers
         {
             _feeCollectionStudentList = new ObservableCollection<FeeCollectionStudentList>();
             toRowNo = pageNo * NoOfRecordsPerPage;
-            this.GetFeeCollectionStudentList();
+            //this.GetFeeCollectionStudentList();
             _nextPageCommand = new RelayCommand(MoveToNextPage, CanMoveToNextPage);
             _previousPageCommand = new RelayCommand(MoveToPreviousPage, CanMoveToPreviousPage);
             _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);

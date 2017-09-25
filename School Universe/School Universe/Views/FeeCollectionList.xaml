@@ -14,17 +14,35 @@
         
     </Window.Resources>
     <Grid x:Name="grdFeeCollectionList" DataContext="{Binding Source={StaticResource FeeCollectionListController}}">
-        <materialDesign:Card Padding="5" Margin="5">
+        <materialDesign:Card Grid.Row="1" Padding="5" Margin="5">
             <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}">Fee Collection</TextBlock>
         </materialDesign:Card>
-        <Button  Content="Previous" HorizontalAlignment="Left" Margin="0,66,0,0" VerticalAlignment="Top" Width="100" Height="25" ToolTip="Move to previous page" Command="{Binding PreviousPageCommand}" CommandParameter="{Binding ElementName=dataGridFeeCollectionList}"  />
-        <Button  Content="Next" HorizontalAlignment="Left" Margin="105,66,0,0" VerticalAlignment="Top" Width="100" Height="25" ToolTip="Move to next page" Command="{Binding NextPageCommand}" CommandParameter="{Binding ElementName=dataGridFeeCollectionList}"  />
+        <StackPanel Grid.Row="2"  Margin="0,130,10,89"  Orientation="Horizontal"  HorizontalAlignment="Right">
+           
+            <Button Width="26" Height="26" Style="{StaticResource MaterialDesignFloatingActionLightButton}" Command="{Binding PreviousPageCommand}" CommandParameter="{Binding ElementName=dataGridFeeCollectionList}"
+                    Margin="0,0,0,0" HorizontalAlignment="Right" RenderTransformOrigin="0.385,2.01">
+                <Viewbox Width="30" Height="30">
+                    <Canvas Width="30" Height="30">
+                        <Path Data="M7,12L12,7V10H16V14H12V17L7,12M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12M20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12Z" Fill="Black" />
+                    </Canvas>
+                </Viewbox>
+            </Button>
 
-        <DataGrid x:Name="dataGridFeeCollectionList" AlternationCount="2" AlternatingRowBackground="#FFF1F1F1" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding FeeCollectionStudentList}"  Margin="10,200,10,0"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="14" SelectedItem="{Binding SelectedItemInFeeCollectionStudentList}">
+            <Button Width="26" Height="26" Style="{StaticResource MaterialDesignFloatingActionLightButton}" Command="{Binding NextPageCommand}" CommandParameter="{Binding ElementName=dataGridFeeCollectionList}"
+                    Margin="0,0,0,0" HorizontalAlignment="Right" RenderTransformOrigin="0.385,2.01">
+                <Viewbox Width="30" Height="30">
+                    <Canvas Width="30" Height="30">
+                        <Path Data="M17,12L12,17V14H8V10H12V7L17,12M2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12M4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12Z" Fill="Black" />
+                    </Canvas>
+                </Viewbox>
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.Row="3">
+        <DataGrid  x:Name="dataGridFeeCollectionList" AlternationCount="2" AlternatingRowBackground="#FFF1F1F1" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding FeeCollectionStudentList}"  Margin="10,200,10,0"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="14" SelectedItem="{Binding SelectedItemInFeeCollectionStudentList}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#FFC2C3C9"/>
-                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="FontSize" Value="18"/>
                     <Setter Property="Padding" Value="5"/>
                     <Setter Property="BorderBrush" Value="LightGray"/>
                     <Setter Property="Cursor" Value="Hand"/>
@@ -41,5 +59,7 @@
                 <DataGridTextColumn Width="*" Header="Allocated Fee Course Count" Binding="{Binding allocated_fee_cource_count}"/>
             </DataGrid.Columns>
         </DataGrid>
+        </StackPanel>
     </Grid>
+    
 </Window>
