@@ -78,26 +78,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controllers\FeeCollectionListController.cs" />
     <Compile Include="Shared\RelayCommand.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Views\form.xaml.cs">
-      <DependentUpon>form.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\grid.xaml.cs">
-      <DependentUpon>grid.xaml</DependentUpon>
+    <Compile Include="Views\FeeCollectionList.xaml.cs">
+      <DependentUpon>FeeCollectionList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\main.xaml.cs">
       <DependentUpon>main.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\pagination.xaml.cs">
-      <DependentUpon>pagination.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Student.cs" />
-    <Page Include="Views\form.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\grid.xaml">
+    <Page Include="Views\FeeCollectionList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -117,10 +107,6 @@
     <Page Include="Views\main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\pagination.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
