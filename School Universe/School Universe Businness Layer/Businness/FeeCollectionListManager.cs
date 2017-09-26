@@ -15,7 +15,7 @@ namespace School_Universe_Businness_Layer.Businness
 {
     public class FeeCollectionListManager
     {        
-        public static ObservableCollection<FeeCollectionStudentList> GetFeeCollectionStudentList(Int64 fromRowNo, Int64 toRowNo, FeeCollectionListFilters objFeeCollectionListFilters)
+        public static ObservableCollection<FeeCollectionStudentList> GetFeeCollectionStudentList(Int64 fromRowNo, Int64 toRowNo, FeeCollectionListFilters objFeeCollectionList)
         {            
             try
             {
@@ -23,11 +23,11 @@ namespace School_Universe_Businness_Layer.Businness
                 {                    
                     new SqlParameter() {ParameterName = "@FromRowNo",     SqlDbType = SqlDbType.NVarChar, Value = fromRowNo},
                     new SqlParameter() {ParameterName = "@ToRowNo",  SqlDbType = SqlDbType.NVarChar, Value = toRowNo},
-                    new SqlParameter() {ParameterName = "@RollNumber",  SqlDbType = SqlDbType.NVarChar, Value = objFeeCollectionListFilters.RollNumber},
-                    new SqlParameter() {ParameterName = "@GradeID",  SqlDbType = SqlDbType.NVarChar, Value = objFeeCollectionListFilters.Class},
-                    new SqlParameter() {ParameterName = "@SectionID",  SqlDbType = SqlDbType.NVarChar, Value = objFeeCollectionListFilters.Section},
-                    new SqlParameter() {ParameterName = "@RegistrationID",  SqlDbType = SqlDbType.NVarChar, Value = objFeeCollectionListFilters.RegistrationID},
-                    new SqlParameter() {ParameterName = "@ConcessionAmount",  SqlDbType = SqlDbType.NVarChar, Value = objFeeCollectionListFilters.ConcessionAmount}
+                    new SqlParameter() {ParameterName = "@RollNumber",  SqlDbType = SqlDbType.NVarChar, Value = objFeeCollectionList.RollNumber == "" ? null : objFeeCollectionList.RollNumber},
+                    new SqlParameter() {ParameterName = "@GradeID",  SqlDbType = SqlDbType.NVarChar, Value = objFeeCollectionList.Class == "" ? null : objFeeCollectionList.Class},
+                    new SqlParameter() {ParameterName = "@SectionID",  SqlDbType = SqlDbType.NVarChar, Value = objFeeCollectionList.Section == "" ? null : objFeeCollectionList.Section},
+                    new SqlParameter() {ParameterName = "@RegistrationID",  SqlDbType = SqlDbType.NVarChar, Value = objFeeCollectionList.RegistrationID == "" ? null : objFeeCollectionList.RegistrationID},
+                    new SqlParameter() {ParameterName = "@ConcessionAmount",  SqlDbType = SqlDbType.NVarChar, Value = objFeeCollectionList.ConcessionAmount == "" ? null : objFeeCollectionList.ConcessionAmount}
                 };
                 DataTable objDatable = DataAccess.GetDataTable(StoredProcedures.GetStudentFeeAllocatedList,lstSqlParameters);
                 // The below method autopopulates properties but it is slow, so manually copy the properties as done below

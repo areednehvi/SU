@@ -24,6 +24,7 @@ namespace School_Universe.Views
         {
             InitializeComponent();
             this.WindowState = WindowState.Maximized;
+            ((FeeCollectionListController)grdFeeCollectionList.DataContext).Window = this;
             ((FeeCollectionListController)grdFeeCollectionList.DataContext).FeeCollectionListDataGrid = this.dataGridFeeCollectionList;
         }
     }

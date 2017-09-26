@@ -83,8 +83,8 @@ namespace School_Universe.Controllers
                 Login.Password = pwBox.Password;
                 if (LoginManager.ValidateUser(Login))
                 {
-                    main lw = new main();
-                    lw.Show();
+                    FeeCollectionList objFeeCollectionListWindow = new FeeCollectionList();
+                    objFeeCollectionListWindow.Show();
                     Window.Close();
                 }
                 else

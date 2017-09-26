@@ -52,6 +52,7 @@ namespace School_Universe.Models
                 OnPropertyChanged("Class");
             }
         }
+        
 
         public string Section
         {
@@ -107,6 +108,39 @@ namespace School_Universe.Models
                 OnPropertyChanged("ConcessionAmount");
             }
 
+        }
+
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
+    }
+
+    public class FeeCollectionListOtherFileds : INotifyPropertyChanged
+    {
+        private string _pageNo;
+      
+
+   
+        public string PageNo
+        {
+            get
+            {
+                return _pageNo;
+            }
+            set
+            {
+                _pageNo = value;
+                OnPropertyChanged("PageNo");
+            }
         }
 
 

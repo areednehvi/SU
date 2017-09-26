@@ -19,31 +19,38 @@ namespace School_Universe.Controllers
         #region Fields
         private ObservableCollection<FeeCollectionStudentList> _feeCollectionStudentList;
         private FeeCollectionStudentList _selectedItemInFeeCollectionStudentList;
-        private FeeCollectionListFilters _feeCollectionListFilters;
+        private FeeCollectionListFilters _FeeCollectionListFilters;
+        private FeeCollectionListOtherFileds _FeeCollectionListOtherFileds;
         private Window _window;
         private DataGrid _dataGrid;
-        private int fromRowNo = 1,pageNo = 1,NoOfRecordsPerPage = 10,toRowNo;
+        private int NoOfRecords = 50;
+        private int fromRowNo,pageNo, NoOfRecordsPerPage, toRowNo;
         private ICommand _nextPageCommand;
         private ICommand _previousPageCommand;
         private ICommand _minimizeCommand;
+        private ICommand _closeCommand;
         #endregion
 
         #region Constructor
         public FeeCollectionListController()
         {
              _feeCollectionStudentList = new ObservableCollection<FeeCollectionStudentList>();
-            _feeCollectionListFilters = new FeeCollectionListFilters();
+            _FeeCollectionListFilters = new FeeCollectionListFilters();
+            _FeeCollectionListOtherFileds = new FeeCollectionListOtherFileds();
 
             //Subscribe to Model's Property changed event
             this.FeeCollectionListFilters.PropertyChanged += (s, e) => {
+                ResetPagination();
                 this.GetFeeCollectionStudentList();
                 FeeCollectionListDataGrid.ItemsSource = null;
                 FeeCollectionListDataGrid.ItemsSource = FeeCollectionStudentList;
             };
-            toRowNo = pageNo * NoOfRecordsPerPage;
+            // Set pagination
+            ResetPagination();            
             //this.GetFeeCollectionStudentList();
             _nextPageCommand = new RelayCommand(MoveToNextPage, CanMoveToNextPage);
             _previousPageCommand = new RelayCommand(MoveToPreviousPage, CanMoveToPreviousPage);
+            _closeCommand = new RelayCommand(CloseLogin, CanClose);
             _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
         }
         #endregion
@@ -81,13 +88,26 @@ namespace School_Universe.Controllers
         {
             get
             {
-                return _feeCollectionListFilters;
+                return _FeeCollectionListFilters;
             }
             set
             {
-                _feeCollectionListFilters = value;
+                _FeeCollectionListFilters = value;
             }
         }
+
+        public FeeCollectionListOtherFileds FeeCollectionListOtherFileds
+        {
+            get
+            {
+                return _FeeCollectionListOtherFileds;
+            }
+            set
+            {
+                _FeeCollectionListOtherFileds = value;
+            }
+        }
+
         public Window Window
         {
             get
@@ -128,15 +148,15 @@ namespace School_Universe.Controllers
         {
             try
             {
-                DataGrid dataGridFeeCollectionList = (DataGrid)obj;
-                dataGridFeeCollectionList.ItemsSource = null;
+                FeeCollectionListDataGrid.ItemsSource = null;
                 pageNo++;
+                FeeCollectionListOtherFileds.PageNo = "Page No : " + pageNo;
                 fromRowNo = toRowNo + 1;
                 toRowNo = pageNo * NoOfRecordsPerPage;
                 this.GetFeeCollectionStudentList();
                 if (pageNo > 1 && FeeCollectionStudentList.Count == 0)
                     MoveToPreviousPage(obj);
-                dataGridFeeCollectionList.ItemsSource = FeeCollectionStudentList;
+                FeeCollectionListDataGrid.ItemsSource = FeeCollectionStudentList;
             }
             catch (Exception ex)
             {
@@ -169,16 +189,16 @@ namespace School_Universe.Controllers
         public void MoveToPreviousPage(object obj)
         {
             try
-            {
-                DataGrid dataGridFeeCollectionList = (DataGrid)obj;                
+            {             
                 if (pageNo > 1)
                 {
-                    dataGridFeeCollectionList.ItemsSource = null;
+                    FeeCollectionListDataGrid.ItemsSource = null;
                     pageNo--;
+                    FeeCollectionListOtherFileds.PageNo = "Page No : " + pageNo;
                     toRowNo = fromRowNo - 1;
                     fromRowNo = (toRowNo + 1) - NoOfRecordsPerPage;
                     this.GetFeeCollectionStudentList();
-                    dataGridFeeCollectionList.ItemsSource = FeeCollectionStudentList;
+                    FeeCollectionListDataGrid.ItemsSource = FeeCollectionStudentList;
                 }                
                 
             }
@@ -191,6 +211,26 @@ namespace School_Universe.Controllers
             {
 
             }
+        }
+        #endregion
+
+        #region CloseCommand
+
+        public ICommand CloseCommand
+        {
+            get { return _closeCommand; }
+        }
+
+
+        public bool CanClose(object obj)
+        {
+            return true;
+        }
+
+
+        public void CloseLogin(object obj)
+        {
+            Window.Close();
         }
         #endregion
 
@@ -212,8 +252,6 @@ namespace School_Universe.Controllers
         {
             Window.WindowState = WindowState.Minimized;
         }
-
-
         #endregion
 
         #region INotifyPropertyChanged Members
@@ -244,6 +282,15 @@ namespace School_Universe.Controllers
 
             }
 
+        }
+
+        private void ResetPagination()
+        {
+            fromRowNo = 1;
+            pageNo = 1;
+            FeeCollectionListOtherFileds.PageNo = "Page No : " + pageNo;
+            NoOfRecordsPerPage = NoOfRecords;
+            toRowNo = pageNo * NoOfRecordsPerPage;
         }
 
     }
