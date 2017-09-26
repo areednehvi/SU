@@ -47,7 +47,7 @@ namespace School_Universe.Controllers
             };
             // Set pagination
             ResetPagination();            
-            //this.GetFeeCollectionStudentList();
+            this.GetFeeCollectionStudentList();
             _nextPageCommand = new RelayCommand(MoveToNextPage, CanMoveToNextPage);
             _previousPageCommand = new RelayCommand(MoveToPreviousPage, CanMoveToPreviousPage);
             _closeCommand = new RelayCommand(CloseLogin, CanClose);
