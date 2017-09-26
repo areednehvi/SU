@@ -32,14 +32,13 @@ namespace School_Universe.Models
         public Int64 allocated_fee_cource_count { get; set; }
         public string parentage { get; set; }
     }
-    public class FeeCollectionList : INotifyPropertyChanged
+    public class FeeCollectionListFilters : INotifyPropertyChanged
     {        
         private string _class;
         private string _section;
         private string _rollNumber;
         private string _registrationID;
         private string _concessionAmount;
-        private ObservableCollection<FeeCollectionStudentList> _feeCollectionStudentList;
 
         public string Class
         {
@@ -68,7 +67,7 @@ namespace School_Universe.Models
 
         }
 
-        public string RollNunber
+        public string RollNumber
         {
             get
             {
@@ -77,7 +76,7 @@ namespace School_Universe.Models
             set
             {
                 _rollNumber = value;
-                OnPropertyChanged("RollNunber");
+                OnPropertyChanged("RollNumber");
             }
 
         }
@@ -96,20 +95,19 @@ namespace School_Universe.Models
 
         }
 
-        public ObservableCollection<FeeCollectionStudentList> FeeCollectionStudentList
+        public string ConcessionAmount
         {
             get
             {
-                return _feeCollectionStudentList;
+                return _concessionAmount;
             }
-
             set
             {
-                _feeCollectionStudentList = value;
-                OnPropertyChanged("FeeCollectionStudentList");
+                _concessionAmount = value;
+                OnPropertyChanged("ConcessionAmount");
             }
 
-        }  
+        }
 
 
         #region INotifyPropertyChanged Members

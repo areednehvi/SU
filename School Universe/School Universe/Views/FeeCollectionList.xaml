@@ -13,13 +13,59 @@
         <vm:FeeCollectionListController x:Key="FeeCollectionListController" />
         
     </Window.Resources>
+    
     <Grid x:Name="grdFeeCollectionList" DataContext="{Binding Source={StaticResource FeeCollectionListController}}">
-        <materialDesign:Card Grid.Row="1" Padding="5" Margin="5">
-            <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}">Fee Collection</TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <materialDesign:Card Grid.Row="0" Padding="5" Margin="0,5,0,5">
+            <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="5,0,0,0">Fee Collection</TextBlock>
         </materialDesign:Card>
-        <StackPanel Grid.Row="2"  Margin="0,130,10,89"  Orientation="Horizontal"  HorizontalAlignment="Right">
-           
-            <Button Width="26" Height="26" Style="{StaticResource MaterialDesignFloatingActionLightButton}" Command="{Binding PreviousPageCommand}" CommandParameter="{Binding ElementName=dataGridFeeCollectionList}"
+
+
+        <materialDesign:Card Grid.Row="1" Padding="5"  Margin="5" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+            
+                <WrapPanel Grid.Column="0" Orientation="Horizontal">
+                    <Label  x:Name="lblClass" Content="Class" Width="Auto" FontSize="16" />
+                    <ComboBox  x:Name="cbClass" VerticalAlignment="Stretch" Width="120"/>
+                </WrapPanel>
+                <WrapPanel Grid.Column="1" Orientation="Horizontal">
+                    <Label  x:Name="lblSection" Content="Section" Width="Auto" FontSize="16"/>
+                    <ComboBox  x:Name="cbSection" VerticalAlignment="Stretch" Width="120"/>
+                </WrapPanel>
+                <WrapPanel Grid.Column="2" Orientation="Horizontal">
+                    <Label  x:Name="lblRollNumber" Content="Roll Number" Width="Auto" FontSize="16"/>
+                    <!-- the below commented line notifies ViewModel as soon as keypress happens-->
+                    <!--<TextBox  x:Name="txtRollNumber" VerticalAlignment="Stretch" Width="120" Text="{Binding FeeCollectionListFilters.RollNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />-->
+                    <TextBox  x:Name="txtRollNumber" VerticalAlignment="Stretch" Width="120" Text="{Binding FeeCollectionListFilters.RollNumber,Mode=TwoWay}" />
+                </WrapPanel>
+                <WrapPanel Grid.Column="3" Orientation="Horizontal">
+                    <Label  x:Name="lblRegistrationID" Content="Registration ID" Width="Auto" FontSize="16"/>
+                    <TextBox  x:Name="txtRegistrationID" VerticalAlignment="Stretch" Width="120" Text="{Binding FeeCollectionListFilters.RegistrationID,Mode=TwoWay}"/>
+                </WrapPanel>
+                <WrapPanel Grid.Column="4" Orientation="Horizontal">
+                    <Label  x:Name="lblConcessionAmount" Content="Concession Amount" Width="Auto" FontSize="16"/>
+                    <TextBox  x:Name="txtConcessionAmount" VerticalAlignment="Stretch" Width="120" Text="{Binding FeeCollectionListFilters.ConcessionAmount,Mode=TwoWay}"/>
+                </WrapPanel>
+
+            </Grid>
+
+        </materialDesign:Card>
+
+        <StackPanel Grid.Row="2"  Margin="0,0,10,0"  Orientation="Horizontal"  HorizontalAlignment="Right">
+
+            <Button ToolTip="Move to previous page" Width="26" Height="26" Style="{StaticResource MaterialDesignFloatingActionLightButton}" Command="{Binding PreviousPageCommand}" CommandParameter="{Binding ElementName=dataGridFeeCollectionList}"
                     Margin="0,0,0,0" HorizontalAlignment="Right" RenderTransformOrigin="0.385,2.01">
                 <Viewbox Width="30" Height="30">
                     <Canvas Width="30" Height="30">
@@ -28,8 +74,8 @@
                 </Viewbox>
             </Button>
 
-            <Button Width="26" Height="26" Style="{StaticResource MaterialDesignFloatingActionLightButton}" Command="{Binding NextPageCommand}" CommandParameter="{Binding ElementName=dataGridFeeCollectionList}"
-                    Margin="0,0,0,0" HorizontalAlignment="Right" RenderTransformOrigin="0.385,2.01">
+            <Button ToolTip="Move to next page" Width="26" Height="26" Style="{StaticResource MaterialDesignFloatingActionLightButton}" Command="{Binding NextPageCommand}" CommandParameter="{Binding ElementName=dataGridFeeCollectionList}"
+                    Margin="5,0,0,0" HorizontalAlignment="Right" RenderTransformOrigin="0.385,2.01">
                 <Viewbox Width="30" Height="30">
                     <Canvas Width="30" Height="30">
                         <Path Data="M17,12L12,17V14H8V10H12V7L17,12M2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12M4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12Z" Fill="Black" />
@@ -37,15 +83,15 @@
                 </Viewbox>
             </Button>
         </StackPanel>
-        <StackPanel Grid.Row="3">
-        <DataGrid  x:Name="dataGridFeeCollectionList" AlternationCount="2" AlternatingRowBackground="#FFF1F1F1" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding FeeCollectionStudentList}"  Margin="10,200,10,0"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="14" SelectedItem="{Binding SelectedItemInFeeCollectionStudentList}">
+        <DataGrid Grid.Row="3"  x:Name="dataGridFeeCollectionList" AlternationCount="2" AlternatingRowBackground="#FFF1F1F1" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding FeeCollectionStudentList}"  Margin="10,0,10,0"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="14" SelectedItem="{Binding SelectedItemInFeeCollectionStudentList}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#FFC2C3C9"/>
-                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="FontSize" Value="17"/>
                     <Setter Property="Padding" Value="5"/>
                     <Setter Property="BorderBrush" Value="LightGray"/>
                     <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="ToolTip" Value="Click to sort"/>
                     <Setter Property="BorderThickness" Value="0 0 3 0"/>
                 </Style>
             </DataGrid.Resources>
@@ -59,7 +105,6 @@
                 <DataGridTextColumn Width="*" Header="Allocated Fee Course Count" Binding="{Binding allocated_fee_cource_count}"/>
             </DataGrid.Columns>
         </DataGrid>
-        </StackPanel>
     </Grid>
     
 </Window>

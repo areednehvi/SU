@@ -1,4 +1,5 @@
-﻿using System;
+﻿using School_Universe.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace School_Universe.Views
         {
             InitializeComponent();
             this.WindowState = WindowState.Maximized;
+            ((FeeCollectionListController)grdFeeCollectionList.DataContext).FeeCollectionListDataGrid = this.dataGridFeeCollectionList;
         }
     }
 }

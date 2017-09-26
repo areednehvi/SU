@@ -5,7 +5,7 @@ using School_Universe_Businness_Layer.Businness;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
+using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,13 +14,15 @@ using System.Windows.Input;
 
 namespace School_Universe.Controllers
 {
-    public class FeeCollectionListController
+    public class FeeCollectionListController :INotifyPropertyChanged
     {
         #region Fields
         private ObservableCollection<FeeCollectionStudentList> _feeCollectionStudentList;
         private FeeCollectionStudentList _selectedItemInFeeCollectionStudentList;
+        private FeeCollectionListFilters _feeCollectionListFilters;
         private Window _window;
-        private int fromRowNo = 1,pageNo = 1,NoOfRecordsPerPage = 100,toRowNo;
+        private DataGrid _dataGrid;
+        private int fromRowNo = 1,pageNo = 1,NoOfRecordsPerPage = 10,toRowNo;
         private ICommand _nextPageCommand;
         private ICommand _previousPageCommand;
         private ICommand _minimizeCommand;
@@ -29,7 +31,15 @@ namespace School_Universe.Controllers
         #region Constructor
         public FeeCollectionListController()
         {
-            _feeCollectionStudentList = new ObservableCollection<FeeCollectionStudentList>();
+             _feeCollectionStudentList = new ObservableCollection<FeeCollectionStudentList>();
+            _feeCollectionListFilters = new FeeCollectionListFilters();
+
+            //Subscribe to Model's Property changed event
+            this.FeeCollectionListFilters.PropertyChanged += (s, e) => {
+                this.GetFeeCollectionStudentList();
+                FeeCollectionListDataGrid.ItemsSource = null;
+                FeeCollectionListDataGrid.ItemsSource = FeeCollectionStudentList;
+            };
             toRowNo = pageNo * NoOfRecordsPerPage;
             //this.GetFeeCollectionStudentList();
             _nextPageCommand = new RelayCommand(MoveToNextPage, CanMoveToNextPage);
@@ -67,6 +77,17 @@ namespace School_Universe.Controllers
 
         }
 
+        public FeeCollectionListFilters FeeCollectionListFilters
+        {
+            get
+            {
+                return _feeCollectionListFilters;
+            }
+            set
+            {
+                _feeCollectionListFilters = value;
+            }
+        }
         public Window Window
         {
             get
@@ -76,6 +97,17 @@ namespace School_Universe.Controllers
             set
             {
                 _window = value;
+            }
+        }
+        public DataGrid FeeCollectionListDataGrid
+        {
+            get
+            {
+                return _dataGrid;
+            }
+            set
+            {
+                _dataGrid = value;
             }
         }
         #endregion
@@ -184,12 +216,23 @@ namespace School_Universe.Controllers
 
         #endregion
 
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
 
         private void GetFeeCollectionStudentList()
         {
             try
             {
-                FeeCollectionStudentList = FeeCollectionListManager.GetFeeCollectionStudentList(fromRowNo, toRowNo);
+                FeeCollectionStudentList = FeeCollectionListManager.GetFeeCollectionStudentList(fromRowNo, toRowNo, FeeCollectionListFilters);
             }
             catch (Exception ex)
             {
