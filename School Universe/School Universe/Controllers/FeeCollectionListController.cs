@@ -21,6 +21,8 @@ namespace School_Universe.Controllers
         private FeeCollectionStudentList _selectedItemInFeeCollectionStudentList;
         private FeeCollectionListFilters _FeeCollectionListFilters;
         private FeeCollectionListOtherFileds _FeeCollectionListOtherFileds;
+        private GradesModel _selectedGradeModel;
+        private SectionsModel _selectedSectionModel;
         private Window _window;
         private DataGrid _dataGrid;
         private int NoOfRecords = 50;
@@ -37,22 +39,25 @@ namespace School_Universe.Controllers
              _feeCollectionStudentList = new ObservableCollection<FeeCollectionStudentList>();
             _FeeCollectionListFilters = new FeeCollectionListFilters();
             _FeeCollectionListOtherFileds = new FeeCollectionListOtherFileds();
+            // Get Lists
+            this.getLists();
+            // Set pagination
+            this.ResetPagination();
 
             //Subscribe to Model's Property changed event
             this.FeeCollectionListFilters.PropertyChanged += (s, e) => {
-                ResetPagination();
-                this.GetFeeCollectionStudentList();
-                FeeCollectionListDataGrid.ItemsSource = null;
-                FeeCollectionListDataGrid.ItemsSource = FeeCollectionStudentList;
+                this.LoadFeeCollectionAsFiltersHaveChanged();
             };
-            // Set pagination
-            ResetPagination();            
+                        
+            //Get Initial Student list
             this.GetFeeCollectionStudentList();
+            //Initialize  Commands
             _nextPageCommand = new RelayCommand(MoveToNextPage, CanMoveToNextPage);
             _previousPageCommand = new RelayCommand(MoveToPreviousPage, CanMoveToPreviousPage);
             _closeCommand = new RelayCommand(CloseLogin, CanClose);
             _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
         }
+        
         #endregion
 
         #region Properties
@@ -105,6 +110,34 @@ namespace School_Universe.Controllers
             set
             {
                 _FeeCollectionListOtherFileds = value;
+            }
+        }
+
+        public GradesModel SelectedGrade
+        {
+            get { return _selectedGradeModel; }
+            set
+            {
+                if (_selectedGradeModel != value)
+                {
+                    _selectedGradeModel = value;
+                    FeeCollectionListFilters.Grade = this.SelectedGrade;
+                    this.LoadFeeCollectionAsFiltersHaveChanged();
+                }
+            }
+        }
+
+        public SectionsModel SelectedSection
+        {
+            get { return _selectedSectionModel; }
+            set
+            {
+                if (_selectedSectionModel != value)
+                {
+                    _selectedSectionModel = value;
+                    FeeCollectionListFilters.Section = this.SelectedSection;
+                    this.LoadFeeCollectionAsFiltersHaveChanged();
+                }
             }
         }
 
@@ -291,6 +324,24 @@ namespace School_Universe.Controllers
             FeeCollectionListOtherFileds.PageNo = "Page No : " + pageNo;
             NoOfRecordsPerPage = NoOfRecords;
             toRowNo = pageNo * NoOfRecordsPerPage;
+        }
+
+        private void getLists()
+        {
+
+            FeeCollectionListFilters.GradesList = GetListManager.GetGrades();
+            FeeCollectionListFilters.SectionsList = GetListManager.GetSections();
+        }
+
+        private void LoadFeeCollectionAsFiltersHaveChanged()
+        {
+            ResetPagination();
+            this.GetFeeCollectionStudentList();
+            if (FeeCollectionListDataGrid != null)
+            {
+                FeeCollectionListDataGrid.ItemsSource = null;
+                FeeCollectionListDataGrid.ItemsSource = FeeCollectionStudentList;
+            }
         }
 
     }

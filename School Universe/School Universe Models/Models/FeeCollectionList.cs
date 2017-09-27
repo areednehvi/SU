@@ -34,27 +34,29 @@ namespace School_Universe.Models
     }
     public class FeeCollectionListFilters : INotifyPropertyChanged
     {        
-        private string _class;
-        private string _section;
+        private GradesModel _grade;
+        private SectionsModel _section;
         private string _rollNumber;
         private string _registrationID;
         private string _concessionAmount;
+        private ObservableCollection<GradesModel> _objGradesModelList;
+        private ObservableCollection<SectionsModel> _objSectionModelList;
 
-        public string Class
+        public GradesModel Grade
         {
             get
             {
-                return _class;
+                return _grade;
             }
             set
             {
-                _class = value;
-                OnPropertyChanged("Class");
+                _grade = value;
+                OnPropertyChanged("Grade");
             }
         }
         
 
-        public string Section
+        public SectionsModel Section
         {
             get
             {
@@ -110,6 +112,33 @@ namespace School_Universe.Models
 
         }
 
+        public ObservableCollection<GradesModel> GradesList
+        {
+            get
+            {
+                return _objGradesModelList;
+            }
+            set
+            {
+                _objGradesModelList = value;
+                OnPropertyChanged("GradesList");
+            }
+        }
+
+        public ObservableCollection<SectionsModel> SectionsList
+        {
+            get
+            {
+                return _objSectionModelList;
+            }
+            set
+            {
+                _objSectionModelList = value;
+                OnPropertyChanged("SectionsList");
+            }
+        }
+
+
 
         #region INotifyPropertyChanged Members
 
@@ -126,10 +155,8 @@ namespace School_Universe.Models
 
     public class FeeCollectionListOtherFileds : INotifyPropertyChanged
     {
-        private string _pageNo;
-      
+        private string _pageNo;      
 
-   
         public string PageNo
         {
             get
@@ -142,7 +169,7 @@ namespace School_Universe.Models
                 OnPropertyChanged("PageNo");
             }
         }
-
+       
 
         #region INotifyPropertyChanged Members
 
@@ -155,5 +182,17 @@ namespace School_Universe.Models
             }
         }
         #endregion
+    }
+
+    public class GradesModel
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+    }
+
+    public class SectionsModel
+    {
+        public string id { get; set; }
+        public string name { get; set; }
     }
 }

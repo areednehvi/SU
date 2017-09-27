@@ -48,11 +48,11 @@
             <WrapPanel Orientation="Horizontal">
                 <WrapPanel  Orientation="Horizontal" Width="210" Margin="0,5,0,20">
                     <Label  x:Name="lblClass" Content="Class" Width="Auto" FontSize="16" Foreground="#FF009688" />
-                    <ComboBox  x:Name="cbClass" VerticalAlignment="Stretch" Width="120"/>
+                    <ComboBox  x:Name="cbClass" VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="120" ItemsSource="{Binding FeeCollectionListFilters.GradesList}" DisplayMemberPath="name" SelectedIndex="0" SelectedItem="{Binding SelectedGrade,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
                 </WrapPanel>
                 <WrapPanel  Orientation="Horizontal" Width="260" Margin="0,5,0,20">
                     <Label  x:Name="lblSection" Content="Section" Width="Auto" FontSize="16" Foreground="#FF009688"/>
-                    <ComboBox  x:Name="cbSection" VerticalAlignment="Stretch" FontSize="16"  Width="120"/>
+                    <ComboBox  x:Name="cbSection" VerticalAlignment="Stretch" FontSize="16"  Width="120" ItemsSource="{Binding FeeCollectionListFilters.SectionsList}" DisplayMemberPath="name" SelectedIndex="0" SelectedItem="{Binding SelectedSection,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                 </WrapPanel>
                 <WrapPanel  Orientation="Horizontal" Width="260" Margin="0,5,0,20">
                     <Label  x:Name="lblRollNumber" Content="Roll Number" Width="Auto" FontSize="16" Foreground="#FF009688"/>
@@ -110,7 +110,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Registration#" Binding="{Binding registration_id}"/>
                 <DataGridTextColumn Width="*" Header="Student" Binding="{Binding full_name}"/>
-                <DataGridTextColumn Width="*" Header="Parentage" Binding="{Binding parentage}"/>
+                <DataGridTextColumn Width="*" Header="Parentage" Binding="{Binding parentage}" />
                 <DataGridTextColumn Width="*" Header="Class" Binding="{Binding grade_section}"/>
                 <DataGridTextColumn Width="*" Header="Roll Number" Binding="{Binding roll_number}"/>
                 <DataGridTextColumn Width="*" Header="Allocated Fee Course Count" Binding="{Binding allocated_fee_cource_count}"/>
