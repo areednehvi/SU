@@ -14,18 +14,11 @@
 
     <Grid x:Name="grdFeeCollectionList" DataContext="{Binding Source={StaticResource FeeCollectionListController}}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-       
-
-        <materialDesign:Card Grid.Row="1" Grid.Column="1" Padding="5"  Margin="5,10,5,5" >
+        <materialDesign:Card Grid.Row="0" Padding="5"  Margin="5,10,5,5" >
             <WrapPanel Orientation="Horizontal">
                 <WrapPanel  Orientation="Horizontal" Width="210" Margin="0,5,0,20">
                     <Label  x:Name="lblClass" Content="Class" Width="Auto" FontSize="16" Foreground="#FF009688" />
@@ -53,8 +46,7 @@
             </WrapPanel>
 
         </materialDesign:Card>
-
-        <StackPanel Grid.Row="2" Grid.Column="1"  Margin="0,0,10,0"  Orientation="Horizontal"  HorizontalAlignment="Right">
+        <StackPanel Grid.Row="1"   Margin="0,0,10,0"  Orientation="Horizontal"  HorizontalAlignment="Right">
             <Label x:Name="lblPageNo" Content="{Binding FeeCollectionListOtherFileds.PageNo}" FontStyle="Italic" Margin="0,12,5,0"/>
             <Button ToolTip="Move to previous page" Width="26" Height="26" Style="{StaticResource MaterialDesignFloatingActionLightButton}" Command="{Binding PreviousPageCommand}" 
                     Margin="0,0,0,0" HorizontalAlignment="Right" RenderTransformOrigin="0.385,2.01">
@@ -74,7 +66,7 @@
                 </Viewbox>
             </Button>
         </StackPanel>
-        <DataGrid Grid.Row="3" Grid.Column="1"  x:Name="dataGridFeeCollectionList" AlternationCount="2" AlternatingRowBackground="#FFD7FDFA" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding FeeCollectionStudentList}"  Margin="10,0,10,0"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="14" SelectedItem="{Binding SelectedItemInFeeCollectionStudentList}">
+        <DataGrid Grid.Row="2"   x:Name="dataGridFeeCollectionList" AlternationCount="2" AlternatingRowBackground="#FFD7FDFA" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding FeeCollectionStudentList}"  Margin="10,0,10,0"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="14" SelectedItem="{Binding SelectedItemInFeeCollectionStudentList}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#FF009688"/>

@@ -29,10 +29,14 @@
     </Window.Resources>
 
     <Grid x:Name="grdMain">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
         <Menu x:Name="menu" Grid.Column="0"  HorizontalAlignment="Left" Padding="0,10,0,0" Background="#99000000" VerticalAlignment="Stretch" Visibility="Collapsed" Width="300" Foreground="White" >
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -121,7 +125,7 @@
                     </Button>
                 </Grid>
             </materialDesign:Card>
-            <ContentControl DataContext="{Binding}">
+            <ContentControl DataContext="{Binding}" Height="2000">
                 <ContentControl.Style>
                     <Style TargetType="{x:Type ContentControl}">
                         <Setter Property="ContentTemplate" Value="{StaticResource FeeCollectionListView}" />
