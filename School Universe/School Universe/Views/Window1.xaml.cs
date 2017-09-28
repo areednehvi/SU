@@ -23,18 +23,5 @@ namespace School_Universe.Views
         {
             InitializeComponent();
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (rect.Visibility == System.Windows.Visibility.Collapsed)
-            {
-                rect.Visibility = System.Windows.Visibility.Visible;
-                (sender as Button).Content = "<";
-            }
-            else
-            {
-                rect.Visibility = System.Windows.Visibility.Collapsed;
-                (sender as Button).Content = ">";
-            }
-        }
     }
 }

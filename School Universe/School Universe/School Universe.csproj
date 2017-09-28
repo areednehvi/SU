@@ -84,9 +84,6 @@
     <Compile Include="Views\FeeCollectionList.xaml.cs">
       <DependentUpon>FeeCollectionList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\main.xaml.cs">
-      <DependentUpon>main.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
@@ -102,15 +99,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controllers\ProductViewModel.cs" />
     <Compile Include="Views\login.xaml.cs">
       <DependentUpon>login.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\main.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
