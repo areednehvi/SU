@@ -11,7 +11,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace School_Universe.Views
@@ -19,12 +18,27 @@ namespace School_Universe.Views
     /// <summary>
     /// Interaction logic for FeeCollectionList.xaml
     /// </summary>
-    public partial class FeeCollectionList : UserControl
+    public partial class FeeCollectionList1 : Window
     {
-        public FeeCollectionList()
+        public FeeCollectionList1()
         {
             InitializeComponent();
+            //this.WindowState = WindowState.Maximized;
+            ((FeeCollectionListController)grdFeeCollectionList.DataContext).Window = this;
             ((FeeCollectionListController)grdFeeCollectionList.DataContext).FeeCollectionListDataGrid = this.dataGridFeeCollectionList;
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (rect.Visibility == System.Windows.Visibility.Collapsed)
+            {
+                rect.Visibility = System.Windows.Visibility.Visible;
+  
+            }
+            else
+            {
+                rect.Visibility = System.Windows.Visibility.Collapsed;
+    
+            }
         }
     }
 }

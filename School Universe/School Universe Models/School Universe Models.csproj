@@ -43,6 +43,7 @@
     <Compile Include="Models\FeeCollectionList.cs" />
     <Compile Include="Models\GetList.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\ViewsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,5 +1,4 @@
-﻿using School_Universe.Controllers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,14 +16,13 @@ using System.Windows.Shapes;
 namespace School_Universe.Views
 {
     /// <summary>
-    /// Interaction logic for FeeCollectionList.xaml
+    /// Interaction logic for Settings.xaml
     /// </summary>
-    public partial class FeeCollectionList : UserControl
+    public partial class Settings : UserControl
     {
-        public FeeCollectionList()
+        public Settings()
         {
             InitializeComponent();
-            ((FeeCollectionListController)grdFeeCollectionList.DataContext).FeeCollectionListDataGrid = this.dataGridFeeCollectionList;
         }
     }
 }

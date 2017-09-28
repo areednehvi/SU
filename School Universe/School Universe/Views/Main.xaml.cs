@@ -11,20 +11,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace School_Universe.Views
 {
     /// <summary>
-    /// Interaction logic for FeeCollectionList.xaml
+    /// Interaction logic for main.xaml
     /// </summary>
-    public partial class FeeCollectionList : UserControl
+    public partial class Main : Window
     {
-        public FeeCollectionList()
+        public Main()
         {
             InitializeComponent();
-            ((FeeCollectionListController)grdFeeCollectionList.DataContext).FeeCollectionListDataGrid = this.dataGridFeeCollectionList;
+            ((MainController)grdMain.DataContext).Window = this;
+            ((MainController)grdMain.DataContext).Menu = this.menu;
         }
+
     }
 }
