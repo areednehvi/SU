@@ -24,6 +24,9 @@ namespace School_Universe.Views
         public FeeCollectionList()
         {
             InitializeComponent();
+            double height = SystemParameters.PrimaryScreenHeight - 250;
+            GridLength gl = new GridLength(height);
+            grdRowNo2.Height = gl;
             ((FeeCollectionListController)grdFeeCollectionList.DataContext).FeeCollectionListDataGrid = this.dataGridFeeCollectionList;
         }
     }

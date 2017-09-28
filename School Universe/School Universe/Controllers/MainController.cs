@@ -130,11 +130,10 @@ namespace School_Universe.Controllers
 
         public void OpenMenu(object obj)
         {
-            Menu objMenu = (Menu)obj;
-            if (objMenu.Visibility == System.Windows.Visibility.Collapsed)
-                objMenu.Visibility = System.Windows.Visibility.Visible;
+            if (Menu.Visibility == Visibility.Collapsed)
+                Menu.Visibility = Visibility.Visible;
             else
-                objMenu.Visibility = System.Windows.Visibility.Collapsed;            
+                Menu.Visibility = Visibility.Collapsed;            
         }
         #endregion
 

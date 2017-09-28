@@ -125,7 +125,7 @@
                     </Button>
                 </Grid>
             </materialDesign:Card>
-            <ContentControl DataContext="{Binding}" Height="2000">
+            <ContentControl DataContext="{Binding}" >
                 <ContentControl.Style>
                     <Style TargetType="{x:Type ContentControl}">
                         <Setter Property="ContentTemplate" Value="{StaticResource FeeCollectionListView}" />

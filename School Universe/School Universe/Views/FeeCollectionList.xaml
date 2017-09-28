@@ -16,7 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="50" />
-            <RowDefinition Height="*" />
+            <RowDefinition x:Name="grdRowNo2" Height="*" />
         </Grid.RowDefinitions>
         <materialDesign:Card Grid.Row="0" Padding="5"  Margin="5,10,5,5" >
             <WrapPanel Orientation="Horizontal">
