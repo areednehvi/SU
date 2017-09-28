@@ -27,5 +27,18 @@ namespace School_Universe.Views
             ((FeeCollectionListController)grdFeeCollectionList.DataContext).Window = this;
             ((FeeCollectionListController)grdFeeCollectionList.DataContext).FeeCollectionListDataGrid = this.dataGridFeeCollectionList;
         }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (rect.Visibility == System.Windows.Visibility.Collapsed)
+            {
+                rect.Visibility = System.Windows.Visibility.Visible;
+  
+            }
+            else
+            {
+                rect.Visibility = System.Windows.Visibility.Collapsed;
+    
+            }
+        }
     }
 }
