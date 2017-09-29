@@ -185,6 +185,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="assets\images\userProfile.png" />
     <Content Include="SchoolUniverse.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

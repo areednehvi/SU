@@ -16,7 +16,7 @@ namespace School_Universe.Controllers
     {
         #region Fields
         private Window _window;
-        private Menu _menu;
+        private StackPanel _menu;
         private View _View;
         private ICommand _minimizeCommand;
         private ICommand _closeCommand;
@@ -61,7 +61,7 @@ namespace School_Universe.Controllers
                 _window = value;
             }
         }
-        public Menu Menu
+        public StackPanel Menu
         {
             get
             {

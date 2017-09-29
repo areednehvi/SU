@@ -27,6 +27,7 @@ namespace School_Universe.Controllers
         private DataGrid _dataGrid;
         private int NoOfRecords = 50;
         private int fromRowNo,pageNo, NoOfRecordsPerPage, toRowNo;
+        private string _NoRecordsFound;
         private ICommand _nextPageCommand;
         private ICommand _previousPageCommand;
         private ICommand _minimizeCommand;
@@ -56,6 +57,8 @@ namespace School_Universe.Controllers
             _previousPageCommand = new RelayCommand(MoveToPreviousPage, CanMoveToPreviousPage);
             _closeCommand = new RelayCommand(CloseLogin, CanClose);
             _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
+
+            NoRecordsFound = "Visible";
         }
         
         #endregion
@@ -161,6 +164,18 @@ namespace School_Universe.Controllers
             set
             {
                 _dataGrid = value;
+            }
+        }
+        public string NoRecordsFound
+        {
+            get
+            {
+                return _NoRecordsFound;
+            }
+            set
+            {
+                _NoRecordsFound = value;
+                OnPropertyChanged("NoRecordsFound");
             }
         }
         #endregion
@@ -304,6 +319,7 @@ namespace School_Universe.Controllers
             try
             {
                 FeeCollectionStudentList = FeeCollectionListManager.GetFeeCollectionStudentList(fromRowNo, toRowNo, FeeCollectionListFilters);
+                NoRecordsFound = FeeCollectionStudentList.Count > 0 ? "Collapsed" : "Visible";
             }
             catch (Exception ex)
             {

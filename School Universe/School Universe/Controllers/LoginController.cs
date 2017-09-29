@@ -83,7 +83,7 @@ namespace School_Universe.Controllers
                 Login.Password = pwBox.Password;
                 if (LoginManager.ValidateUser(Login))
                 {
-                    Main objMainWindow = new Main();
+                    Main objMainWindow = new Main(Login);
                     objMainWindow.Show();
                     Window.Close();
                 }

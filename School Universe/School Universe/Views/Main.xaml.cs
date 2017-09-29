@@ -1,4 +1,5 @@
 ﻿using School_Universe.Controllers;
+using School_Universe.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,22 @@ namespace School_Universe.Views
     /// </summary>
     public partial class Main : Window
     {
-        public Main()
+
+        public Main() // remove this moethod once to production
         {
             InitializeComponent();
             ((MainController)grdMain.DataContext).Window = this;
             ((MainController)grdMain.DataContext).Menu = this.menu;
+
+        }
+        public Main(Login objLogin)
+        {
+            InitializeComponent();
+            ((MainController)grdMain.DataContext).Window = this;
+            ((MainController)grdMain.DataContext).Menu = this.menu;
+
+            if (objLogin != null)
+                lblUserName.Content = "User : " + objLogin.Username.ToUpper();
         }
 
     }
