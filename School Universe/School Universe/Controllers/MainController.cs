@@ -17,6 +17,7 @@ namespace School_Universe.Controllers
         #region Fields
         private Window _window;
         private StackPanel _menu;
+        private string _userName;
         private View _View;
         private ICommand _minimizeCommand;
         private ICommand _closeCommand;
@@ -70,6 +71,19 @@ namespace School_Universe.Controllers
             set
             {
                 _menu = value;
+            }
+        }
+
+        public string UserName
+        {
+            get
+            {
+                return _userName;
+            }
+            set
+            {
+                _userName = value;
+                OnPropertyChanged("UserName");
             }
         }
         #endregion
