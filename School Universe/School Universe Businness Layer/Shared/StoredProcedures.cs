@@ -11,5 +11,6 @@ namespace School_Universe_Businness_Layer.Shared
         public static string AuthenticateUser = "AuthenticateUser";
         public static string GetStudentFeeAllocatedList = "GetStudentFeeAllocatedList";
         public static string GetList = "GetList";
+        public static string GetStudentPaymentHistory = "GetStudentPaymentHistory";
     }
 }

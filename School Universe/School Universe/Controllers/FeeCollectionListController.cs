@@ -88,6 +88,7 @@ namespace School_Universe.Controllers
             set
             {
                 _selectedItemInFeeCollectionStudentList = value;
+                loadCollectFeeWindow();
             }
 
         }
@@ -358,6 +359,12 @@ namespace School_Universe.Controllers
                 FeeCollectionListDataGrid.ItemsSource = null;
                 FeeCollectionListDataGrid.ItemsSource = FeeCollectionStudentList;
             }
+        }
+
+        private void loadCollectFeeWindow()
+        {
+            PaymentHistory objPaymentHistoryWindow = new PaymentHistory(SelectedItemInFeeCollectionStudentList);
+            objPaymentHistoryWindow.Show();
         }
 
     }

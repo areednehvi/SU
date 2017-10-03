@@ -78,16 +78,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controllers\PaymentHistoryController.cs" />
     <Compile Include="Controllers\FeeCollectionListController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Shared\RelayCommand.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Shared\ViewDefinitions.cs" />
+    <Compile Include="Views\PaymentHistory.xaml.cs">
+      <DependentUpon>PaymentHistory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FeeCollectionList.xaml.cs">
       <DependentUpon>FeeCollectionList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FeeCollectionList1.xaml.cs">
-      <DependentUpon>FeeCollectionList1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
@@ -98,11 +99,11 @@
     <Compile Include="Views\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\FeeCollectionList.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\PaymentHistory.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\FeeCollectionList1.xaml">
+    <Page Include="Views\FeeCollectionList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
