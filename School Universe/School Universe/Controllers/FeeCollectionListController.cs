@@ -363,8 +363,8 @@ namespace School_Universe.Controllers
 
         private void loadCollectFeeWindow()
         {
-            PaymentHistory objPaymentHistoryWindow = new PaymentHistory(SelectedItemInFeeCollectionStudentList);
-            objPaymentHistoryWindow.Show();
+            FeeCollect objFeeCollectWindow = new FeeCollect(SelectedItemInFeeCollectionStudentList);
+            objFeeCollectWindow.Show();
         }
 
     }

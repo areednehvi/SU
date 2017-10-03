@@ -19,18 +19,18 @@ namespace School_Universe.Views
 {
     /// <summary>
     /// </summary>
-    public partial class PaymentHistory : Window
+    public partial class FeeCollect : Window
     {
-        public PaymentHistory()
+        public FeeCollect()
         {
             InitializeComponent();
-            ((PaymentHistoryController)grdPaymentHistory.DataContext).PaymentHistorListDataGrid = this.dataGridPaymentHistoryList;
+            ((FeeCollectController)grdPaymentHistory.DataContext).PaymentHistorListDataGrid = this.dataGridPaymentHistoryList;
         }
-        public PaymentHistory(FeeCollectionStudentList objFeeCollectionStudentList)
+        public FeeCollect(FeeCollectionStudentList objFeeCollectionStudentList)
         {
             InitializeComponent();
-            ((PaymentHistoryController)grdPaymentHistory.DataContext).PaymentHistorListDataGrid = this.dataGridPaymentHistoryList;
-            ((PaymentHistoryController)grdPaymentHistory.DataContext).FeeCollectionStudentList = objFeeCollectionStudentList;
+            ((FeeCollectController)grdPaymentHistory.DataContext).PaymentHistorListDataGrid = this.dataGridPaymentHistoryList;
+            ((FeeCollectController)grdPaymentHistory.DataContext).FeeCollectionStudentList = objFeeCollectionStudentList;
         }
     }
 }

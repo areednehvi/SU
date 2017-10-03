@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace School_Universe.Controllers
 {
-    public class PaymentHistoryController :INotifyPropertyChanged
+    public class FeeCollectController :INotifyPropertyChanged
     {
         #region Fields
         private ObservableCollection<PaymentHistoryModel> _PaymentHistoryList;
@@ -32,7 +32,7 @@ namespace School_Universe.Controllers
         #endregion
 
         #region Constructor
-        public PaymentHistoryController()
+        public FeeCollectController()
         {
             _PaymentHistoryList = new ObservableCollection<PaymentHistoryModel>();
             _FeeCollectionStudent = new FeeCollectionStudentList();

@@ -78,14 +78,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controllers\PaymentHistoryController.cs" />
+    <Compile Include="Controllers\FeeCollectController.cs" />
     <Compile Include="Controllers\FeeCollectionListController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Shared\RelayCommand.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Shared\ViewDefinitions.cs" />
-    <Compile Include="Views\PaymentHistory.xaml.cs">
-      <DependentUpon>PaymentHistory.xaml</DependentUpon>
+    <Compile Include="Views\FeeCollect.xaml.cs">
+      <DependentUpon>FeeCollect.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FeeCollectionList.xaml.cs">
       <DependentUpon>FeeCollectionList.xaml</DependentUpon>
@@ -99,7 +99,7 @@
     <Compile Include="Views\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\PaymentHistory.xaml">
+    <Page Include="Views\FeeCollect.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

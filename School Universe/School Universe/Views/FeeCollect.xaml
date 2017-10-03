@@ -1,4 +1,4 @@
-﻿<Window x:Class="School_Universe.Views.PaymentHistory"
+﻿<Window x:Class="School_Universe.Views.FeeCollect"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,7 +8,7 @@
              xmlns:local="clr-namespace:School_Universe.Views"
              mc:Ignorable="d" Width="1263.779" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <vm:PaymentHistoryController x:Key="PaymentHistoryController" />
+        <vm:FeeCollectController x:Key="PaymentHistoryController" />
         <Style x:Key="TabItemStyle" TargetType="{x:Type TabItem}">
             <Setter Property="Template">
                 <Setter.Value>
