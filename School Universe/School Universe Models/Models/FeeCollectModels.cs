@@ -8,18 +8,32 @@ using System.Threading.Tasks;
 
 namespace School_Universe.Models
 {
+    public class PaymentHistoryModel
+    {
+        public string id { get; set; }
+        public Double  amount { get; set; }
+        public string recept_no { get; set; }
+        public DateTime payment_date { get; set; }
+        public Double concession_amount { get; set; }
+        public string month { get; set; }
+        public DateTime apply_from { get; set; }
+        public DateTime apply_to { get; set; }
+        public Double fee_amount { get; set; }
+        public string category_name { get; set; }
+    }
+
     public class FeeDueModel
     {
         public string id { get; set; }
         public string student_id { get; set; }
-        public Double  student_balance { get; set; }
+        public Double student_balance { get; set; }
         public Double concession_amount { get; set; }
         public DateTime apply_from { get; set; }
         public DateTime apply_to { get; set; }
         public Double fine { get; set; }
         public string category_name { get; set; }
     }
-    public class FeeDueModelOtherFileds : INotifyPropertyChanged
+    public class FeeCollectOtherFileds : INotifyPropertyChanged
     {
         private string _pageNo;
 

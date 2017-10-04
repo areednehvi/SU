@@ -18,11 +18,13 @@ namespace School_Universe.Controllers
     {
         #region Fields
         private ObservableCollection<PaymentHistoryModel> _PaymentHistoryList;
+        private ObservableCollection<FeeDueModel> _FeeDueList;
         private FeeCollectionStudentList _FeeCollectionStudent;
         private PaymentHistoryModel _selectedItemInPaymentHistoryList;
-        private PaymentHistoryOtherFileds _PaymentHistoryOtherFileds;
+        private FeeCollectOtherFileds _FeeCollectOtherFileds;
         private Window _window;
-        private DataGrid _dataGrid;
+        private DataGrid _paymentHistoryDataGrid;
+        private DataGrid _feeDueDataGrid;
         private int _SelectedTabItem;
         private int NoOfRecords = 50;
         private int fromRowNo,pageNo, NoOfRecordsPerPage, toRowNo;
@@ -37,8 +39,9 @@ namespace School_Universe.Controllers
         public FeeCollectController()
         {
             _PaymentHistoryList = new ObservableCollection<PaymentHistoryModel>();
+            _FeeDueList = new ObservableCollection<FeeDueModel>();
             _FeeCollectionStudent = new FeeCollectionStudentList();
-            _PaymentHistoryOtherFileds = new PaymentHistoryOtherFileds();
+            _FeeCollectOtherFileds = new FeeCollectOtherFileds();
             // Set pagination
             this.ResetPagination();
 
@@ -68,15 +71,15 @@ namespace School_Universe.Controllers
 
         }
 
-        public PaymentHistoryOtherFileds PaymentHistoryOtherFileds
+        public FeeCollectOtherFileds FeeCollectOtherFileds
         {
             get
             {
-                return _PaymentHistoryOtherFileds;
+                return _FeeCollectOtherFileds;
             }
             set
             {
-                _PaymentHistoryOtherFileds = value;
+                _FeeCollectOtherFileds = value;
             }
         }
 
@@ -114,20 +117,42 @@ namespace School_Universe.Controllers
                 _SelectedTabItem = value;
                 OnPropertyChanged("SelectedTabItem");
                 ResetPagination();
-                this.GetStudentPaymentHistoryList();
+                switch(_SelectedTabItem)
+                {
+                    case 1:
+                        this.GetStudentPaymentHistoryList();
+                        break;
+                    case 2:
+                        this.GetStudentFeeDueList();
+                        break;
+                }
+                
             }
         }
         public DataGrid PaymentHistorListDataGrid
         {
             get
             {
-                return _dataGrid;
+                return _paymentHistoryDataGrid;
             }
             set
             {
-                _dataGrid = value;
+                _paymentHistoryDataGrid = value;
             }
         }
+
+        public DataGrid FeeDueListDataGrid
+        {
+            get
+            {
+                return _feeDueDataGrid;
+            }
+            set
+            {
+                _feeDueDataGrid = value;
+            }
+        }
+
         public string NoRecordsFound
         {
             get
@@ -153,6 +178,19 @@ namespace School_Universe.Controllers
                 OnPropertyChanged("FeeCollectionStudentList");
             }
         }
+        public ObservableCollection<FeeDueModel> FeeDueList
+        {
+            get
+            {
+                return _FeeDueList;
+            }
+
+            set
+            {
+                _FeeDueList = value;
+            }
+
+        }
         #endregion
 
         #region NextPageCommand
@@ -173,7 +211,7 @@ namespace School_Universe.Controllers
             {
                 PaymentHistorListDataGrid.ItemsSource = null;
                 pageNo++;
-                PaymentHistoryOtherFileds.PageNo = "Page No : " + pageNo;
+                FeeCollectOtherFileds.PageNo = "Page No : " + pageNo;
                 fromRowNo = toRowNo + 1;
                 toRowNo = pageNo * NoOfRecordsPerPage;
                 this.GetStudentPaymentHistoryList();
@@ -217,7 +255,7 @@ namespace School_Universe.Controllers
                 {
                     PaymentHistorListDataGrid.ItemsSource = null;
                     pageNo--;
-                    PaymentHistoryOtherFileds.PageNo = "Page No : " + pageNo;
+                    FeeCollectOtherFileds.PageNo = "Page No : " + pageNo;
                     toRowNo = fromRowNo - 1;
                     fromRowNo = (toRowNo + 1) - NoOfRecordsPerPage;
                     this.GetStudentPaymentHistoryList();
@@ -314,10 +352,10 @@ namespace School_Universe.Controllers
         {
             try
             {
-                PaymentHistorListDataGrid.ItemsSource = null;
-                PaymentHistoryList = FeeCollectManager.GetStudentPaymentHistory(fromRowNo, toRowNo, FeeCollectionStudentList.id.ToString());
-                PaymentHistorListDataGrid.ItemsSource = PaymentHistoryList;
-                NoRecordsFound = PaymentHistoryList.Count > 0 ? "Collapsed" : "Visible";
+                FeeDueListDataGrid.ItemsSource = null;
+                FeeDueList = FeeCollectManager.GetStudentFeeDue(fromRowNo, toRowNo, FeeCollectionStudentList.id.ToString());
+                FeeDueListDataGrid.ItemsSource = FeeDueList;
+                NoRecordsFound = FeeDueList.Count > 0 ? "Collapsed" : "Visible";
             }
             catch (Exception ex)
             {
@@ -335,7 +373,7 @@ namespace School_Universe.Controllers
         {
             fromRowNo = 1;
             pageNo = 1;
-            PaymentHistoryOtherFileds.PageNo = "Page No : " + pageNo;
+            FeeCollectOtherFileds.PageNo = "Page No : " + pageNo;
             NoOfRecordsPerPage = NoOfRecords;
             toRowNo = pageNo * NoOfRecordsPerPage;
         }
