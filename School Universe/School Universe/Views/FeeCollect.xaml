@@ -120,7 +120,7 @@
                                 <DataGridTextColumn Width="*" Header="Fee" Binding="{Binding category_name}"/>
                                 <DataGridTextColumn Width="*" Header="Amount Paid" Binding="{Binding amount}"/>
                                 <DataGridTextColumn Width="*" Header="Concession" Binding="{Binding concession_amount}" />
-                                <DataGridTextColumn Width="*" Header="Payment Date" Binding="{Binding payment_date}"/>
+                                <DataGridTextColumn Width="*" Header="Payment Date" Binding="{Binding payment_date,StringFormat=f}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                         <TextBlock Grid.Row="1" Text="No Record(s) Found" FontSize="20" Foreground="Gray" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,200,0,0" Visibility="{Binding NoRecordsFound}" />

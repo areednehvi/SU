@@ -58,7 +58,7 @@ namespace School_Universe_Businness_Layer.Businness
                     objPaymentHistory.apply_to = row["apply_to"] != DBNull.Value ? Convert.ToDateTime(row["apply_to"]) : DateTime.MinValue;
                     objPaymentHistory.fee_amount = row["fee_amount"] != DBNull.Value ? Convert.ToDouble(row["fee_amount"]) : 0;
                     objPaymentHistory.concession_amount = row["concession_amount"] != DBNull.Value ? Convert.ToDouble(row["concession_amount"]) : 0;
-                    objPaymentHistory.category_name = row["category_name"] != DBNull.Value ? row["category_name"].ToString() : string.Empty;
+                    objPaymentHistory.category_name = row["category_name"] != DBNull.Value ? row["category_name"].ToString() + " - " + objPaymentHistory.apply_from.ToString("MMMM yyyy") : string.Empty;
                     objPaymentHistoryList.Add(objPaymentHistory);
                 }
 
