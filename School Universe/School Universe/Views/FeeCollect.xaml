@@ -34,6 +34,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="CellMarginStyle" x:Name="CellMarginStyle" TargetType="DataGridCell">
+            <Setter Property="Margin" Value="0,16,0,0"></Setter>
+        </Style>
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="30" />
@@ -102,7 +105,7 @@
                                 </Viewbox>
                             </Button>
                         </StackPanel>
-                        <DataGrid Grid.Row="1" x:Name="dataGridPaymentHistoryList" AlternationCount="2" AlternatingRowBackground="#FFD7FDFA" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding PaymentHistoryList}"  Margin="10,0,10,0"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="14" SelectedItem="{Binding SelectedItemInPaymentHistoryList}">
+                        <DataGrid Grid.Row="1" x:Name="dataGridPaymentHistoryList" VerticalContentAlignment="Center" AlternationCount="2" AlternatingRowBackground="#FFD7FDFA" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding PaymentHistoryList}"  Margin="10,0,10,0"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="14" SelectedItem="{Binding SelectedItemInPaymentHistoryList}">
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#FF009688"/>
@@ -117,10 +120,17 @@
                             </DataGrid.Resources>
 
                             <DataGrid.Columns>
-                                <DataGridTextColumn Width="*" Header="Fee" Binding="{Binding category_name}"/>
-                                <DataGridTextColumn Width="*" Header="Amount Paid" Binding="{Binding amount}"/>
-                                <DataGridTextColumn Width="*" Header="Concession" Binding="{Binding concession_amount}" />
-                                <DataGridTextColumn Width="*" Header="Payment Date" Binding="{Binding payment_date,StringFormat=f}"/>
+                                <DataGridTextColumn Width="*" Header="Fee">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} &#x0a;{1:MMMM yyyy}">
+                                            <Binding Path="category_name" />
+                                            <Binding Path="apply_from" />
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Width="*" Header="Amount Paid" Binding="{Binding amount}" CellStyle="{StaticResource CellMarginStyle}" />
+                                <DataGridTextColumn Width="*" Header="Concession" Binding="{Binding concession_amount}" CellStyle="{StaticResource CellMarginStyle}" />
+                                <DataGridTextColumn Width="*" Header="Payment Date" Binding="{Binding payment_date,StringFormat=f}" CellStyle="{StaticResource CellMarginStyle}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                         <TextBlock Grid.Row="1" Text="No Record(s) Found" FontSize="20" Foreground="Gray" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,200,0,0" Visibility="{Binding NoRecordsFound}" />
