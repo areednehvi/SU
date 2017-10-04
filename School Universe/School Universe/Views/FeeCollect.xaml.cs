@@ -29,8 +29,14 @@ namespace School_Universe.Views
         public FeeCollect(FeeCollectionStudentList objFeeCollectionStudentList)
         {
             InitializeComponent();
+            ((FeeCollectController)grdPaymentHistory.DataContext).Window = this;
             ((FeeCollectController)grdPaymentHistory.DataContext).PaymentHistorListDataGrid = this.dataGridPaymentHistoryList;
             ((FeeCollectController)grdPaymentHistory.DataContext).FeeCollectionStudentList = objFeeCollectionStudentList;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((FeeCollectController)grdPaymentHistory.DataContext).SelectedTabItem = 0;
         }
     }
 }

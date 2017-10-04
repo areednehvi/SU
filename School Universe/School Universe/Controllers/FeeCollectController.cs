@@ -29,6 +29,8 @@ namespace School_Universe.Controllers
         private string _NoRecordsFound;
         private ICommand _nextPageCommand;
         private ICommand _previousPageCommand;
+        private ICommand _minimizeCommand;
+        private ICommand _closeCommand;
         #endregion
 
         #region Constructor
@@ -45,6 +47,8 @@ namespace School_Universe.Controllers
             //Initialize  Commands
             _nextPageCommand = new RelayCommand(MoveToNextPage, CanMoveToNextPage);
             _previousPageCommand = new RelayCommand(MoveToPreviousPage, CanMoveToPreviousPage);
+            _closeCommand = new RelayCommand(CloseLogin, CanClose);
+            _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
         }
         
         #endregion
@@ -145,6 +149,7 @@ namespace School_Universe.Controllers
             set
             {
                 _FeeCollectionStudent = value;
+                OnPropertyChanged("FeeCollectionStudentList");
             }
         }
         #endregion
@@ -231,6 +236,45 @@ namespace School_Universe.Controllers
         }
         #endregion
 
+        #region CloseCommand
+
+        public ICommand CloseCommand
+        {
+            get { return _closeCommand; }
+        }
+
+
+        public bool CanClose(object obj)
+        {
+            return true;
+        }
+
+
+        public void CloseLogin(object obj)
+        {
+            Window.Close();
+        }
+        #endregion
+
+        #region MinimizeCommand
+
+        public ICommand MinimizeCommand
+        {
+            get { return _minimizeCommand; }
+        }
+
+
+        public bool CanMinimize(object obj)
+        {
+            return true;
+        }
+
+
+        public void MinimizeLogin(object obj)
+        {
+            Window.WindowState = WindowState.Minimized;
+        }
+        #endregion   
 
         #region INotifyPropertyChanged Members
 
@@ -249,7 +293,7 @@ namespace School_Universe.Controllers
             try
             {
                 PaymentHistorListDataGrid.ItemsSource = null;
-                PaymentHistoryList = PaymentHistoryManager.GetStudentPaymentHistory(fromRowNo, toRowNo, FeeCollectionStudentList.id.ToString());
+                PaymentHistoryList = FeeCollectManager.GetStudentPaymentHistory(fromRowNo, toRowNo, FeeCollectionStudentList.id.ToString());
                 PaymentHistorListDataGrid.ItemsSource = PaymentHistoryList;
                 NoRecordsFound = PaymentHistoryList.Count > 0 ? "Collapsed" : "Visible";
             }

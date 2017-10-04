@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace School_Universe_Businness_Layer.Businness
 {
-    public class PaymentHistoryManager
+    public class FeeCollectManager
     {        
         public static ObservableCollection<PaymentHistoryModel> GetStudentPaymentHistory(Int64 fromRowNo, Int64 toRowNo, string studentID)
         {            

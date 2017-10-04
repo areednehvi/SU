@@ -115,7 +115,11 @@
                             </Canvas>
                         </Viewbox>
                     </Button>
-                    <TextBlock Grid.Column="0" Padding="5,12,0,0" Style="{StaticResource MaterialDesignTitleTextBlock}"  Foreground="White" Margin="75,0,0,0" Text="{Binding SelectedView.Title}"></TextBlock>
+                    <TextBlock Grid.Column="0" Padding="5,12,0,0" Style="{StaticResource MaterialDesignTitleTextBlock}"  Foreground="White" Margin="75,0,0,0" Text="{Binding SelectedView.Title}">
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="Black" ShadowDepth="1"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
                     <Button Grid.Column="0" ToolTip="Close Fee Collection" Width="26" Height="26" Style="{StaticResource MaterialDesignFloatingActionLightButton}" Command="{Binding CloseCommand}"
                     Margin="0,0,10,0" HorizontalAlignment="Right" RenderTransformOrigin="0.385,2.01">
                         <Viewbox Width="30" Height="30">
