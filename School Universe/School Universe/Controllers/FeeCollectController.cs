@@ -113,6 +113,7 @@ namespace School_Universe.Controllers
             {
                 _SelectedTabItem = value;
                 OnPropertyChanged("SelectedTabItem");
+                ResetPagination();
                 this.GetStudentPaymentHistoryList();
             }
         }
@@ -289,6 +290,27 @@ namespace School_Universe.Controllers
         #endregion
 
         private void GetStudentPaymentHistoryList()
+        {
+            try
+            {
+                PaymentHistorListDataGrid.ItemsSource = null;
+                PaymentHistoryList = FeeCollectManager.GetStudentPaymentHistory(fromRowNo, toRowNo, FeeCollectionStudentList.id.ToString());
+                PaymentHistorListDataGrid.ItemsSource = PaymentHistoryList;
+                NoRecordsFound = PaymentHistoryList.Count > 0 ? "Collapsed" : "Visible";
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                MessageBox.Show(errorMessage);
+            }
+            finally
+            {
+
+            }
+
+        }
+
+        private void GetStudentFeeDueList()
         {
             try
             {
