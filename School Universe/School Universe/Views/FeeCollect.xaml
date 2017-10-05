@@ -41,9 +41,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="CellMarginStyle" x:Name="CellMarginStyle" TargetType="DataGridCell">
-            <Setter Property="Margin" Value="0,16,0,0"></Setter>
-        </Style>
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="30" />
@@ -51,7 +48,7 @@
     <DockPanel LastChildFill="True" DataContext="{Binding Source={StaticResource FeeCollectController}}">
         <materialDesign:Card DockPanel.Dock="Top"  Margin="0,0,0,5" Background="#FF009688" Height="70">
             <Grid>
-                <TextBlock Grid.Column="0" Padding="5,12,0,0" Style="{StaticResource MaterialDesignTitleTextBlock}"  Foreground="White" Margin="10,0,0,0" Text="{Binding FeeCollectionStudentList.full_name}">
+                <TextBlock Grid.Column="0" Padding="5,12,0,0" Style="{StaticResource MaterialDesignTitleTextBlock}"  Foreground="White" Margin="10,0,0,0" Text="{Binding FeeCollectionStudentList.full_name, StringFormat='Collect Fee from: {0}'}">
                     <TextBlock.Effect>
                         <DropShadowEffect Color="Black" ShadowDepth="1"/>
                     </TextBlock.Effect>
@@ -135,9 +132,27 @@
                                         </MultiBinding>
                                     </DataGridTextColumn.Binding>
                                 </DataGridTextColumn>
-                                <DataGridTextColumn Width="*" Header="Amount Paid" Binding="{Binding amount}" CellStyle="{StaticResource CellMarginStyle}" />
-                                <DataGridTextColumn Width="*" Header="Concession" Binding="{Binding concession_amount}" CellStyle="{StaticResource CellMarginStyle}" />
-                                <DataGridTextColumn Width="*" Header="Payment Date" Binding="{Binding payment_date,StringFormat=f}" CellStyle="{StaticResource CellMarginStyle}"/>
+                                <DataGridTemplateColumn Width="*" Header="Amount Paid">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock VerticalAlignment="Center" Text="{Binding amount}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Width="*" Header="Concession">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock VerticalAlignment="Center" Text="{Binding concession_amount}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Width="*" Header="Payment Date">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock VerticalAlignment="Center" Text="{Binding payment_date,StringFormat=f}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
                         <TextBlock Grid.Row="1" Text="No Record(s) Found" FontSize="20" Foreground="Gray" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,200,0,0" Visibility="{Binding NoRecordsFound}" />
@@ -194,8 +209,20 @@
                                         </MultiBinding>
                                     </DataGridTextColumn.Binding>
                                 </DataGridTextColumn>
-                                <DataGridTextColumn Width="*" Header="Concession" Binding="{Binding concession_amount}" CellStyle="{StaticResource CellMarginStyle}" />
-                                <DataGridTextColumn Width="*" Header="Fine" Binding="{Binding fine}" CellStyle="{StaticResource CellMarginStyle}" />
+                                <DataGridTemplateColumn Width="*" Header="Concession">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock VerticalAlignment="Center" Text="{Binding concession_amount}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Width="*" Header="Fine">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock VerticalAlignment="Center" Text="{Binding fine}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
                         <TextBlock Grid.Row="1" Text="No Record(s) Found" FontSize="20" Foreground="Gray" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,200,0,0" Visibility="{Binding NoRecordsFound}" />
