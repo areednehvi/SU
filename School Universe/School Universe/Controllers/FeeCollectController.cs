@@ -33,6 +33,7 @@ namespace School_Universe.Controllers
         private ICommand _previousPageCommand;
         private ICommand _minimizeCommand;
         private ICommand _closeCommand;
+        private ICommand _feeDueApplyCommand;
         #endregion
 
         #region Constructor
@@ -52,6 +53,7 @@ namespace School_Universe.Controllers
             _previousPageCommand = new RelayCommand(MoveToPreviousPage, CanMoveToPreviousPage);
             _closeCommand = new RelayCommand(CloseLogin, CanClose);
             _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
+            _feeDueApplyCommand = new RelayCommand(ApplyFeeDue, CanApplyFeeDue);
         }
         
         #endregion
@@ -272,6 +274,43 @@ namespace School_Universe.Controllers
             {
 
             }
+        }
+        #endregion
+
+        #region FeeDueApplyCommand
+        public ICommand FeeDueApplyCommand
+        {
+            get { return _feeDueApplyCommand; }
+        }
+
+
+        public bool CanApplyFeeDue(object obj)
+        {
+            return true;
+        }
+
+
+        public void ApplyFeeDue(object obj)
+        {
+            try
+            {
+                foreach(FeeDueModel objFeeDueModel in FeeDueList)
+                {
+                    if(objFeeDueModel.IsSelected)
+                        MessageBox.Show(objFeeDueModel.IsSelected.ToString());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                MessageBox.Show(errorMessage);
+            }
+            finally
+            {
+
+            }
+
         }
         #endregion
 

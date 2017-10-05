@@ -163,6 +163,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="100" />
                         </Grid.RowDefinitions>
                         <Label  Grid.Row="0"   Margin="10,10,0,0"  HorizontalAlignment="Left" Content="" FontStyle="Italic">
                         </Label>
@@ -201,6 +202,16 @@
                             </DataGrid.Resources>
 
                             <DataGrid.Columns>
+                                <DataGridTemplateColumn Width="50">
+                                    <DataGridTemplateColumn.Header>
+                                        <CheckBox Background="White" Margin="9,0,0,0"></CheckBox>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Path=IsSelected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                                 <DataGridTextColumn Width="*" Header="Fee">
                                     <DataGridTextColumn.Binding>
                                         <MultiBinding StringFormat="{}{0} &#x0a;{1:MMMM yyyy}">
@@ -226,6 +237,9 @@
                             </DataGrid.Columns>
                         </DataGrid>
                         <TextBlock Grid.Row="1" Text="No Record(s) Found" FontSize="20" Foreground="Gray" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,200,0,0" Visibility="{Binding NoRecordsFound}" />
+                        <StackPanel Grid.Row="2">
+                            <Button Content="Apply" Command="{Binding FeeDueApplyCommand}"></Button>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
 
