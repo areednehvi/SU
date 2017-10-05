@@ -19,7 +19,7 @@ namespace School_Universe.Controllers
         #region Fields
         private ObservableCollection<PaymentHistoryModel> _PaymentHistoryList;
         private ObservableCollection<FeeDueModel> _FeeDueList;
-        private FeeCollectionStudentList _FeeCollectionStudent;
+        private FeeCollectionStudentListModel _FeeCollectionStudent;
         private PaymentHistoryModel _selectedItemInPaymentHistoryList;
         private FeeCollectOtherFileds _FeeCollectOtherFileds;
         private Window _window;
@@ -40,7 +40,7 @@ namespace School_Universe.Controllers
         {
             _PaymentHistoryList = new ObservableCollection<PaymentHistoryModel>();
             _FeeDueList = new ObservableCollection<FeeDueModel>();
-            _FeeCollectionStudent = new FeeCollectionStudentList();
+            _FeeCollectionStudent = new FeeCollectionStudentListModel();
             _FeeCollectOtherFileds = new FeeCollectOtherFileds();
             // Set pagination
             this.ResetPagination();
@@ -166,7 +166,7 @@ namespace School_Universe.Controllers
             }
         }
 
-        public FeeCollectionStudentList FeeCollectionStudentList
+        public FeeCollectionStudentListModel FeeCollectionStudentList
         {
             get
             {

@@ -13,7 +13,7 @@ namespace School_Universe_Businness_Layer.Businness
 {
     public class LoginManager
     {        
-        public static Boolean ValidateUser(Login objLogin)
+        public static Boolean ValidateUser(LoginModel objLogin)
         {
             Boolean isValidUser = false;  
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace School_Universe.Models
 {
-    public class Login : INotifyPropertyChanged
+    public class LoginModel : INotifyPropertyChanged
     {        
         private string _username;
         private string _password;

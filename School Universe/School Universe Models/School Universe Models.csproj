@@ -41,9 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\FeeCollectModels.cs" />
-    <Compile Include="Models\FeeCollectionList.cs" />
-    <Compile Include="Models\GetList.cs" />
-    <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\FeeCollectionListModels.cs" />
+    <Compile Include="Models\GetListModels.cs" />
+    <Compile Include="Models\LoginModels.cs" />
     <Compile Include="Models\ViewsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

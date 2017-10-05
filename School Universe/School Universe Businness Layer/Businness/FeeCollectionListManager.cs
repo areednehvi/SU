@@ -15,7 +15,7 @@ namespace School_Universe_Businness_Layer.Businness
 {
     public class FeeCollectionListManager
     {        
-        public static ObservableCollection<FeeCollectionStudentList> GetFeeCollectionStudentList(Int64 fromRowNo, Int64 toRowNo, FeeCollectionListFilters objFeeCollectionListFilters)
+        public static ObservableCollection<FeeCollectionStudentListModel> GetFeeCollectionStudentList(Int64 fromRowNo, Int64 toRowNo, FeeCollectionListModelFilters objFeeCollectionListFilters)
         {            
             try
             {
@@ -46,14 +46,14 @@ namespace School_Universe_Businness_Layer.Businness
             
         }
 
-        private static ObservableCollection<FeeCollectionStudentList> MapDatatableToFeeCollectionStudentListObject(DataTable objDatatable)
+        private static ObservableCollection<FeeCollectionStudentListModel> MapDatatableToFeeCollectionStudentListObject(DataTable objDatatable)
         {
-            ObservableCollection<FeeCollectionStudentList> objFeeCollectionStudentList = new ObservableCollection<FeeCollectionStudentList>();
+            ObservableCollection<FeeCollectionStudentListModel> objFeeCollectionStudentList = new ObservableCollection<FeeCollectionStudentListModel>();
             try
             {
                 foreach (DataRow row in objDatatable.Rows)
                 {
-                    FeeCollectionStudentList objFeeCollectionStudent = new FeeCollectionStudentList();
+                    FeeCollectionStudentListModel objFeeCollectionStudent = new FeeCollectionStudentListModel();
                     objFeeCollectionStudent.id = row["id"] != DBNull.Value ?  Convert.ToInt64(row["id"]) : 0;
                     objFeeCollectionStudent.school_id = row["school_id"] != DBNull.Value ? Convert.ToInt64(row["school_id"]) : 0;
                     objFeeCollectionStudent.registration_id = row["registration_id"] != DBNull.Value ? Convert.ToInt64(row["registration_id"]) : 0;

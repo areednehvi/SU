@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace School_Universe.Models
 {
-    public class FeeCollectionStudentList
+    public class FeeCollectionStudentListModel
     {
         public Int64 id { get; set; } // student ID
         public Int64 school_id { get; set; }
@@ -32,7 +32,7 @@ namespace School_Universe.Models
         public Int64 allocated_fee_cource_count { get; set; }
         public string parentage { get; set; }
     }
-    public class FeeCollectionListFilters : INotifyPropertyChanged
+    public class FeeCollectionListModelFilters : INotifyPropertyChanged
     {        
         private GradesModel _grade;
         private SectionsModel _section;

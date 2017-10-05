@@ -29,7 +29,7 @@ namespace School_Universe.Views
             ((MainController)grdMain.DataContext).Menu = this.menu;
 
         }
-        public Main(Login objLogin)
+        public Main(LoginModel objLogin)
         {
             InitializeComponent();
             ((MainController)grdMain.DataContext).Window = this;

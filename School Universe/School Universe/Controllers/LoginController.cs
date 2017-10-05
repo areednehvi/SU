@@ -16,7 +16,7 @@ namespace School_Universe.Controllers
     class LoginController
     {
         #region Fields
-        private Login _login;
+        private LoginModel _login;
         private Window _window;
         private ICommand _loginCommand;
         private ICommand _closeCommand;
@@ -26,7 +26,7 @@ namespace School_Universe.Controllers
         #region Constructor
         public LoginController()
         {
-            _login = new Login();
+            _login = new LoginModel();
             _loginCommand = new RelayCommand(AuthenticateUser, CanLogin);
             _closeCommand = new RelayCommand(CloseLogin, CanClose);
             _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
@@ -34,7 +34,7 @@ namespace School_Universe.Controllers
         #endregion
 
         #region Properties
-        public Login Login
+        public LoginModel Login
         {
             get
             {

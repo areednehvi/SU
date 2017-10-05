@@ -17,9 +17,9 @@ namespace School_Universe.Controllers
     public class FeeCollectionListController :INotifyPropertyChanged
     {
         #region Fields
-        private ObservableCollection<FeeCollectionStudentList> _feeCollectionStudentList;
-        private FeeCollectionStudentList _selectedItemInFeeCollectionStudentList;
-        private FeeCollectionListFilters _FeeCollectionListFilters;
+        private ObservableCollection<FeeCollectionStudentListModel> _feeCollectionStudentList;
+        private FeeCollectionStudentListModel _selectedItemInFeeCollectionStudentList;
+        private FeeCollectionListModelFilters _FeeCollectionListFilters;
         private FeeCollectionListOtherFileds _FeeCollectionListOtherFileds;
         private GradesModel _selectedGradeModel;
         private SectionsModel _selectedSectionModel;
@@ -37,8 +37,8 @@ namespace School_Universe.Controllers
         #region Constructor
         public FeeCollectionListController()
         {
-             _feeCollectionStudentList = new ObservableCollection<FeeCollectionStudentList>();
-            _FeeCollectionListFilters = new FeeCollectionListFilters();
+             _feeCollectionStudentList = new ObservableCollection<FeeCollectionStudentListModel>();
+            _FeeCollectionListFilters = new FeeCollectionListModelFilters();
             _FeeCollectionListOtherFileds = new FeeCollectionListOtherFileds();
             // Get Lists
             this.getLists();
@@ -64,7 +64,7 @@ namespace School_Universe.Controllers
         #endregion
 
         #region Properties
-        public ObservableCollection<FeeCollectionStudentList> FeeCollectionStudentList
+        public ObservableCollection<FeeCollectionStudentListModel> FeeCollectionStudentList
         {
             get
             {
@@ -78,7 +78,7 @@ namespace School_Universe.Controllers
 
         }
 
-        public FeeCollectionStudentList SelectedItemInFeeCollectionStudentList
+        public FeeCollectionStudentListModel SelectedItemInFeeCollectionStudentList
         {
             get
             {
@@ -93,7 +93,7 @@ namespace School_Universe.Controllers
 
         }
 
-        public FeeCollectionListFilters FeeCollectionListFilters
+        public FeeCollectionListModelFilters FeeCollectionListFilters
         {
             get
             {
