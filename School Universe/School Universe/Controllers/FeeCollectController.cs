@@ -34,6 +34,7 @@ namespace School_Universe.Controllers
         private ICommand _minimizeCommand;
         private ICommand _closeCommand;
         private ICommand _feeDueApplyCommand;
+        private ICommand _checkAllFeeDueCommand;
         #endregion
 
         #region Constructor
@@ -54,6 +55,7 @@ namespace School_Universe.Controllers
             _closeCommand = new RelayCommand(CloseLogin, CanClose);
             _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
             _feeDueApplyCommand = new RelayCommand(ApplyFeeDue, CanApplyFeeDue);
+            _checkAllFeeDueCommand = new RelayCommand(CheckAllFeeDue, CanCheckAllFeeDue);
         }
         
         #endregion
@@ -298,6 +300,49 @@ namespace School_Universe.Controllers
                 {
                     if(objFeeDueModel.IsSelected)
                         MessageBox.Show(objFeeDueModel.IsSelected.ToString());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                MessageBox.Show(errorMessage);
+            }
+            finally
+            {
+
+            }
+
+        }
+        #endregion
+
+        #region CheckAllFeeDueCommand
+        public ICommand CheckAllFeeDueCommand
+        {
+            get { return _checkAllFeeDueCommand; }
+        }
+
+
+        public bool CanCheckAllFeeDue(object obj)
+        {
+            return true;
+        }
+
+
+        public void CheckAllFeeDue(object obj)
+        {
+            try
+            {
+                Boolean IsChecked = (Boolean)obj;
+                if (IsChecked)
+                {
+                    for (int count = 0; count < FeeDueList.Count; count++)
+                        FeeDueList[count].IsSelected = true;
+                }
+                else
+                {
+                    for (int count = 0; count < FeeDueList.Count; count++)
+                        FeeDueList[count].IsSelected = false;
                 }
 
             }

@@ -204,7 +204,7 @@
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn Width="50">
                                     <DataGridTemplateColumn.Header>
-                                        <CheckBox Background="White" Margin="9,0,0,0"></CheckBox>
+                                        <CheckBox Background="White" Command="{Binding Path=DataContext.CloseCommand }" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" Margin="9,0,0,0"></CheckBox>
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -239,6 +239,7 @@
                         <TextBlock Grid.Row="1" Text="No Record(s) Found" FontSize="20" Foreground="Gray" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,200,0,0" Visibility="{Binding NoRecordsFound}" />
                         <StackPanel Grid.Row="2">
                             <Button Content="Apply" Command="{Binding FeeDueApplyCommand}"></Button>
+                            <CheckBox Background="White" Command="{Binding CheckAllFeeDueCommand}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" Margin="9,0,0,0"></CheckBox>
                         </StackPanel>
                     </Grid>
                 </TabItem>
