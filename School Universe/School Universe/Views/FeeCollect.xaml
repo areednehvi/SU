@@ -90,7 +90,7 @@
                         <Label  Grid.Row="0"   Margin="10,10,0,0"  HorizontalAlignment="Left" Content="" FontStyle="Italic">
                         </Label>
                         <StackPanel Grid.Row="0"   Margin="0,0,10,0"  Orientation="Horizontal"  HorizontalAlignment="Right">
-                            <Label x:Name="lblPageNo" Content="{Binding FeeCollectOtherFileds.PageNo}" FontStyle="Italic" Margin="0,12,5,0"/>
+                            <Label x:Name="lblPageNo" Content="{Binding FeeCollectOtherFields.PageNo}" FontStyle="Italic" Margin="0,12,5,0"/>
                             <Button ToolTip="Move to previous page" Width="26" Height="26" Style="{StaticResource MaterialDesignFloatingActionLightButton}" Command="{Binding PreviousPageCommand}" 
                     Margin="0,0,0,0" HorizontalAlignment="Right" RenderTransformOrigin="0.385,2.01">
                                 <Viewbox Width="30" Height="30">
@@ -161,16 +161,22 @@
                 <TabItem Header="Fee Due" Style="{DynamicResource TabItemStyle}" ToolTip="Fee Due" >
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="100" />
                             <RowDefinition Height="*" />
                             <RowDefinition Height="100" />
                         </Grid.RowDefinitions>
-                        <Label  Grid.Row="0"   Margin="10,10,0,0"  HorizontalAlignment="Left" Content="" FontStyle="Italic">
-                        </Label>
-                        <StackPanel Grid.Row="0"   Margin="0,0,10,0"  Orientation="Horizontal"  HorizontalAlignment="Right">
-                            <Label x:Name="lblFeeDueListPageNo" Content="{Binding FeeCollectOtherFileds.PageNo}" FontStyle="Italic" Margin="0,12,5,0"/>
+                        <materialDesign:Card Grid.Row="0" Padding="5"  Margin="5,5,5,5" Height="70" >
+                            <StackPanel Orientation="Horizontal" >
+                                <WrapPanel Orientation="Horizontal" >
+                                    <Label  x:Name="lblFeeCategory" Content="Fee Category" Width="Auto" FontSize="16" Foreground="#FF009688"/>
+                                    <ComboBox  x:Name="cbFeeCategory" VerticalAlignment="Stretch"  HorizontalAlignment="Center" FontSize="16" Width="220" ItemsSource="{Binding FeeDueListFilters.FeeCategoryList}" DisplayMemberPath="name" SelectedIndex="0" SelectedItem="{Binding SelectedFeeCategory,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
+                                </WrapPanel>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <StackPanel Grid.Row="0"   Margin="0,0,20,0"  Orientation="Horizontal"  HorizontalAlignment="Right" >
+                            <Label x:Name="lblFeeDueListPageNo" Content="{Binding FeeCollectOtherFields.PageNo}" FontStyle="Italic" Margin="0,22,5,0"/>
                             <Button ToolTip="Move to previous page" Width="26" Height="26" Style="{StaticResource MaterialDesignFloatingActionLightButton}" Command="{Binding PreviousPageCommand}" 
-                    Margin="0,0,0,0" HorizontalAlignment="Right" RenderTransformOrigin="0.385,2.01">
+                    Margin="0,23,0,51" HorizontalAlignment="Right">
                                 <Viewbox Width="30" Height="30">
                                     <Canvas Width="30" Height="30">
                                         <Path Data="M7,12L12,7V10H16V14H12V17L7,12M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12M20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12Z" Fill="Black" />
@@ -179,7 +185,7 @@
                             </Button>
 
                             <Button ToolTip="Move to next page" Width="26" Height="26" Style="{StaticResource MaterialDesignFloatingActionLightButton}" Command="{Binding NextPageCommand}" 
-                    Margin="5,0,0,0" HorizontalAlignment="Right" RenderTransformOrigin="0.385,2.01">
+                    Margin="5,23,0,51" HorizontalAlignment="Right" RenderTransformOrigin="0.385,2.01">
                                 <Viewbox Width="30" Height="30">
                                     <Canvas Width="30" Height="30">
                                         <Path Data="M17,12L12,17V14H8V10H12V7L17,12M2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12M4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12Z" Fill="Black" />
@@ -204,7 +210,7 @@
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn Width="50">
                                     <DataGridTemplateColumn.Header>
-                                        <CheckBox Background="White" Command="{Binding Path=DataContext.CloseCommand }" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" Margin="9,0,0,0"></CheckBox>
+                                        <CheckBox Background="White" DataContext="{Binding Source={StaticResource FeeCollectController}}" Command="{Binding Path=CheckAllFeeDueCommand }" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" Margin="9,0,0,0"></CheckBox>
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -237,10 +243,25 @@
                             </DataGrid.Columns>
                         </DataGrid>
                         <TextBlock Grid.Row="1" Text="No Record(s) Found" FontSize="20" Foreground="Gray" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,200,0,0" Visibility="{Binding NoRecordsFound}" />
-                        <StackPanel Grid.Row="2">
-                            <Button Content="Apply" Command="{Binding FeeDueApplyCommand}"></Button>
-                            <CheckBox Background="White" Command="{Binding CheckAllFeeDueCommand}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" Margin="9,0,0,0"></CheckBox>
-                        </StackPanel>
+                        <materialDesign:Card Grid.Row="2" Padding="5"  Margin="5,10,5,5" Height="70" >
+                            <StackPanel Orientation="Horizontal" >
+                            <WrapPanel Orientation="Horizontal" Width="220" >
+                                <Label  x:Name="lblFine" Content="Fine" Width="Auto" FontSize="16" Foreground="#FF009688"/>
+                                    <TextBox  x:Name="txtFine" TextAlignment="Center" VerticalAlignment="Stretch" FontSize="16"  Width="120" Text="{Binding FeeDueFormFields.Fine,Mode=TwoWay}"/>
+                            </WrapPanel>
+                            <WrapPanel Orientation="Horizontal" Width="260" >
+                                <Label  x:Name="lblConcession" Content="Concession" Width="Auto" FontSize="16" Foreground="#FF009688"/>
+                                    <TextBox  x:Name="txtConcession" TextAlignment="Center" VerticalAlignment="Stretch" FontSize="16"  Width="120" Text="{Binding FeeDueFormFields.Concession,Mode=TwoWay}"/>
+                            </WrapPanel>
+                            <WrapPanel Orientation="Horizontal" Width="260" >
+                                <Label  x:Name="lblConcessionPercentage" Content="Concession %" Width="Auto" FontSize="16" Foreground="#FF009688"/>
+                                    <TextBox  x:Name="txtConcessionPercentage" TextAlignment="Center" VerticalAlignment="Stretch" FontSize="16"  Width="120" Text="{Binding FeeDueFormFields.ConcessionPercentage,Mode=TwoWay}"/>
+                            </WrapPanel>
+                            <WrapPanel Orientation="Horizontal">
+                                <Button Content="Apply" Margin="0,5,0,0" Command="{Binding FeeDueApplyCommand}"></Button>
+                            </WrapPanel>
+                            </StackPanel>
+                        </materialDesign:Card>
                     </Grid>
                 </TabItem>
 

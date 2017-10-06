@@ -21,7 +21,10 @@ namespace School_Universe.Controllers
         private ObservableCollection<FeeDueModel> _FeeDueList;
         private FeeCollectionStudentListModel _FeeCollectionStudent;
         private PaymentHistoryModel _selectedItemInPaymentHistoryList;
-        private FeeCollectOtherFileds _FeeCollectOtherFileds;
+        private FeeCollectOtherFieldsModel _FeeCollectOtherFields;
+        private FeeDueFormFieldsModel _FeeDueFormFields;
+        private FeeDueListFiltersModel _FeeDueListFilters;
+        private FeeCategoryModel _selectedFeeCategory;
         private Window _window;
         private DataGrid _paymentHistoryDataGrid;
         private DataGrid _feeDueDataGrid;
@@ -43,7 +46,9 @@ namespace School_Universe.Controllers
             _PaymentHistoryList = new ObservableCollection<PaymentHistoryModel>();
             _FeeDueList = new ObservableCollection<FeeDueModel>();
             _FeeCollectionStudent = new FeeCollectionStudentListModel();
-            _FeeCollectOtherFileds = new FeeCollectOtherFileds();
+            _FeeCollectOtherFields = new FeeCollectOtherFieldsModel();
+            _FeeDueFormFields = new FeeDueFormFieldsModel();
+            _FeeDueListFilters = new FeeDueListFiltersModel();
             // Set pagination
             this.ResetPagination();
 
@@ -75,15 +80,38 @@ namespace School_Universe.Controllers
 
         }
 
-        public FeeCollectOtherFileds FeeCollectOtherFileds
+        public FeeCollectOtherFieldsModel FeeCollectOtherFields
         {
             get
             {
-                return _FeeCollectOtherFileds;
+                return _FeeCollectOtherFields;
             }
             set
             {
-                _FeeCollectOtherFileds = value;
+                _FeeCollectOtherFields = value;
+            }
+        }
+
+        public FeeDueFormFieldsModel FeeDueFormFields
+        {
+            get
+            {
+                return _FeeDueFormFields;
+            }
+            set
+            {
+                _FeeDueFormFields = value;
+            }
+        }
+        public FeeDueListFiltersModel FeeDueListFilters
+        {
+            get
+            {
+                return _FeeDueListFilters;
+            }
+            set
+            {
+                _FeeDueListFilters = value;
             }
         }
 
@@ -127,10 +155,26 @@ namespace School_Universe.Controllers
                         this.GetStudentPaymentHistoryList();
                         break;
                     case 2:
+                        // Get Lists
+                        this.GetFeeDueDropDownLists();
                         this.GetStudentFeeDueList();
                         break;
                 }
                 
+            }
+        }
+
+        public FeeCategoryModel SelectedFeeCategory
+        {
+            get { return _selectedFeeCategory; }
+            set
+            {
+                if (_selectedFeeCategory != value)
+                {
+                    _selectedFeeCategory = value;
+                    FeeDueListFilters.FeeCategory = this.SelectedFeeCategory;
+                    this.LoadStudentFeeDueListAsFiltersHaveChanged();
+                }
             }
         }
         public DataGrid PaymentHistorListDataGrid
@@ -215,7 +259,7 @@ namespace School_Universe.Controllers
             {
                 PaymentHistorListDataGrid.ItemsSource = null;
                 pageNo++;
-                FeeCollectOtherFileds.PageNo = "Page No : " + pageNo;
+                FeeCollectOtherFields.PageNo = "Page No : " + pageNo;
                 fromRowNo = toRowNo + 1;
                 toRowNo = pageNo * NoOfRecordsPerPage;
                 this.GetStudentPaymentHistoryList();
@@ -259,7 +303,7 @@ namespace School_Universe.Controllers
                 {
                     PaymentHistorListDataGrid.ItemsSource = null;
                     pageNo--;
-                    FeeCollectOtherFileds.PageNo = "Page No : " + pageNo;
+                    FeeCollectOtherFields.PageNo = "Page No : " + pageNo;
                     toRowNo = fromRowNo - 1;
                     fromRowNo = (toRowNo + 1) - NoOfRecordsPerPage;
                     this.GetStudentPaymentHistoryList();
@@ -296,6 +340,7 @@ namespace School_Universe.Controllers
         {
             try
             {
+                //MessageBox.Show(FeeDueFormFields.Fine + " " + FeeDueFormFields.Concession + " " + FeeDueFormFields.ConcessionPercentage);
                 foreach(FeeDueModel objFeeDueModel in FeeDueList)
                 {
                     if(objFeeDueModel.IsSelected)
@@ -411,6 +456,8 @@ namespace School_Universe.Controllers
         }
         #endregion
 
+        #region Private Methods
+
         private void GetStudentPaymentHistoryList()
         {
             try
@@ -437,7 +484,7 @@ namespace School_Universe.Controllers
             try
             {
                 FeeDueListDataGrid.ItemsSource = null;
-                FeeDueList = FeeCollectManager.GetStudentFeeDue(fromRowNo, toRowNo, FeeCollectionStudentList.id.ToString());
+                FeeDueList = FeeCollectManager.GetStudentFeeDue(fromRowNo, toRowNo, FeeCollectionStudentList.id.ToString(),FeeDueListFilters);
                 FeeDueListDataGrid.ItemsSource = FeeDueList;
                 NoRecordsFound = FeeDueList.Count > 0 ? "Collapsed" : "Visible";
             }
@@ -457,10 +504,29 @@ namespace School_Universe.Controllers
         {
             fromRowNo = 1;
             pageNo = 1;
-            FeeCollectOtherFileds.PageNo = "Page No : " + pageNo;
+            FeeCollectOtherFields.PageNo = "Page No : " + pageNo;
             NoOfRecordsPerPage = NoOfRecords;
             toRowNo = pageNo * NoOfRecordsPerPage;
         }
+
+        private void GetFeeDueDropDownLists()
+        {
+
+            FeeDueListFilters.FeeCategoryList = GetListManager.GetFeeCategories();            
+        }
+
+        private void LoadStudentFeeDueListAsFiltersHaveChanged()
+        {
+            ResetPagination();
+            this.GetStudentFeeDueList();
+            if (FeeDueListDataGrid != null)
+            {
+                FeeDueListDataGrid.ItemsSource = null;
+                FeeDueListDataGrid.ItemsSource = FeeDueList;
+            }
+        }
+
+        #endregion
 
     }
 }

@@ -15,7 +15,7 @@ namespace School_Universe_Businness_Layer.Businness
 {
     public class FeeCollectionListManager
     {        
-        public static ObservableCollection<FeeCollectionStudentListModel> GetFeeCollectionStudentList(Int64 fromRowNo, Int64 toRowNo, FeeCollectionListModelFilters objFeeCollectionListFilters)
+        public static ObservableCollection<FeeCollectionStudentListModel> GetFeeCollectionStudentList(Int64 fromRowNo, Int64 toRowNo, FeeCollectionListFiltersModel objFeeCollectionListFilters)
         {            
             try
             {

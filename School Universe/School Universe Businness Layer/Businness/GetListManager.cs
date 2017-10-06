@@ -70,6 +70,35 @@ namespace School_Universe_Businness_Layer.Businness
 
         }
 
+        public static ObservableCollection<FeeCategoryModel> GetFeeCategories()
+        {
+
+            try
+            {
+
+                GetListModel objGetListModel = new GetListModel()
+                {
+                    tableName = "fee_categories",
+                    keyColumn = "name",
+                    valueColumn = "id",
+                    orderBy = "[order]"
+                };
+                DataTable objDatatable = GetList(objGetListModel);
+                return MapDatatableToFeeCategoriesModelList(objDatatable);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+
+        }
+
+
         private static ObservableCollection<GradesModel> MapDatatableToGradesModelList(DataTable objDatatable)
         {
             ObservableCollection<GradesModel> objGradesModelList = new ObservableCollection<GradesModel>();
@@ -124,6 +153,34 @@ namespace School_Universe_Businness_Layer.Businness
 
             }
             return objSectionsModelList;
+        }
+
+        private static ObservableCollection<FeeCategoryModel> MapDatatableToFeeCategoriesModelList(DataTable objDatatable)
+        {
+            ObservableCollection<FeeCategoryModel> objFeeCategoryList = new ObservableCollection<FeeCategoryModel>();
+            try
+            {
+                objFeeCategoryList.Add(new FeeCategoryModel { id = "0", name = "All" });
+                foreach (DataRow row in objDatatable.Rows)
+                {
+                    FeeCategoryModel objFeeCategoryModel = new FeeCategoryModel();
+
+                    objFeeCategoryModel.id = row["id"] != DBNull.Value ? row["id"].ToString() : string.Empty;
+                    objFeeCategoryModel.name = row["name"] != DBNull.Value ? row["name"].ToString() : string.Empty;
+
+                    objFeeCategoryList.Add(objFeeCategoryModel);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return objFeeCategoryList;
         }
 
         public static DataTable GetList(GetListModel objGetList)

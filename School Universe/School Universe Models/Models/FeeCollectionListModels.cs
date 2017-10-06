@@ -32,7 +32,7 @@ namespace School_Universe.Models
         public Int64 allocated_fee_cource_count { get; set; }
         public string parentage { get; set; }
     }
-    public class FeeCollectionListModelFilters : INotifyPropertyChanged
+    public class FeeCollectionListFiltersModel : INotifyPropertyChanged
     {        
         private GradesModel _grade;
         private SectionsModel _section;
@@ -153,7 +153,7 @@ namespace School_Universe.Models
         #endregion
     }
 
-    public class FeeCollectionListOtherFileds : INotifyPropertyChanged
+    public class FeeCollectionListOtherFiledsModel : INotifyPropertyChanged
     {
         private string _pageNo;      
 

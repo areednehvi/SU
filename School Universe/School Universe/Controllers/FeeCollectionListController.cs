@@ -19,8 +19,8 @@ namespace School_Universe.Controllers
         #region Fields
         private ObservableCollection<FeeCollectionStudentListModel> _feeCollectionStudentList;
         private FeeCollectionStudentListModel _selectedItemInFeeCollectionStudentList;
-        private FeeCollectionListModelFilters _FeeCollectionListFilters;
-        private FeeCollectionListOtherFileds _FeeCollectionListOtherFileds;
+        private FeeCollectionListFiltersModel _FeeCollectionListFilters;
+        private FeeCollectionListOtherFiledsModel _FeeCollectionListOtherFileds;
         private GradesModel _selectedGradeModel;
         private SectionsModel _selectedSectionModel;
         private Window _window;
@@ -38,10 +38,10 @@ namespace School_Universe.Controllers
         public FeeCollectionListController()
         {
              _feeCollectionStudentList = new ObservableCollection<FeeCollectionStudentListModel>();
-            _FeeCollectionListFilters = new FeeCollectionListModelFilters();
-            _FeeCollectionListOtherFileds = new FeeCollectionListOtherFileds();
+            _FeeCollectionListFilters = new FeeCollectionListFiltersModel();
+            _FeeCollectionListOtherFileds = new FeeCollectionListOtherFiledsModel();
             // Get Lists
-            this.getLists();
+            this.GetDropDownLists();
             // Set pagination
             this.ResetPagination();
 
@@ -93,7 +93,7 @@ namespace School_Universe.Controllers
 
         }
 
-        public FeeCollectionListModelFilters FeeCollectionListFilters
+        public FeeCollectionListFiltersModel FeeCollectionListFilters
         {
             get
             {
@@ -105,7 +105,7 @@ namespace School_Universe.Controllers
             }
         }
 
-        public FeeCollectionListOtherFileds FeeCollectionListOtherFileds
+        public FeeCollectionListOtherFiledsModel FeeCollectionListOtherFileds
         {
             get
             {
@@ -343,7 +343,7 @@ namespace School_Universe.Controllers
             toRowNo = pageNo * NoOfRecordsPerPage;
         }
 
-        private void getLists()
+        private void GetDropDownLists()
         {
 
             FeeCollectionListFilters.GradesList = GetListManager.GetGrades();

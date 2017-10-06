@@ -58,7 +58,7 @@ namespace School_Universe.Models
         }
         #endregion
     }
-    public class FeeCollectOtherFileds : INotifyPropertyChanged
+    public class FeeCollectOtherFieldsModel : INotifyPropertyChanged
     {
         private string _pageNo;
 
@@ -87,6 +87,115 @@ namespace School_Universe.Models
             }
         }
         #endregion
+    }
+
+    public class FeeDueFormFieldsModel : INotifyPropertyChanged
+    {
+        private Double _fine;
+        private Double _concession;
+        private float _concessionPercentage;
+
+        public Double Fine
+        {
+            get
+            {
+                return _fine;
+            }
+            set
+            {
+                _fine = value;
+                OnPropertyChanged("Fine");
+            }
+        }
+
+        public Double Concession
+        {
+            get
+            {
+                return _concession;
+            }
+            set
+            {
+                _concession = value;
+                OnPropertyChanged("Concession");
+            }
+        }
+
+        public float ConcessionPercentage
+        {
+            get
+            {
+                return _concessionPercentage;
+            }
+            set
+            {
+                _concessionPercentage = value;
+                OnPropertyChanged("ConcessionPercentage");
+            }
+        }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
+    }
+
+    public class FeeDueListFiltersModel : INotifyPropertyChanged
+    {
+        private FeeCategoryModel _FeeCategory;
+        private ObservableCollection<FeeCategoryModel> _FeeCategoryList;
+
+
+        public FeeCategoryModel FeeCategory
+        {
+            get
+            {
+                return _FeeCategory;
+            }
+            set
+            {
+                _FeeCategory = value;
+                OnPropertyChanged("FeeCategory");
+            }
+        }
+
+        public ObservableCollection<FeeCategoryModel> FeeCategoryList
+        {
+            get
+            {
+                return _FeeCategoryList;
+            }
+            set
+            {
+                _FeeCategoryList = value;
+                OnPropertyChanged("FeeCategoryList");
+            }
+        }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
+    }
+
+    public class FeeCategoryModel
+    {
+        public string id { get; set; }
+        public string name { get; set; }
     }
 
 
