@@ -17,83 +17,24 @@
         <ImageBrush ImageSource="../assets/images/login.png"/>
     </Window.Background>
     <Grid x:Name="grdLogin" DataContext="{Binding Source={StaticResource LoginController}}" FocusManager.FocusedElement="{Binding ElementName=txtUserName}">
-        <TextBox x:Name="txtUserName"  HorizontalAlignment="Left" Height="23" Margin="321,369,0,0" TextWrapping="NoWrap" Text="{Binding Login.Username,Mode=TwoWay}" VerticalAlignment="Top" Width="146" ToolTip="Enter your username"/>
-        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" Margin="321,413,0,0" VerticalAlignment="Top" Width="146" ToolTip="Enter your password" />
-        <Button x:Name="btnLogin" Content="" HorizontalAlignment="Left" Margin="372,512,0,0" VerticalAlignment="Top" Width="100" Opacity="0" Height="25" ToolTip="Login into your account" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=txtPassword}" />
-        <Button x:Name="btnClose" Content="X" Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" 
-        Height="20" Margin="484,180,21,400" RenderTransformOrigin="0.5,0.5" Width="20" ToolTip="Close School Universe">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-1.705"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Grid>
-                        <Ellipse Stroke="Black"
-                         StrokeThickness="2">
-                            <Ellipse.Fill>
-                                <RadialGradientBrush>
-                                    <GradientStop Offset="0"
-                                          Color="Black" />
-                                    <GradientStop Offset="1"
-                                          Color="Black" />
-                                    <GradientStop Offset="1"
-                                          Color="Black" />
-                                    <RadialGradientBrush.Transform>
-                                        <TransformGroup>
-                                            <ScaleTransform ScaleY="0.65" />
-                                        </TransformGroup>
-                                    </RadialGradientBrush.Transform>
-                                </RadialGradientBrush>
-                            </Ellipse.Fill>
-                        </Ellipse>
-                        <ContentPresenter HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"/>
-                    </Grid>
-                </ControlTemplate>
-            </Button.Template>
+        <TextBox x:Name="txtUserName"  Style="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" Height="21" Margin="322,371,0,0" TextWrapping="NoWrap" Text="{Binding Login.Username,Mode=TwoWay}" VerticalAlignment="Top" Width="145" ToolTip="Enter your username"/>
+        <PasswordBox x:Name="txtPassword" Style="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" Height="19" Margin="322,416,0,0" VerticalAlignment="Top" Width="145" ToolTip="Enter your password" />
+        <Button x:Name="btnLogin" Content="" HorizontalAlignment="Left" Margin="372,511,0,0" VerticalAlignment="Top" Width="102" Opacity="0" Height="26" ToolTip="Login into your account" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=txtPassword}" />
+        <Button Grid.Column="0" ToolTip="Close Login" Width="26" Height="26" Style="{StaticResource MaterialDesignFloatingActionLightButton}" Command="{Binding CloseCommand}"
+                    Margin="0,161,5,413" HorizontalAlignment="Right" RenderTransformOrigin="0.385,2.01">
+            <Viewbox Width="30" Height="30">
+                <Canvas Width="30" Height="30">
+                    <Path Data="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z" Fill="Black" />
+                </Canvas>
+            </Viewbox>
         </Button>
-
-        <Button x:Name="btnMinimize" Content="-" Command="{Binding MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-        Height="20" Margin="462,180,43,400" RenderTransformOrigin="0.5,0.5" Width="20" ToolTip="Minimize School Universe">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-1.705"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Grid>
-                        <Ellipse Stroke="Black"
-                         StrokeThickness="2">
-                            <Ellipse.Fill>
-                                <RadialGradientBrush>
-                                    <GradientStop Offset="0"
-                                          Color="Black" />
-                                    <GradientStop Offset="1"
-                                          Color="Black" />
-                                    <GradientStop Offset="1"
-                                          Color="Black" />
-                                    <RadialGradientBrush.Transform>
-                                        <TransformGroup>
-                                            <ScaleTransform ScaleY="0.65" />
-                                        </TransformGroup>
-                                    </RadialGradientBrush.Transform>
-                                </RadialGradientBrush>
-                            </Ellipse.Fill>
-                        </Ellipse>
-                        <ContentPresenter HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"/>
-                    </Grid>
-                </ControlTemplate>
-            </Button.Template>
+        <Button Grid.Column="0" Margin="0,159,327,415" ToolTip="Minimize Login" Width="26" Height="26" Style="{StaticResource MaterialDesignFloatingActionLightButton}" Command="{Binding MinimizeCommand}"
+                    HorizontalAlignment="Right" RenderTransformOrigin="0.385,2.01">
+            <Viewbox Width="30" Height="30">
+                <Canvas Width="30" Height="30">
+                    <Path Data="M20,14H4V10H20" Fill="Black" />
+                </Canvas>
+            </Viewbox>
         </Button>
         <Label x:Name="lblMsg" ToolTip="{Binding Login.Message}" Content="{Binding Login.Message}" HorizontalAlignment="Left" Margin="220,442,0,0" VerticalAlignment="Top" Width="252" Foreground="#DDFF0C0C" IsManipulationEnabled="True" FontSize="14" Height="43" FontWeight="Medium"/>
 

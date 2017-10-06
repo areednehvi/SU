@@ -24,21 +24,21 @@
                     <Label  x:Name="lblClass" Content="Class" Width="Auto" FontSize="16" Foreground="#FF009688" />
                     <ComboBox  x:Name="cbClass" VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="120" ItemsSource="{Binding FeeCollectionListFilters.GradesList}" DisplayMemberPath="name" SelectedIndex="0" SelectedItem="{Binding SelectedGrade,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
                 </WrapPanel>
-                <WrapPanel  Orientation="Horizontal" Width="260" Margin="0,5,0,20">
+                <WrapPanel  Orientation="Horizontal" Width="210" Margin="0,5,0,20">
                     <Label  x:Name="lblSection" Content="Section" Width="Auto" FontSize="16" Foreground="#FF009688"/>
                     <ComboBox  x:Name="cbSection" VerticalAlignment="Stretch" FontSize="16"  Width="120" ItemsSource="{Binding FeeCollectionListFilters.SectionsList}" DisplayMemberPath="name" SelectedIndex="0" SelectedItem="{Binding SelectedSection,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                 </WrapPanel>
-                <WrapPanel  Orientation="Horizontal" Width="260" Margin="0,5,0,20">
+                <WrapPanel  Orientation="Horizontal" Width="230" Margin="0,5,0,20">
                     <Label  x:Name="lblRollNumber" Content="Roll Number" Width="Auto" FontSize="16" Foreground="#FF009688"/>
                     <!-- the below commented line notifies ViewModel as soon as keypress happens-->
                     <!--<TextBox  x:Name="txtRollNumber" VerticalAlignment="Stretch" Width="120" Text="{Binding FeeCollectionListFilters.RollNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />-->
                     <TextBox  x:Name="txtRollNumber" TextAlignment="Center" VerticalAlignment="Stretch" FontSize="16"  Width="120" Text="{Binding FeeCollectionListFilters.RollNumber,Mode=TwoWay}" />
                 </WrapPanel>
-                <WrapPanel Orientation="Horizontal" Width="260" Margin="0,5,0,20">
+                <WrapPanel Orientation="Horizontal" Width="250" Margin="0,5,0,20">
                     <Label  x:Name="lblRegistrationID" Content="Registration ID" Width="Auto" FontSize="16" Foreground="#FF009688"/>
                     <TextBox  x:Name="txtRegistrationID" TextAlignment="Center" VerticalAlignment="Stretch" FontSize="16"  Width="120" Text="{Binding FeeCollectionListFilters.RegistrationID,Mode=TwoWay}"/>
                 </WrapPanel>
-                <WrapPanel  Orientation="Horizontal" Width="290" Margin="0,5,0,20">
+                <WrapPanel  Orientation="Horizontal" Width="280" Margin="0,5,0,20">
                     <Label  x:Name="lblConcessionAmount" Content="Concession Amount" Width="Auto" FontSize="16" Foreground="#FF009688"/>
                     <TextBox  x:Name="txtConcessionAmount" TextAlignment="Center" VerticalAlignment="Stretch" FontSize="16" Width="120" Text="{Binding FeeCollectionListFilters.ConcessionAmount,Mode=TwoWay}"/>
                 </WrapPanel>
@@ -87,7 +87,7 @@
                 <DataGridTextColumn Width="*" Header="Student" Binding="{Binding full_name}"/>
                 <DataGridTextColumn Width="*" Header="Parentage" Binding="{Binding parentage}" />
                 <DataGridTextColumn Width="*" Header="Class" Binding="{Binding grade_section}"/>
-                <DataGridTextColumn Width="*" Header="Roll Number" Binding="{Binding roll_number}"/>
+                <DataGridTextColumn Width="150" Header="Roll Number" Binding="{Binding roll_number}"/>
                 <DataGridTextColumn Width="*" Header="Allocated Fee Course Count" Binding="{Binding allocated_fee_cource_count}"/>
             </DataGrid.Columns>
             <!-- the following defines sub rows-->

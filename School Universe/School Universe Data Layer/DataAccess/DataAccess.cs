@@ -27,7 +27,7 @@ namespace School_Universe_Data_Layer.DataAccess
             {                                
                 objSqlConnection.Open();                
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
-                objSqlCommand.CommandTimeout = 3000;
+                objSqlCommand.CommandTimeout = 9000;
                 if(lstSqlParameters != null)
                     objSqlCommand.Parameters.AddRange(lstSqlParameters.ToArray());
                 SqlDataAdapter da = new SqlDataAdapter(objSqlCommand);
