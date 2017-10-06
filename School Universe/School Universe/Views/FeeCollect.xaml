@@ -169,7 +169,7 @@
                             <StackPanel Orientation="Horizontal" >
                                 <WrapPanel Orientation="Horizontal" >
                                     <Label  x:Name="lblFeeCategory" Content="Fee Category" Width="Auto" FontSize="16" Foreground="#FF009688"/>
-                                    <ComboBox  x:Name="cbFeeCategory" VerticalAlignment="Stretch"  HorizontalAlignment="Center" FontSize="16" Width="220" ItemsSource="{Binding FeeDueListFilters.FeeCategoryList}" DisplayMemberPath="name" SelectedIndex="0" SelectedItem="{Binding SelectedFeeCategory,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
+                                    <ComboBox  x:Name="cbFeeCategory" VerticalAlignment="Stretch"  HorizontalAlignment="Center" FontSize="16" Width="220" ItemsSource="{Binding FeeDueListFilters.FeeCategoryList}" SelectedValue="{Binding SelectedFeeCategory.id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="name" SelectedValuePath="id"  SelectedItem="{Binding SelectedFeeCategory,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
                                 </WrapPanel>
                             </StackPanel>
                         </materialDesign:Card>

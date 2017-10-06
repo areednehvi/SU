@@ -50,7 +50,12 @@ namespace School_Universe.Controllers
             _FeeDueFormFields = new FeeDueFormFieldsModel();
             _FeeDueListFilters = new FeeDueListFiltersModel();
             // Set pagination
-            this.ResetPagination();
+            //this.ResetPagination();
+
+            //Subscribe to Model's Property changed event
+            //this.FeeDueListFilters.PropertyChanged += (s, e) => {
+            //    this.LoadStudentFeeDueListAsFiltersHaveChanged();
+            //};
 
             //Get Initial Payment History list
             //this.GetStudentPaymentHistoryList();
@@ -157,6 +162,7 @@ namespace School_Universe.Controllers
                     case 2:
                         // Get Lists
                         this.GetFeeDueDropDownLists();
+                        SelectedFeeCategory = new FeeCategoryModel() { id = "0", name ="All" };
                         this.GetStudentFeeDueList();
                         break;
                 }
@@ -173,6 +179,7 @@ namespace School_Universe.Controllers
                 {
                     _selectedFeeCategory = value;
                     FeeDueListFilters.FeeCategory = this.SelectedFeeCategory;
+                    OnPropertyChanged("SelectedFeeCategory");
                     this.LoadStudentFeeDueListAsFiltersHaveChanged();
                 }
             }
