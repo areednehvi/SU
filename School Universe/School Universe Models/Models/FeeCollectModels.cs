@@ -12,6 +12,7 @@ namespace School_Universe.Models
     {
         public string id { get; set; }
         public Double  amount { get; set; }
+        public Double fine { get; set; }
         public string recept_no { get; set; }
         public DateTime payment_date { get; set; }
         public Double concession_amount { get; set; }
@@ -20,6 +21,7 @@ namespace School_Universe.Models
         public DateTime apply_to { get; set; }
         public Double fee_amount { get; set; }
         public string category_name { get; set; }
+        public string comment { get; set; }
     }
 
     public class FeeDueModel : INotifyPropertyChanged

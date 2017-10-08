@@ -62,7 +62,7 @@
                     </Viewbox>
                 </Button>
                 <Button Grid.Column="0" Margin="0,0,40,0" ToolTip="Minimize Fee Collection" Width="26" Height="26" Style="{StaticResource MaterialDesignFloatingActionLightButton}" Command="{Binding MinimizeCommand}"
-                    HorizontalAlignment="Right" RenderTransformOrigin="0.385,2.01">
+                    HorizontalAlignment="Right" RenderTransformOrigin="0.385,2.01" Panel.ZIndex="1000">
                     <Viewbox Width="30" Height="30">
                         <Canvas Width="30" Height="30">
                             <Path Data="M20,14H4V10H20" Fill="Black" />
@@ -154,6 +154,47 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
                             </DataGrid.Columns>
+
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
+                                    <materialDesign:Card Grid.Row="0" Padding="5"  Margin="5,5,5,5" Height="auto" >
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="auto" />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                                                <WrapPanel Orientation="Horizontal" >
+                                                    <Label Content="Receipt No" Width="Auto" FontSize="16" Foreground="#FF009688"/>
+                                                    <TextBox VerticalAlignment="Stretch"  HorizontalAlignment="Center" FontSize="16" Width="220" Text="{Binding recept_no}"  />
+                                                </WrapPanel>
+                                                <WrapPanel Orientation="Horizontal" Margin="20,0,0,0" >
+                                                    <Label Content="Amount" Width="Auto" FontSize="16" Foreground="#FF009688"/>
+                                                    <TextBox VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="220" Text="{Binding amount}"  />
+                                                </WrapPanel>
+                                                <WrapPanel  Orientation="Horizontal" Margin="20,0,0,0" >
+                                                    <Label Content="Fine" Width="Auto" FontSize="16" Foreground="#FF009688"/>
+                                                    <TextBox VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="220" Text="{Binding fine}"  />
+                                                </WrapPanel>
+                                            </StackPanel>
+                                            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" >
+                                                <WrapPanel  Orientation="Horizontal" >
+                                                    <Label Content="Comment" Width="Auto" FontSize="16" Foreground="#FF009688"/>
+                                                    <TextBox Margin="7,0,0,0" VerticalAlignment="Stretch" SpellCheck.IsEnabled ="True" AcceptsReturn="True" TextWrapping="Wrap"  HorizontalAlignment="Center" FontSize="16" Width="527" Text="{Binding comment}"  />
+                                                </WrapPanel>
+                                            </StackPanel>
+                                            <WrapPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right"  >
+                                                <Button Content="Save" Margin="0,5,0,0"  Command="{Binding FeeDueApplyCommand}"></Button>
+                                            </WrapPanel>
+                                        </Grid>
+                                    </materialDesign:Card>
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+
                         </DataGrid>
                         <TextBlock Grid.Row="1" Text="No Record(s) Found" FontSize="20" Foreground="Gray" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,200,0,0" Visibility="{Binding NoRecordsFound}" />
                     </Grid>
