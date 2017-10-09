@@ -36,8 +36,9 @@ namespace School_Universe.Controllers
         private ICommand _previousPageCommand;
         private ICommand _minimizeCommand;
         private ICommand _closeCommand;
-        private ICommand _feeDueApplyCommand;
+        private ICommand _feeDueApplyCommand; 
         private ICommand _checkAllFeeDueCommand;
+        private ICommand _paymentHistorySaveCommand;
         #endregion
 
         #region Constructor
@@ -66,6 +67,7 @@ namespace School_Universe.Controllers
             _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
             _feeDueApplyCommand = new RelayCommand(ApplyFeeDue, CanApplyFeeDue);
             _checkAllFeeDueCommand = new RelayCommand(CheckAllFeeDue, CanCheckAllFeeDue);
+            _paymentHistorySaveCommand = new RelayCommand(SavePaymentHistory,CanSavePaymentHistory);
         }
         
         #endregion
@@ -353,6 +355,45 @@ namespace School_Universe.Controllers
                     if(objFeeDueModel.IsSelected)
                         MessageBox.Show(objFeeDueModel.IsSelected.ToString());
                 }
+
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                MessageBox.Show(errorMessage);
+            }
+            finally
+            {
+
+            }
+
+        }
+        #endregion
+
+        #region PaymentHistorySaveCommand
+        public ICommand PaymentHistorySaveCommand
+        {
+            get { return _paymentHistorySaveCommand; }
+        }
+
+
+        public bool CanSavePaymentHistory(object obj)
+        {
+            return true;
+        }
+
+
+        public void SavePaymentHistory(object obj)
+        {
+            try
+            {
+                //MessageBox.Show();
+                FeeCollectManager.UpdatePaymentHistory(SelectedItemInPaymentHistoryList);
+                //foreach (FeeDueModel objFeeDueModel in FeeDueList)
+                //{
+                //    if (objFeeDueModel.IsSelected)
+                //         MessageBox.Show(objFeeDueModel.IsSelected.ToString());
+                // }
 
             }
             catch (Exception ex)

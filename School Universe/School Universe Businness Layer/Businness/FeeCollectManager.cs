@@ -76,6 +76,22 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return objPaymentHistoryList;
         }
+
+        public static void UpdatePaymentHistory(PaymentHistoryModel objPaymentHistoryModel)
+        {
+            try
+            {
+                DataAccess.update();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
         #endregion
 
         #region FeeDue

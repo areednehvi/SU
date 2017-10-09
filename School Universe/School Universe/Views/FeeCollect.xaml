@@ -188,7 +188,7 @@
                                                 </WrapPanel>
                                             </StackPanel>
                                             <WrapPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right"  >
-                                                <Button Content="Save" Margin="0,5,0,0"  Command="{Binding FeeDueApplyCommand}"></Button>
+                                                <Button Content="Save" Margin="0,5,0,0" DataContext="{Binding Source={StaticResource FeeCollectController}}"   Command="{Binding PaymentHistorySaveCommand}"></Button>
                                             </WrapPanel>
                                         </Grid>
                                     </materialDesign:Card>
