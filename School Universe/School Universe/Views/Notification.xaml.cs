@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace School_Universe.Views
 {
@@ -22,6 +23,38 @@ namespace School_Universe.Views
         public Notification()
         {
             InitializeComponent();
+            tbTitle.Text = "Notification";
+            tbMessage.Text = "Saved Successfully";
         }
+
+        public Notification(string Title, string Message)
+        {
+            InitializeComponent();
+            tbTitle.Text = Title;
+            tbMessage.Text = Message;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            StartCloseWindow();
+        }
+
+        private void StartCloseWindow()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(4d);
+            timer.Tick += TimerTick;
+            timer.Start();
+        }
+
+        private void TimerTick(object sender, EventArgs e)
+        {
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
+            timer.Tick -= TimerTick;
+            Close();
+        }
+
+        
     }
 }
