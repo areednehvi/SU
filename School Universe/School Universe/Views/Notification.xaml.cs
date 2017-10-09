@@ -37,6 +37,14 @@ namespace School_Universe.Views
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             StartCloseWindow();
+            PlaceWindowToRightCorner();
+        }
+
+        private void PlaceWindowToRightCorner()
+        {
+            var desktopWorkingArea = SystemParameters.WorkArea;
+            this.Left = desktopWorkingArea.Right - this.Width;
+            this.Top = desktopWorkingArea.Bottom - this.Height;
         }
 
         private void StartCloseWindow()

@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:School_Universe.Views"
         mc:Ignorable="d"
         Title="Notification Popup" Width="250" SizeToContent="Height"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" >
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent" Loaded="Window_Loaded" >
     <Grid RenderTransformOrigin="0,1" >
 
     <!-- Notification area -->
       <Border BorderThickness="1" Background="#FF4D4D4D" BorderBrush="Black" CornerRadius="5">
          <StackPanel Margin="2">
-                <TextBlock x:Name="tbTitle" Foreground="#FF009688" TextWrapping="Wrap" FontWeight="Bold"  Margin="5">
+                <TextBlock x:Name="tbTitle" Foreground="#FF009688" TextWrapping="Wrap" FontWeight="Bold" FontSize="14"  Margin="5">
                 </TextBlock>
                 <TextBlock x:Name="tbMessage" Foreground="white" FontStyle="Italic" Margin="5"></TextBlock>
         </StackPanel>

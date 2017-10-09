@@ -387,8 +387,8 @@ namespace School_Universe.Controllers
         {
             try
             {
-                //MessageBox.Show();
-                FeeCollectManager.UpdatePaymentHistory(SelectedItemInPaymentHistoryList);
+                //FeeCollectManager.UpdatePaymentHistory(SelectedItemInPaymentHistoryList);
+                GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");                
                 //foreach (FeeDueModel objFeeDueModel in FeeDueList)
                 //{
                 //    if (objFeeDueModel.IsSelected)

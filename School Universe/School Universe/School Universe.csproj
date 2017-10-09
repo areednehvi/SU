@@ -81,6 +81,7 @@
     <Compile Include="Controllers\FeeCollectController.cs" />
     <Compile Include="Controllers\FeeCollectionListController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Shared\GeneralMethods.cs" />
     <Compile Include="Shared\RelayCommand.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Shared\ViewDefinitions.cs" />
