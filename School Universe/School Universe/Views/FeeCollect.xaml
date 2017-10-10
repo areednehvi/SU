@@ -170,21 +170,21 @@
                                             <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
                                                 <WrapPanel Orientation="Horizontal" >
                                                     <Label Content="Receipt No" Width="Auto" FontSize="16" Foreground="#FF009688"/>
-                                                    <TextBox VerticalAlignment="Stretch"  HorizontalAlignment="Center" FontSize="16" Width="220" Text="{Binding recept_no}"  />
+                                                    <TextBox VerticalAlignment="Stretch"  HorizontalAlignment="Center" FontSize="16" Width="220" Text="{Binding recept_no,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  />
                                                 </WrapPanel>
                                                 <WrapPanel Orientation="Horizontal" Margin="20,0,0,0" >
                                                     <Label Content="Amount" Width="Auto" FontSize="16" Foreground="#FF009688"/>
-                                                    <TextBox VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="220" Text="{Binding amount}"  />
+                                                    <TextBox VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="220" Text="{Binding amount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  />
                                                 </WrapPanel>
                                                 <WrapPanel  Orientation="Horizontal" Margin="20,0,0,0" >
                                                     <Label Content="Fine" Width="Auto" FontSize="16" Foreground="#FF009688"/>
-                                                    <TextBox VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="220" Text="{Binding fine}"  />
+                                                    <TextBox VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="220" Text="{Binding fine,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  />
                                                 </WrapPanel>
                                             </StackPanel>
                                             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" >
                                                 <WrapPanel  Orientation="Horizontal" >
                                                     <Label Content="Comment" Width="Auto" FontSize="16" Foreground="#FF009688"/>
-                                                    <TextBox Margin="7,0,0,0" VerticalAlignment="Stretch" SpellCheck.IsEnabled ="True" AcceptsReturn="True" TextWrapping="Wrap"  HorizontalAlignment="Center" FontSize="16" Width="527" Text="{Binding comment}"  />
+                                                    <TextBox Margin="7,0,0,0" VerticalAlignment="Stretch" SpellCheck.IsEnabled ="True" AcceptsReturn="True" TextWrapping="Wrap"  HorizontalAlignment="Center" FontSize="16" Width="527" Text="{Binding comment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  />
                                                 </WrapPanel>
                                             </StackPanel>
                                             <WrapPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right"  >

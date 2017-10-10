@@ -114,32 +114,27 @@ namespace School_Universe_Data_Layer.DataAccess
             }
             return success;
         }
-        public static void update()
+        public static Boolean ExecuteNonQuery(string storedProcedure, SqlParameter objSqlParameters)
         {
-            SqlCommand cmd = new SqlCommand("exec UpdatePayment @list", objSqlConnection);
-            string str ="";
-            objSqlConnection.Open();
-
-            using (var table = new DataTable())
+            Boolean success = false;
+            SqlCommand objSqlCommand = new SqlCommand(storedProcedure, objSqlConnection);
+            try
             {
-                table.Columns.Add("Item", typeof(string));
-
-                for (int i = 0; i < 10; i++)
-                    table.Rows.Add("Item " + i.ToString());
-
-                var pList = new SqlParameter("@list", SqlDbType.Structured);
-                pList.TypeName = "dbo.StringList";
-                pList.Value = table;
-
-                cmd.Parameters.Add(pList);
-
-                using (var dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                        str += dr["Item"].ToString();
-                }
+                objSqlConnection.Open();
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
+                objSqlCommand.Parameters.Add(objSqlParameters);
+                success = Convert.ToBoolean(objSqlCommand.ExecuteNonQuery());
             }
-            
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                objSqlCommand.Dispose();
+                objSqlConnection.Close();
+            }
+            return success;
         }
     }
 }

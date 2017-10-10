@@ -17,10 +17,10 @@ namespace School_Universe.Controllers
     public class FeeCollectController :INotifyPropertyChanged
     {
         #region Fields
-        private ObservableCollection<PaymentHistoryModel> _PaymentHistoryList;
+        private ObservableCollection<PaymentModel> _PaymentHistoryList;
         private ObservableCollection<FeeDueModel> _FeeDueList;
         private FeeCollectionStudentListModel _FeeCollectionStudent;
-        private PaymentHistoryModel _selectedItemInPaymentHistoryList;
+        private PaymentModel _selectedItemInPaymentHistoryList;
         private FeeCollectOtherFieldsModel _FeeCollectOtherFields;
         private FeeDueFormFieldsModel _FeeDueFormFields;
         private FeeDueListFiltersModel _FeeDueListFilters;
@@ -44,7 +44,7 @@ namespace School_Universe.Controllers
         #region Constructor
         public FeeCollectController()
         {
-            _PaymentHistoryList = new ObservableCollection<PaymentHistoryModel>();
+            _PaymentHistoryList = new ObservableCollection<PaymentModel>();
             _FeeDueList = new ObservableCollection<FeeDueModel>();
             _FeeCollectionStudent = new FeeCollectionStudentListModel();
             _FeeCollectOtherFields = new FeeCollectOtherFieldsModel();
@@ -73,7 +73,7 @@ namespace School_Universe.Controllers
         #endregion
 
         #region Properties
-        public ObservableCollection<PaymentHistoryModel> PaymentHistoryList
+        public ObservableCollection<PaymentModel> PaymentHistoryList
         {
             get
             {
@@ -122,7 +122,7 @@ namespace School_Universe.Controllers
             }
         }
 
-        public PaymentHistoryModel SelectedItemInPaymentHistoryList
+        public PaymentModel SelectedItemInPaymentHistoryList
         {
             get
             {
@@ -379,7 +379,10 @@ namespace School_Universe.Controllers
 
         public bool CanSavePaymentHistory(object obj)
         {
-            return true;
+            if (SelectedItemInPaymentHistoryList.recept_no != null && SelectedItemInPaymentHistoryList.recept_no != string.Empty)
+                return true;
+            else
+                return false;
         }
 
 
@@ -387,13 +390,8 @@ namespace School_Universe.Controllers
         {
             try
             {
-                //FeeCollectManager.UpdatePaymentHistory(SelectedItemInPaymentHistoryList);
-                GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");                
-                //foreach (FeeDueModel objFeeDueModel in FeeDueList)
-                //{
-                //    if (objFeeDueModel.IsSelected)
-                //         MessageBox.Show(objFeeDueModel.IsSelected.ToString());
-                // }
+                if(FeeCollectManager.UpdatePaymentHistory(SelectedItemInPaymentHistoryList))
+                    GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");                
 
             }
             catch (Exception ex)

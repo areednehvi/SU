@@ -8,12 +8,53 @@ using System.Threading.Tasks;
 
 namespace School_Universe.Models
 {
-    public class PaymentHistoryModel
+    public class PaymentModel : INotifyPropertyChanged
     {
+        private string _comment;
+        private string _recept_no;
+        private Double _amount;
+        private Double _fine;
+
         public string id { get; set; }
-        public Double  amount { get; set; }
-        public Double fine { get; set; }
-        public string recept_no { get; set; }
+        public string school_id { get; set; }
+        public string student_fees_id { get; set; }
+        public Double amount
+        {
+            get
+            {
+                return _amount;
+            }
+            set
+            {
+                _amount = value;
+                OnPropertyChanged("amount");
+            }
+        }
+        public Double fine
+        {
+            get
+            {
+                return _fine;
+            }
+            set
+            {
+                _fine = value;
+                OnPropertyChanged("fine");
+            }
+        }
+        public string recept_no
+        {
+            get
+            {
+                return _recept_no;
+            }
+            set
+            {
+                _recept_no = value;
+                OnPropertyChanged("recept_no");
+            }
+        }
+        public string payment_mode { get; set; }
         public DateTime payment_date { get; set; }
         public Double concession_amount { get; set; }
         public string month { get; set; }
@@ -21,7 +62,35 @@ namespace School_Universe.Models
         public DateTime apply_to { get; set; }
         public Double fee_amount { get; set; }
         public string category_name { get; set; }
-        public string comment { get; set; }
+        public string ip { get; set; }
+        public string comment
+        {
+            get
+            {
+                return _comment;
+            }
+            set
+            {
+                _comment = value;
+                OnPropertyChanged("comment");
+            }
+        }
+        public string created_by { get; set; }
+        public DateTime created_on { get; set; }
+        public string updated_by { get; set; }
+        public DateTime updated_on { get; set; }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
     }
 
     public class FeeDueModel : INotifyPropertyChanged

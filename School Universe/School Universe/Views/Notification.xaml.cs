@@ -43,7 +43,7 @@ namespace School_Universe.Views
         private void PlaceWindowToRightCorner()
         {
             var desktopWorkingArea = SystemParameters.WorkArea;
-            this.Left = desktopWorkingArea.Right - this.Width;
+            this.Left = desktopWorkingArea.Right - this.Width - 5;
             this.Top = desktopWorkingArea.Bottom - this.Height;
         }
 
