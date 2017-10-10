@@ -101,7 +101,7 @@ namespace School_Universe_Data_Layer.DataAccess
                 objSqlConnection.Open();
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 objSqlCommand.Parameters.AddRange(lstSqlParameters.ToArray());
-                objSqlCommand.ExecuteNonQuery();
+                success = Convert.ToBoolean(objSqlCommand.ExecuteNonQuery());
             }
             catch (Exception ex)
             {

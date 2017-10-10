@@ -196,6 +196,10 @@ namespace School_Universe_Businness_Layer.Businness
                     objFeeDue.apply_to = row["apply_to"] != DBNull.Value ? Convert.ToDateTime(row["apply_to"]) : DateTime.MinValue;
                     objFeeDue.fine = row["fine"] != DBNull.Value ? Convert.ToDouble(row["fine"]) : 0;
                     objFeeDue.category_name = row["category_name"] != DBNull.Value ? row["category_name"].ToString() : string.Empty;
+                    objFeeDue.created_by = row["created_by"] != DBNull.Value ? row["created_by"].ToString() : string.Empty;
+                    objFeeDue.created_on = row["created_on"] != DBNull.Value ? Convert.ToDateTime(row["created_on"]) : DateTime.MinValue;
+                    objFeeDue.updated_by = row["updated_by"] != DBNull.Value ? row["updated_by"].ToString() : string.Empty;
+                    objFeeDue.updated_on = row["updated_on"] != DBNull.Value ? Convert.ToDateTime(row["updated_on"]) : DateTime.MinValue;
                     objFeeDueList.Add(objFeeDue);
                 }
 
@@ -209,6 +213,87 @@ namespace School_Universe_Businness_Layer.Businness
 
             }
             return objFeeDueList;
+        }
+
+        public static Boolean UpdateFeeDue(FeeDueModel objFeeDueModel)
+        {
+            try
+            {
+                SqlParameter objSqlParameter = new SqlParameter("@StudentFeesTable", SqlDbType.Structured);
+                objSqlParameter.Value = objFeeDueModel.id;
+                return DataAccess.ExecuteNonQuery(StoredProcedures.UpdateFeeDue, objSqlParameter);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
+
+        private static DataTable MapFeeDueToDataTable(FeeDueModel objFeeDueModel)
+        {
+            try
+            {
+                DataTable table = new DataTable();
+                table.Columns.Add("id", typeof(string));
+                table.Columns.Add("student_id", typeof(string));
+                table.Columns.Add("student_balance", typeof(Double));                
+                table.Columns.Add("apply_from", typeof(DateTime));
+                table.Columns.Add("apply_to", typeof(DateTime));
+                table.Columns.Add("fine", typeof(Double));
+                table.Columns.Add("concession_amount", typeof(Double));
+                table.Columns.Add("created_by", typeof(string));
+                table.Columns.Add("created_on", typeof(DateTime));
+                table.Columns.Add("updated_by", typeof(string));
+                table.Columns.Add("updated_on", typeof(DateTime));
+
+                table.Rows.Add(objFeeDueModel.id,
+                                objFeeDueModel.student_id,
+                                objFeeDueModel.student_balance,
+                                objFeeDueModel.apply_from,
+                                objFeeDueModel.apply_to,
+                                objFeeDueModel.fine,
+                                objFeeDueModel.concession_amount,
+                                objFeeDueModel.created_by,
+                                objFeeDueModel.created_on,
+                                objFeeDueModel.updated_by,
+                                objFeeDueModel.updated_on
+                             );
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
+        public static Boolean DeleteFeeDue(FeeDueModel objFeeDueModel)
+        {
+            try
+            {
+                List<SqlParameter> lstSqlParameters = new List<SqlParameter>()
+                {
+                    new SqlParameter() {ParameterName = "@key",     SqlDbType = SqlDbType.NVarChar, Value = "id"},
+                    new SqlParameter() {ParameterName = "@value",     SqlDbType = SqlDbType.NVarChar, Value = objFeeDueModel.id},
+                    new SqlParameter() {ParameterName = "@tableName",  SqlDbType = SqlDbType.NVarChar, Value = "student_fees"}                
+                };
+                return DataAccess.ExecuteNonQuery(StoredProcedures.DeleteRecord, lstSqlParameters);
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                return false;
+            }
+            finally
+            {
+
+            }
         }
         #endregion
     }

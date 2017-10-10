@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace School_Universe.Models
 {
-    public class PaymentModel : INotifyPropertyChanged
+    public class PaymentModel : INotifyPropertyChanged // represents mostly student_payments Table
     {
         private string _comment;
         private string _recept_no;
@@ -93,7 +93,7 @@ namespace School_Universe.Models
         #endregion
     }
 
-    public class FeeDueModel : INotifyPropertyChanged
+    public class FeeDueModel : INotifyPropertyChanged // Represents mostly student_fees Table
     {
         private Boolean _IsSelected;
         public string id { get; set; }
@@ -103,7 +103,11 @@ namespace School_Universe.Models
         public DateTime apply_from { get; set; }
         public DateTime apply_to { get; set; }
         public Double fine { get; set; }
-        public string category_name { get; set; }        
+        public string category_name { get; set; }
+        public string created_by { get; set; }
+        public DateTime created_on { get; set; }
+        public string updated_by { get; set; }
+        public DateTime updated_on { get; set; }
         public Boolean IsSelected
         {
             get

@@ -36,7 +36,8 @@ namespace School_Universe.Controllers
         private ICommand _previousPageCommand;
         private ICommand _minimizeCommand;
         private ICommand _closeCommand;
-        private ICommand _feeDueApplyCommand; 
+        private ICommand _feeDueApplyCommand;
+        private ICommand _feeDueDeleteCommand;
         private ICommand _checkAllFeeDueCommand;
         private ICommand _paymentHistorySaveCommand;
         #endregion
@@ -66,6 +67,7 @@ namespace School_Universe.Controllers
             _closeCommand = new RelayCommand(CloseLogin, CanClose);
             _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
             _feeDueApplyCommand = new RelayCommand(ApplyFeeDue, CanApplyFeeDue);
+            _feeDueDeleteCommand = new RelayCommand(DeleteFeeDue, CanDeleteFeeDue);
             _checkAllFeeDueCommand = new RelayCommand(CheckAllFeeDue, CanCheckAllFeeDue);
             _paymentHistorySaveCommand = new RelayCommand(SavePaymentHistory,CanSavePaymentHistory);
         }
@@ -341,7 +343,12 @@ namespace School_Universe.Controllers
 
         public bool CanApplyFeeDue(object obj)
         {
-            return true;
+            foreach (FeeDueModel objFeeDueModel in FeeDueList)
+            {
+                if (objFeeDueModel.IsSelected)
+                    return true;
+            }
+            return false;
         }
 
 
@@ -352,8 +359,69 @@ namespace School_Universe.Controllers
                 //MessageBox.Show(FeeDueFormFields.Fine + " " + FeeDueFormFields.Concession + " " + FeeDueFormFields.ConcessionPercentage);
                 foreach(FeeDueModel objFeeDueModel in FeeDueList)
                 {
-                    if(objFeeDueModel.IsSelected)
-                        MessageBox.Show(objFeeDueModel.IsSelected.ToString());
+                    if (objFeeDueModel.IsSelected)
+                    {
+                        objFeeDueModel.fine = FeeDueFormFields.Fine;
+                        objFeeDueModel.concession_amount = FeeDueFormFields.Concession;
+                        FeeCollectManager.UpdateFeeDue(objFeeDueModel);
+                    }
+                        
+                }
+                GeneralMethods.ShowNotification("Notification", "Fee Due(s) Updated Successfully!");
+                this.GetStudentFeeDueList();
+
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                MessageBox.Show(errorMessage);
+            }
+            finally
+            {
+
+            }
+
+        }
+        #endregion
+
+        #region FeeDueDeleteCommand
+        public ICommand FeeDueDeleteCommand
+        {
+            get { return _feeDueDeleteCommand; }
+        }
+
+
+        public bool CanDeleteFeeDue(object obj)
+        {
+            foreach (FeeDueModel objFeeDueModel in FeeDueList)
+            {
+                if (objFeeDueModel.IsSelected)
+                    return true;
+            }
+            return false;
+        }
+
+
+        public void DeleteFeeDue(object obj)
+        {
+            try
+            {
+                Boolean showNotification = false;
+                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Delete Confirmation", MessageBoxButton.OKCancel);
+                if (messageBoxResult == MessageBoxResult.OK)
+                {
+                    foreach (FeeDueModel objFeeDueModel in FeeDueList)
+                    {
+                        if (objFeeDueModel.IsSelected)
+                        {
+                            if (FeeCollectManager.DeleteFeeDue(objFeeDueModel))
+                                showNotification = true;
+                        }
+
+                    }
+                    if(showNotification)
+                        GeneralMethods.ShowNotification("Notification", "Fee Due(s) Deleted Successfully!");
+                    this.GetStudentFeeDueList();
                 }
 
             }
@@ -379,7 +447,7 @@ namespace School_Universe.Controllers
 
         public bool CanSavePaymentHistory(object obj)
         {
-            if (SelectedItemInPaymentHistoryList.recept_no != null && SelectedItemInPaymentHistoryList.recept_no != string.Empty)
+            if (SelectedItemInPaymentHistoryList != null && SelectedItemInPaymentHistoryList.recept_no != null && SelectedItemInPaymentHistoryList.recept_no != string.Empty)
                 return true;
             else
                 return false;

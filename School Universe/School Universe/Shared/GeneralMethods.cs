@@ -11,7 +11,7 @@ namespace School_Universe.Shared
     {
         public static void ShowNotification(string Title, string Message)
         {
-            Notification winNotification = new Notification("Notification", "Payment Saved Successfully!");
+            Notification winNotification = new Notification(Title, Message);
             winNotification.Show();
         }
     }
