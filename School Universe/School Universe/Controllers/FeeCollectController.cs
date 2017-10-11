@@ -25,6 +25,7 @@ namespace School_Universe.Controllers
         private FeeDueFormFieldsModel _FeeDueFormFields;
         private FeeDueListFiltersModel _FeeDueListFilters;
         private FeeCategoryModel _selectedFeeCategory;
+        private ObservableCollection<PendingMonthlyFeeModel> _PendingMonthlyFeeList = new ObservableCollection<PendingMonthlyFeeModel>();
         private Window _window;
         private DataGrid _paymentHistoryDataGrid;
         private DataGrid _feeDueDataGrid;
@@ -51,6 +52,7 @@ namespace School_Universe.Controllers
             _FeeCollectOtherFields = new FeeCollectOtherFieldsModel();
             _FeeDueFormFields = new FeeDueFormFieldsModel();
             _FeeDueListFilters = new FeeDueListFiltersModel();
+            _PendingMonthlyFeeList= new ObservableCollection<PendingMonthlyFeeModel>();
             // Set pagination
             //this.ResetPagination();
 
@@ -75,10 +77,21 @@ namespace School_Universe.Controllers
             _checkAllFeeDueCommand = new RelayCommand(CheckAllFeeDue, CanCheckAllFeeDue);
             _paymentHistorySaveCommand = new RelayCommand(SavePaymentHistory,CanSavePaymentHistory);
         }
-        
+
         #endregion
 
         #region Properties
+        public ObservableCollection<PendingMonthlyFeeModel> PendingMonthlyFeeList
+        {            
+            get
+            {
+                return _PendingMonthlyFeeList;
+            }
+            set
+            {
+                _PendingMonthlyFeeList = value;
+            }
+        }
         public ObservableCollection<PaymentModel> PaymentHistoryList
         {
             get
@@ -671,200 +684,48 @@ namespace School_Universe.Controllers
 
         #endregion
 
-        private ObservableCollection<MyModel> propertiesList = new ObservableCollection<MyModel>();
+        
 
 
-        public ObservableCollection<MyModel> Properties
-        {
-            get { return propertiesList; }
-        }
+        
 
         private void GetMyProperties()
         {
-            Name = "Overpaid consultant";
-            Clinics = new ObservableCollection<Clinic>
-                      {
-                          new Clinic {Id = 0, Name = "Out Patients"},
-                          new Clinic {Id = 1, Name = "ENT"},
-                          new Clinic {Id = 2, Name = "GE"},
-                      };
-            MyModel m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";            
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key1";
-            m.KeyValue = "Test Value1";
-            Clinics = new ObservableCollection<Clinic>
-                      {
-                          new Clinic {Id = 0, Name = "Out Patients2121"},
-                          new Clinic {Id = 1, Name = "ENT1111"},
-                      };
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key3";
-            m.KeyValue = "Test Value3";
-            Clinics = new ObservableCollection<Clinic>
-                      {
-                          new Clinic {Id = 0, Name = "Out Patients3333333"},
-                          new Clinic {Id = 1, Name = "ENT33333333"},
-                      };
-            m.Clinics = Clinics;
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);         
-            m = new MyModel();
-            m.KeyName = "Test Key";
-            m.KeyValue = "Test Value";
-            m.Clinics = Clinics;
-            propertiesList.Add(m);
-     
-
-            
-
-        }
-
-        private int _selectedClinicId;
-
-
-        public string Name { get; set; }
-        public ObservableCollection<Clinic> Clinics { get; private set; }
-
-        public int SelectedClinicId
-        {
-            get { return _selectedClinicId; }
-            set
+            PendingMonthlyFeeModel PM = new PendingMonthlyFeeModel();
+            PM.Period = "Dec 2015";
+            PM.Total = "222";
+            PM.FeeBalancesModel = new ObservableCollection<FeeBalancesModel>
             {
-                if (value != _selectedClinicId)
-                {
-                   
-                    _selectedClinicId = value;
-                }
-            }
-        }
-        public class Clinic
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-        }
+                new FeeBalancesModel { fees_category = "Tution Fee" , balance_amount = 41211 },
+                new FeeBalancesModel { fees_category = "Bus Fee" , balance_amount = 42212 },
+                new FeeBalancesModel { fees_category = "Computer Fee" , balance_amount = 01121 }
+            };
 
-        public class MyModel
-        {
-            public string KeyName
+            PendingMonthlyFeeModel PM1 = new PendingMonthlyFeeModel();
+            PM1.Period = "Dec 2015";
+            PM1.Total = "222";
+            PM1.FeeBalancesModel = new ObservableCollection<FeeBalancesModel>
             {
-                get;
-                set;
-            }
+                new FeeBalancesModel { fees_category = "Tution Fee" , balance_amount = 41211 },
+                new FeeBalancesModel { fees_category = "Bus Fee" , balance_amount = 42212 },
+                new FeeBalancesModel { fees_category = "Computer Fee" , balance_amount = 01121 },
+                new FeeBalancesModel { fees_category = "ABC Fee" , balance_amount = 331121 }
+            };
+            PendingMonthlyFeeList.Add(PM1);
+            PendingMonthlyFeeList.Add(PM);
+            PendingMonthlyFeeList.Add(PM);
+            PendingMonthlyFeeList.Add(PM);
+            PendingMonthlyFeeList.Add(PM);
+            PendingMonthlyFeeList.Add(PM1);
+            PendingMonthlyFeeList.Add(PM);
+            PendingMonthlyFeeList.Add(PM);
+            PendingMonthlyFeeList.Add(PM);
+            PendingMonthlyFeeList.Add(PM);
+            PendingMonthlyFeeList.Add(PM);
+            PendingMonthlyFeeList.Add(PM);
+            PendingMonthlyFeeList.Add(PM);
+            PendingMonthlyFeeList.Add(PM1);
 
-            public string KeyValue
-            {
-                get;
-                set;
-            }
-            public ObservableCollection<Clinic> Clinics
-            {
-                get;
-                set;
-            }
         }
 
     }

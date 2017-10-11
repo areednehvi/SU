@@ -8,6 +8,37 @@ using System.Threading.Tasks;
 
 namespace School_Universe.Models
 {
+    public class PendingMonthlyFeeModel : INotifyPropertyChanged
+    {
+        public string Period
+        {
+            get;
+            set;
+        }
+
+        public string Total
+        {
+            get;
+            set;
+        }
+        public ObservableCollection<FeeBalancesModel> FeeBalancesModel
+        {
+            get;
+            set;
+        }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
+    }
     public class FeeBalancesModel : INotifyPropertyChanged 
     {
         public string id { get; set; } // StudentFeeID
