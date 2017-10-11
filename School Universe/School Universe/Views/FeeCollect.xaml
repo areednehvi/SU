@@ -79,7 +79,40 @@
             </Grid.RowDefinitions>
             <TabControl Grid.Row="1" BorderThickness="0" Cursor="Hand" Margin="0,0,0,0" SelectedIndex="{Binding SelectedTabItem}">
                 <TabItem Header="Collect Fee" Style="{DynamicResource TabItemStyle}" ToolTip="Collect Fee">
-                    Collect Fee
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,0,0,0">
+                        <materialDesign:Card Margin="5">
+                            <ItemsControl ItemsSource="{Binding Properties}" Grid.IsSharedSizeScope="True">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="10" Background="#FFF7F7F7" MinWidth="283" >
+                                            <TextBlock Margin="5,5,0,0" Text="{Binding KeyName}" />
+                                            <Separator Background="LightGray"/>
+                                            <ListBox SelectedItem="{Binding Path=DeleteHistorySelectedItem,UpdateSourceTrigger=PropertyChanged}" 
+                                            ItemsSource="{Binding Clinics, NotifyOnSourceUpdated=True}" SelectionMode="Multiple">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox Content="{Binding Name}" MinWidth="273"/>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                                <ListBox.ItemContainerStyle>
+                                                    <Style TargetType="{x:Type ListBoxItem}">
+                                                        <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}"/>
+                                                    </Style>
+                                                </ListBox.ItemContainerStyle>
+                                            </ListBox>
+                                            <Separator Background="LightGray"/>
+                                            <TextBlock Margin="5,5,0,0" Text="{Binding KeyName}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </materialDesign:Card>
+                    </ScrollViewer>
                 </TabItem>
                 <TabItem Header="Payment History" Style="{DynamicResource TabItemStyle}" ToolTip="Payment History" >
                     <Grid>

@@ -8,6 +8,43 @@ using System.Threading.Tasks;
 
 namespace School_Universe.Models
 {
+    public class FeeBalancesModel : INotifyPropertyChanged 
+    {
+        public string id { get; set; } // StudentFeeID
+        public DateTime apply_from { get; set; }
+        public int last_day { get; set; }
+        public Double fine_per_day { get; set; }
+        public string fees_category { get; set; }
+        public string student_id { get; set; }
+        public string fees_id { get; set; }
+        public Double fee_amount { get; set;}
+        public string payment_mode { get; set; }
+        public DateTime payment_date { get; set; }
+        public string recept_no { get; set; }
+        public string comment { get; set; }
+        public Double payment_amount { get; set; }
+        public Double payment_fine { get; set; }
+        public Double fine { get; set; }
+        public Double concession_amount { get; set; }
+        public Double amount_to_pay { get; set; }
+        public Double fine_to_pay { get; set; }
+        public Double paid_amount { get; set; }
+        public Double fine_paid { get; set; }
+        public Double balance_amount { get; set; }
+        public string period { get; set; }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
+    }
     public class PaymentModel : INotifyPropertyChanged // represents mostly student_payments Table
     {
         private string _comment;

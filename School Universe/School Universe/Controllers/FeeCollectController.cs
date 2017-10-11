@@ -54,6 +54,10 @@ namespace School_Universe.Controllers
             // Set pagination
             //this.ResetPagination();
 
+            GetMyProperties();
+
+            
+
             //Subscribe to Model's Property changed event
             //this.FeeDueListFilters.PropertyChanged += (s, e) => {
             //    this.LoadStudentFeeDueListAsFiltersHaveChanged();
@@ -160,6 +164,9 @@ namespace School_Universe.Controllers
                 ResetPagination();
                 switch(_SelectedTabItem)
                 {
+                    case 0:
+                        this.GetStudentFeeBalancesList();
+                        break;
                     case 1:
                         this.GetStudentPaymentHistoryList();
                         break;
@@ -593,6 +600,28 @@ namespace School_Universe.Controllers
 
         }
 
+        private void GetStudentFeeBalancesList()
+        {
+            try
+            {
+                //PaymentHistorListDataGrid.ItemsSource = null;
+                //PaymentHistoryList = FeeCollectManager.GetStudentPaymentHistory(fromRowNo, toRowNo, FeeCollectionStudentList.id.ToString());
+                FeeCollectManager.GetStudentFeeBalances(FeeCollectionStudentList.id.ToString());
+                //PaymentHistorListDataGrid.ItemsSource = PaymentHistoryList;
+                //NoRecordsFound = PaymentHistoryList.Count > 0 ? "Collapsed" : "Visible";
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                MessageBox.Show(errorMessage);
+            }
+            finally
+            {
+
+            }
+
+        }
+
         private void GetStudentFeeDueList()
         {
             try
@@ -641,6 +670,202 @@ namespace School_Universe.Controllers
         }
 
         #endregion
+
+        private ObservableCollection<MyModel> propertiesList = new ObservableCollection<MyModel>();
+
+
+        public ObservableCollection<MyModel> Properties
+        {
+            get { return propertiesList; }
+        }
+
+        private void GetMyProperties()
+        {
+            Name = "Overpaid consultant";
+            Clinics = new ObservableCollection<Clinic>
+                      {
+                          new Clinic {Id = 0, Name = "Out Patients"},
+                          new Clinic {Id = 1, Name = "ENT"},
+                          new Clinic {Id = 2, Name = "GE"},
+                      };
+            MyModel m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";            
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key1";
+            m.KeyValue = "Test Value1";
+            Clinics = new ObservableCollection<Clinic>
+                      {
+                          new Clinic {Id = 0, Name = "Out Patients2121"},
+                          new Clinic {Id = 1, Name = "ENT1111"},
+                      };
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key3";
+            m.KeyValue = "Test Value3";
+            Clinics = new ObservableCollection<Clinic>
+                      {
+                          new Clinic {Id = 0, Name = "Out Patients3333333"},
+                          new Clinic {Id = 1, Name = "ENT33333333"},
+                      };
+            m.Clinics = Clinics;
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);         
+            m = new MyModel();
+            m.KeyName = "Test Key";
+            m.KeyValue = "Test Value";
+            m.Clinics = Clinics;
+            propertiesList.Add(m);
+     
+
+            
+
+        }
+
+        private int _selectedClinicId;
+
+
+        public string Name { get; set; }
+        public ObservableCollection<Clinic> Clinics { get; private set; }
+
+        public int SelectedClinicId
+        {
+            get { return _selectedClinicId; }
+            set
+            {
+                if (value != _selectedClinicId)
+                {
+                   
+                    _selectedClinicId = value;
+                }
+            }
+        }
+        public class Clinic
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+
+        public class MyModel
+        {
+            public string KeyName
+            {
+                get;
+                set;
+            }
+
+            public string KeyValue
+            {
+                get;
+                set;
+            }
+            public ObservableCollection<Clinic> Clinics
+            {
+                get;
+                set;
+            }
+        }
 
     }
 }

@@ -15,6 +15,76 @@ namespace School_Universe_Businness_Layer.Businness
 {
     public class FeeCollectManager
     {
+        #region Student Fee Balances
+        public static ObservableCollection<FeeBalancesModel> GetStudentFeeBalances(string studentID)
+        {
+            try
+            {
+                List<SqlParameter> lstSqlParameters = new List<SqlParameter>()
+                {
+                    new SqlParameter() {ParameterName = "@StudentID",  SqlDbType = SqlDbType.NVarChar, Value = studentID == "" ? null : studentID},
+                };
+                DataTable objDatable = DataAccess.GetDataTable(StoredProcedures.GetStudentBalances, lstSqlParameters);
+                return MapDatatableToFeeBalancesObject(objDatable);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+
+        }
+
+        private static ObservableCollection<FeeBalancesModel> MapDatatableToFeeBalancesObject(DataTable objDatatable)
+        {
+            ObservableCollection<FeeBalancesModel> objFeeBalancesList = new ObservableCollection<FeeBalancesModel>();
+            try
+            {
+                foreach (DataRow row in objDatatable.Rows)
+                {
+                    FeeBalancesModel objFeeBalance = new FeeBalancesModel();
+                    objFeeBalance.id = row["id"] != DBNull.Value ? row["id"].ToString() : string.Empty;
+                    objFeeBalance.apply_from = row["apply_from"] != DBNull.Value ? Convert.ToDateTime(row["apply_from"]) : DateTime.MinValue;
+                    objFeeBalance.last_day = row["last_day"] != DBNull.Value ? Convert.ToInt32(row["last_day"]) : 0;
+                    objFeeBalance.fine_per_day = row["fine_per_day"] != DBNull.Value ? Convert.ToDouble(row["fine_per_day"]) : 0;
+                    objFeeBalance.fees_category = row["fees_category"] != DBNull.Value ? row["fees_category"].ToString() : string.Empty;
+                    objFeeBalance.student_id = row["student_id"] != DBNull.Value ? row["student_id"].ToString() : string.Empty;
+                    objFeeBalance.fees_id = row["fees_id"] != DBNull.Value ? row["fees_id"].ToString() : string.Empty;
+                    objFeeBalance.fee_amount = row["fee_amount"] != DBNull.Value ? Convert.ToDouble(row["fee_amount"]) : 0;
+                    objFeeBalance.payment_mode = row["payment_mode"] != DBNull.Value ? row["payment_mode"].ToString() : string.Empty;
+                    objFeeBalance.payment_date = row["payment_date"] != DBNull.Value ? Convert.ToDateTime(row["payment_date"]) : DateTime.MinValue;
+                    objFeeBalance.recept_no = row["recept_no"] != DBNull.Value ? row["recept_no"].ToString() : string.Empty;
+                    objFeeBalance.comment = row["comment"] != DBNull.Value ? row["comment"].ToString() : string.Empty;
+                    objFeeBalance.payment_amount = row["payment_amount"] != DBNull.Value ? Convert.ToDouble(row["payment_amount"]) : 0;
+                    objFeeBalance.payment_fine = row["payment_fine"] != DBNull.Value ? Convert.ToDouble(row["payment_fine"]) : 0;
+                    objFeeBalance.fine = row["fine"] != DBNull.Value ? Convert.ToDouble(row["fine"]) : 0;
+                    objFeeBalance.concession_amount = row["concession_amount"] != DBNull.Value ? Convert.ToDouble(row["concession_amount"]) : 0;
+                    objFeeBalance.amount_to_pay = row["amount_to_pay"] != DBNull.Value ? Convert.ToDouble(row["amount_to_pay"]) : 0;
+                    objFeeBalance.fine_to_pay = row["fine_to_pay"] != DBNull.Value ? Convert.ToDouble(row["fine_to_pay"]) : 0;
+                    objFeeBalance.paid_amount = row["paid_amount"] != DBNull.Value ? Convert.ToDouble(row["paid_amount"]) : 0;
+                    objFeeBalance.fine_paid = row["fine_paid"] != DBNull.Value ? Convert.ToDouble(row["fine_paid"]) : 0;
+                    objFeeBalance.balance_amount = row["balance_amount"] != DBNull.Value ? Convert.ToDouble(row["balance_amount"]) : 0;
+                    objFeeBalance.period = row["period"] != DBNull.Value ? row["period"].ToString() : string.Empty;
+                    objFeeBalancesList.Add(objFeeBalance);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return objFeeBalancesList;
+        }
+        #endregion
+
         #region PaymentHistory
         public static ObservableCollection<PaymentModel> GetStudentPaymentHistory(Int64 fromRowNo, Int64 toRowNo, string studentID)
         {            
