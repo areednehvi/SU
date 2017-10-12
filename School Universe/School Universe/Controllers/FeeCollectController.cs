@@ -56,10 +56,6 @@ namespace School_Universe.Controllers
             // Set pagination
             //this.ResetPagination();
 
-            GetMyProperties();
-
-            
-
             //Subscribe to Model's Property changed event
             //this.FeeDueListFilters.PropertyChanged += (s, e) => {
             //    this.LoadStudentFeeDueListAsFiltersHaveChanged();
@@ -90,6 +86,7 @@ namespace School_Universe.Controllers
             set
             {
                 _PendingMonthlyFeeList = value;
+                OnPropertyChanged("PendingMonthlyFeeList");
             }
         }
         public ObservableCollection<PaymentModel> PaymentHistoryList
@@ -617,10 +614,7 @@ namespace School_Universe.Controllers
         {
             try
             {
-                //PaymentHistorListDataGrid.ItemsSource = null;
-                //PaymentHistoryList = FeeCollectManager.GetStudentPaymentHistory(fromRowNo, toRowNo, FeeCollectionStudentList.id.ToString());
-                FeeCollectManager.GetStudentFeeBalances(FeeCollectionStudentList.id.ToString());
-                //PaymentHistorListDataGrid.ItemsSource = PaymentHistoryList;
+                 PendingMonthlyFeeList = FeeCollectManager.GetStudentFeeBalances(FeeCollectionStudentList.id.ToString());               
                 //NoRecordsFound = PaymentHistoryList.Count > 0 ? "Collapsed" : "Visible";
             }
             catch (Exception ex)
@@ -683,50 +677,5 @@ namespace School_Universe.Controllers
         }
 
         #endregion
-
-        
-
-
-        
-
-        private void GetMyProperties()
-        {
-            PendingMonthlyFeeModel PM = new PendingMonthlyFeeModel();
-            PM.Period = "Dec 2015";
-            PM.Total = "222";
-            PM.FeeBalancesModel = new ObservableCollection<FeeBalancesModel>
-            {
-                new FeeBalancesModel { fees_category = "Tution Fee" , balance_amount = 41211 },
-                new FeeBalancesModel { fees_category = "Bus Fee" , balance_amount = 42212 },
-                new FeeBalancesModel { fees_category = "Computer Fee" , balance_amount = 01121 }
-            };
-
-            PendingMonthlyFeeModel PM1 = new PendingMonthlyFeeModel();
-            PM1.Period = "Dec 2015";
-            PM1.Total = "222";
-            PM1.FeeBalancesModel = new ObservableCollection<FeeBalancesModel>
-            {
-                new FeeBalancesModel { fees_category = "Tution Fee" , balance_amount = 41211 },
-                new FeeBalancesModel { fees_category = "Bus Fee" , balance_amount = 42212 },
-                new FeeBalancesModel { fees_category = "Computer Fee" , balance_amount = 01121 },
-                new FeeBalancesModel { fees_category = "ABC Fee" , balance_amount = 331121 }
-            };
-            PendingMonthlyFeeList.Add(PM1);
-            PendingMonthlyFeeList.Add(PM);
-            PendingMonthlyFeeList.Add(PM);
-            PendingMonthlyFeeList.Add(PM);
-            PendingMonthlyFeeList.Add(PM);
-            PendingMonthlyFeeList.Add(PM1);
-            PendingMonthlyFeeList.Add(PM);
-            PendingMonthlyFeeList.Add(PM);
-            PendingMonthlyFeeList.Add(PM);
-            PendingMonthlyFeeList.Add(PM);
-            PendingMonthlyFeeList.Add(PM);
-            PendingMonthlyFeeList.Add(PM);
-            PendingMonthlyFeeList.Add(PM);
-            PendingMonthlyFeeList.Add(PM1);
-
-        }
-
     }
 }

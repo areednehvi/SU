@@ -88,7 +88,7 @@
                                             <CheckBox Margin="5,5,0,0" FontSize="15" FontWeight="DemiBold" Content="{Binding Period}" />
                                             <Separator Background="LightGray"/>
                                             <ListBox SelectedItem="{Binding Path=DeleteHistorySelectedItem,UpdateSourceTrigger=PropertyChanged}" 
-                                            ItemsSource="{Binding FeeBalancesModel, NotifyOnSourceUpdated=True}" SelectionMode="Multiple">
+                                            ItemsSource="{Binding FeeBalancesList, NotifyOnSourceUpdated=True}" SelectionMode="Multiple">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <Grid MinWidth="270">

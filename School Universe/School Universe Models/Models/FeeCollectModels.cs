@@ -16,12 +16,12 @@ namespace School_Universe.Models
             set;
         }
 
-        public string Total
+        public Double Total
         {
             get;
             set;
         }
-        public ObservableCollection<FeeBalancesModel> FeeBalancesModel
+        public IEnumerable<FeeBalancesModel> FeeBalancesList
         {
             get;
             set;

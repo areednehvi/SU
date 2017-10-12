@@ -16,7 +16,7 @@ namespace School_Universe_Businness_Layer.Businness
     public class FeeCollectManager
     {
         #region Student Fee Balances
-        public static ObservableCollection<FeeBalancesModel> GetStudentFeeBalances(string studentID)
+        public static ObservableCollection<PendingMonthlyFeeModel> GetStudentFeeBalances(string studentID)
         {
             try
             {
@@ -39,8 +39,10 @@ namespace School_Universe_Businness_Layer.Businness
 
         }
 
-        private static ObservableCollection<FeeBalancesModel> MapDatatableToFeeBalancesObject(DataTable objDatatable)
+        private static ObservableCollection<PendingMonthlyFeeModel> MapDatatableToFeeBalancesObject(DataTable objDatatable)
         {
+            ObservableCollection<PendingMonthlyFeeModel> objPendingMonthlyFeeList = new ObservableCollection<PendingMonthlyFeeModel>();
+            List<string> lstPeriods = new List<string>();
             ObservableCollection<FeeBalancesModel> objFeeBalancesList = new ObservableCollection<FeeBalancesModel>();
             try
             {
@@ -70,6 +72,21 @@ namespace School_Universe_Businness_Layer.Businness
                     objFeeBalance.balance_amount = row["balance_amount"] != DBNull.Value ? Convert.ToDouble(row["balance_amount"]) : 0;
                     objFeeBalance.period = row["period"] != DBNull.Value ? row["period"].ToString() : string.Empty;
                     objFeeBalancesList.Add(objFeeBalance);
+
+                    if (!lstPeriods.Contains(objFeeBalance.period))
+                        lstPeriods.Add(objFeeBalance.period);
+
+                }
+                if(lstPeriods != null)
+                {                    
+                    foreach (string period in lstPeriods)
+                    {
+                        PendingMonthlyFeeModel objPendingMonthlyFee = new PendingMonthlyFeeModel();
+                        objPendingMonthlyFee.Period = period;
+                        objPendingMonthlyFee.FeeBalancesList = (IEnumerable<FeeBalancesModel>)objFeeBalancesList.Where(feeBalance => feeBalance.period == period);
+                        objPendingMonthlyFee.Total = objPendingMonthlyFee.FeeBalancesList.Sum(feeBalance => feeBalance.balance_amount);
+                        objPendingMonthlyFeeList.Add(objPendingMonthlyFee);
+                    }                   
                 }
 
             }
@@ -81,7 +98,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
 
             }
-            return objFeeBalancesList;
+            return objPendingMonthlyFeeList;
         }
         #endregion
 
