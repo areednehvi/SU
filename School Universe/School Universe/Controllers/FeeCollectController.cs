@@ -42,7 +42,6 @@ namespace School_Universe.Controllers
         private ICommand _feeDueDeleteCommand;
         private ICommand _checkAllFeeDueCommand;
         private ICommand _CheckAllPendingMonthlyFeeCommand;
-        private ICommand _CheckPendingMonthlyFeeCommand;
         private ICommand _paymentHistorySaveCommand;
         #endregion
 
@@ -71,7 +70,6 @@ namespace School_Universe.Controllers
             _feeDueDeleteCommand = new RelayCommand(DeleteFeeDue, CanDeleteFeeDue);
             _checkAllFeeDueCommand = new RelayCommand(CheckAllFeeDue, CanCheckAllFeeDue);
             _CheckAllPendingMonthlyFeeCommand = new RelayCommand(CheckAllPendingMonthlyFee, CanCheckAllPendingMonthlyFee);
-            _CheckPendingMonthlyFeeCommand = new RelayCommand(CheckPendingMonthlyFee, CanCheckPendingMonthlyFee);
             _paymentHistorySaveCommand = new RelayCommand(SavePaymentHistory,CanSavePaymentHistory);
         }
 
@@ -577,40 +575,6 @@ namespace School_Universe.Controllers
                         objSelectedPendingMonthlyFee.FeeBalancesList[count].IsSelected = false;
                 }
                 this.CalculateSumOfSelectedFees();
-
-            }
-            catch (Exception ex)
-            {
-                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
-                MessageBox.Show(errorMessage);
-            }
-            finally
-            {
-
-            }
-
-        }
-        #endregion
-
-        #region CheckPendingMonthlyFeeCommand
-        public ICommand CheckPendingMonthlyFeeCommand
-        {
-            get { return _CheckPendingMonthlyFeeCommand; }
-        }
-
-
-        public bool CanCheckPendingMonthlyFee(object obj)
-        {
-            return true;
-        }
-
-
-        public void CheckPendingMonthlyFee(object obj)
-        {
-            try
-            {
-                FeeBalancesModel objSelectedFeeBalance = (FeeBalancesModel)obj;       
-                //this.CalculateSumOfSelectedFees(objSelectedFeeBalance);
 
             }
             catch (Exception ex)
