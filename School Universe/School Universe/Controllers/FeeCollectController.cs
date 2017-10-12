@@ -1,4 +1,5 @@
-﻿using School_Universe.Models;
+﻿using MaterialDesignThemes.Wpf;
+using School_Universe.Models;
 using School_Universe.Shared;
 using School_Universe.Views;
 using School_Universe_Businness_Layer.Businness;
@@ -29,6 +30,8 @@ namespace School_Universe.Controllers
         private Window _window;
         private DataGrid _paymentHistoryDataGrid;
         private DataGrid _feeDueDataGrid;
+        private Card _pendingMonthlyFeesMaterialDesignCard;
+        private Card _makePaymentScreenMaterialDesignCard;
         private int _SelectedTabItem;
         private int NoOfRecords = 50;
         private int fromRowNo,pageNo, NoOfRecordsPerPage, toRowNo;
@@ -38,11 +41,12 @@ namespace School_Universe.Controllers
         private ICommand _previousPageCommand;
         private ICommand _minimizeCommand;
         private ICommand _closeCommand;
+        private ICommand _showHideMakePaymentScreenCommand;
         private ICommand _feeDueApplyCommand;
         private ICommand _feeDueDeleteCommand;
         private ICommand _checkAllFeeDueCommand;
         private ICommand _CheckAllPendingMonthlyFeeCommand;
-        private ICommand _paymentHistorySaveCommand;
+        private ICommand _paymentHistorySaveCommand; 
         #endregion
 
         #region Constructor
@@ -66,6 +70,7 @@ namespace School_Universe.Controllers
             _previousPageCommand = new RelayCommand(MoveToPreviousPage, CanMoveToPreviousPage);
             _closeCommand = new RelayCommand(CloseLogin, CanClose);
             _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
+            _showHideMakePaymentScreenCommand = new RelayCommand(ShowHideMakePaymentScreen,CanShowHideMakePaymentScreen);
             _feeDueApplyCommand = new RelayCommand(ApplyFeeDue, CanApplyFeeDue);
             _feeDueDeleteCommand = new RelayCommand(DeleteFeeDue, CanDeleteFeeDue);
             _checkAllFeeDueCommand = new RelayCommand(CheckAllFeeDue, CanCheckAllFeeDue);
@@ -175,6 +180,30 @@ namespace School_Universe.Controllers
             }
         }
 
+        public Card PendingMonthlyFeesMaterialDesignCard
+        {
+            get
+            {
+                return _pendingMonthlyFeesMaterialDesignCard;
+            }
+            set
+            {
+                _pendingMonthlyFeesMaterialDesignCard = value;
+            }
+        }
+
+        public Card MakePaymentScreenMaterialDesignCard
+        {
+            get
+            {
+                return _makePaymentScreenMaterialDesignCard;
+            }
+            set
+            {
+                _makePaymentScreenMaterialDesignCard = value;
+            }
+        }
+
         public int SelectedTabItem
         {
             get { return _SelectedTabItem; }
@@ -186,6 +215,7 @@ namespace School_Universe.Controllers
                 switch(_SelectedTabItem)
                 {
                     case 0:
+                        SumOfAllSelectedFees = 0;
                         this.GetStudentFeeBalancesList();
                         break;
                     case 1:
@@ -359,6 +389,52 @@ namespace School_Universe.Controllers
             {
 
             }
+        }
+        #endregion
+
+        #region ShowHideMakePaymentScreenCommand
+        public ICommand ShowHideMakePaymentScreenCommand
+        {
+            get { return _showHideMakePaymentScreenCommand; }
+        }
+
+
+        public bool CanShowHideMakePaymentScreen(object obj)
+        {
+            if (SumOfAllSelectedFees > 0)
+                return true;
+            else
+                return false;
+        }
+
+
+        public void ShowHideMakePaymentScreen(object obj)
+        {
+            try
+            {
+                switch ((string)obj)
+                {
+                    case "Pay":
+                        PendingMonthlyFeesMaterialDesignCard.Visibility = Visibility.Collapsed;
+                        MakePaymentScreenMaterialDesignCard.Visibility = Visibility.Visible;
+                        break;
+                    case "Back":
+                        PendingMonthlyFeesMaterialDesignCard.Visibility = Visibility.Visible;
+                        MakePaymentScreenMaterialDesignCard.Visibility = Visibility.Collapsed;
+                        break;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                MessageBox.Show(errorMessage);
+            }
+            finally
+            {
+
+            }
+
         }
         #endregion
 

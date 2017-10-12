@@ -32,6 +32,8 @@ namespace School_Universe.Views
             ((FeeCollectController)grdPaymentHistory.DataContext).Window = this;
             ((FeeCollectController)grdPaymentHistory.DataContext).PaymentHistorListDataGrid = this.dataGridPaymentHistoryList;
             ((FeeCollectController)grdPaymentHistory.DataContext).FeeDueListDataGrid = this.dataGridFeeDueList;
+            ((FeeCollectController)grdPaymentHistory.DataContext).PendingMonthlyFeesMaterialDesignCard = this.mdPendingMonthlyFees;
+            ((FeeCollectController)grdPaymentHistory.DataContext).MakePaymentScreenMaterialDesignCard = this.mdMakePaymentScreen;
             ((FeeCollectController)grdPaymentHistory.DataContext).FeeCollectionStudentList = objFeeCollectionStudentList;
         }
 
