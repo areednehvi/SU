@@ -83,7 +83,7 @@ namespace School_Universe_Businness_Layer.Businness
                     {
                         PendingMonthlyFeeModel objPendingMonthlyFee = new PendingMonthlyFeeModel();
                         objPendingMonthlyFee.Period = period;
-                        objPendingMonthlyFee.FeeBalancesList = (IEnumerable<FeeBalancesModel>)objFeeBalancesList.Where(feeBalance => feeBalance.period == period);
+                        objPendingMonthlyFee.FeeBalancesList = new ObservableCollection<FeeBalancesModel>(objFeeBalancesList.Where(feeBalance => feeBalance.period == period).OrderBy(feeBalance => feeBalance.fees_category));
                         objPendingMonthlyFee.Total = objPendingMonthlyFee.FeeBalancesList.Sum(feeBalance => feeBalance.balance_amount);
                         objPendingMonthlyFeeList.Add(objPendingMonthlyFee);
                     }                   

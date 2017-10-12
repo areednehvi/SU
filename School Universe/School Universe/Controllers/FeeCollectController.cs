@@ -32,6 +32,7 @@ namespace School_Universe.Controllers
         private int _SelectedTabItem;
         private int NoOfRecords = 50;
         private int fromRowNo,pageNo, NoOfRecordsPerPage, toRowNo;
+        private Double _SumOfAllSelectedFees;
         private string _NoRecordsFound;
         private ICommand _nextPageCommand;
         private ICommand _previousPageCommand;
@@ -40,6 +41,8 @@ namespace School_Universe.Controllers
         private ICommand _feeDueApplyCommand;
         private ICommand _feeDueDeleteCommand;
         private ICommand _checkAllFeeDueCommand;
+        private ICommand _CheckAllPendingMonthlyFeeCommand;
+        private ICommand _CheckPendingMonthlyFeeCommand;
         private ICommand _paymentHistorySaveCommand;
         #endregion
 
@@ -53,16 +56,12 @@ namespace School_Universe.Controllers
             _FeeDueFormFields = new FeeDueFormFieldsModel();
             _FeeDueListFilters = new FeeDueListFiltersModel();
             _PendingMonthlyFeeList= new ObservableCollection<PendingMonthlyFeeModel>();
-            // Set pagination
-            //this.ResetPagination();
 
             //Subscribe to Model's Property changed event
             //this.FeeDueListFilters.PropertyChanged += (s, e) => {
             //    this.LoadStudentFeeDueListAsFiltersHaveChanged();
             //};
 
-            //Get Initial Payment History list
-            //this.GetStudentPaymentHistoryList();
             //Initialize  Commands
             _nextPageCommand = new RelayCommand(MoveToNextPage, CanMoveToNextPage);
             _previousPageCommand = new RelayCommand(MoveToPreviousPage, CanMoveToPreviousPage);
@@ -71,6 +70,8 @@ namespace School_Universe.Controllers
             _feeDueApplyCommand = new RelayCommand(ApplyFeeDue, CanApplyFeeDue);
             _feeDueDeleteCommand = new RelayCommand(DeleteFeeDue, CanDeleteFeeDue);
             _checkAllFeeDueCommand = new RelayCommand(CheckAllFeeDue, CanCheckAllFeeDue);
+            _CheckAllPendingMonthlyFeeCommand = new RelayCommand(CheckAllPendingMonthlyFee, CanCheckAllPendingMonthlyFee);
+            _CheckPendingMonthlyFeeCommand = new RelayCommand(CheckPendingMonthlyFee, CanCheckPendingMonthlyFee);
             _paymentHistorySaveCommand = new RelayCommand(SavePaymentHistory,CanSavePaymentHistory);
         }
 
@@ -150,6 +151,18 @@ namespace School_Universe.Controllers
                 _selectedItemInPaymentHistoryList = value;
             }
 
+        }
+        public Double SumOfAllSelectedFees
+        {
+            get
+            {
+                return _SumOfAllSelectedFees;
+            }
+            set
+            {
+                _SumOfAllSelectedFees = value;
+                OnPropertyChanged("SumOfAllSelectedFees");
+            }
         }
 
         public Window Window
@@ -535,6 +548,84 @@ namespace School_Universe.Controllers
         }
         #endregion
 
+        #region CheckAllPendingMonthlyFeeCommand
+        public ICommand CheckAllPendingMonthlyFeeCommand
+        {
+            get { return _CheckAllPendingMonthlyFeeCommand; }
+        }
+
+
+        public bool CanCheckAllPendingMonthlyFee(object obj)
+        {
+            return true;
+        }
+
+
+        public void CheckAllPendingMonthlyFee(object obj)
+        {
+            try
+            {
+                PendingMonthlyFeeModel objSelectedPendingMonthlyFee = (PendingMonthlyFeeModel)obj;
+                if (objSelectedPendingMonthlyFee.IsSelected)
+                {
+                    for (int count = 0; count < objSelectedPendingMonthlyFee.FeeBalancesList.Count; count++)
+                        objSelectedPendingMonthlyFee.FeeBalancesList[count].IsSelected = true;
+                }
+                else
+                {
+                    for (int count = 0; count < objSelectedPendingMonthlyFee.FeeBalancesList.Count; count++)
+                        objSelectedPendingMonthlyFee.FeeBalancesList[count].IsSelected = false;
+                }
+                this.CalculateSumOfSelectedFees(objSelectedPendingMonthlyFee.FeeBalancesList);
+
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                MessageBox.Show(errorMessage);
+            }
+            finally
+            {
+
+            }
+
+        }
+        #endregion
+
+        #region CheckPendingMonthlyFeeCommand
+        public ICommand CheckPendingMonthlyFeeCommand
+        {
+            get { return _CheckPendingMonthlyFeeCommand; }
+        }
+
+
+        public bool CanCheckPendingMonthlyFee(object obj)
+        {
+            return true;
+        }
+
+
+        public void CheckPendingMonthlyFee(object obj)
+        {
+            try
+            {
+                FeeBalancesModel objSelectedFeeBalance = (FeeBalancesModel)obj;       
+                this.CalculateSumOfSelectedFees(objSelectedFeeBalance);
+
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                MessageBox.Show(errorMessage);
+            }
+            finally
+            {
+
+            }
+
+        }
+        #endregion
+
         #region CloseCommand
 
         public ICommand CloseCommand
@@ -674,6 +765,27 @@ namespace School_Universe.Controllers
                 FeeDueListDataGrid.ItemsSource = null;
                 FeeDueListDataGrid.ItemsSource = FeeDueList;
             }
+        }
+
+        private void CalculateSumOfSelectedFees(ObservableCollection<FeeBalancesModel> objFeeBalancesModelList )
+        {
+            for (int countFeeBalances = 0; countFeeBalances < objFeeBalancesModelList.Count; countFeeBalances++)
+            {
+                if (objFeeBalancesModelList[countFeeBalances].IsSelected)
+                    SumOfAllSelectedFees += objFeeBalancesModelList[countFeeBalances].balance_amount;
+                else
+                    SumOfAllSelectedFees -= objFeeBalancesModelList[countFeeBalances].balance_amount;
+            }
+
+        }
+
+        private void CalculateSumOfSelectedFees(FeeBalancesModel objFeeBalance)
+        {
+            if (objFeeBalance.IsSelected)
+                SumOfAllSelectedFees += objFeeBalance.balance_amount;
+            else
+                SumOfAllSelectedFees -= objFeeBalance.balance_amount;
+
         }
 
         #endregion

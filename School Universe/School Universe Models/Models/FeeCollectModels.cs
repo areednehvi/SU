@@ -10,21 +10,21 @@ namespace School_Universe.Models
 {
     public class PendingMonthlyFeeModel : INotifyPropertyChanged
     {
-        public string Period
+        private Boolean _IsSelected;
+        public string Period { get; set; }
+        public Double Total { get; set; }        
+        public ObservableCollection<FeeBalancesModel> FeeBalancesList { get; set; }
+        public Boolean IsSelected
         {
-            get;
-            set;
-        }
-
-        public Double Total
-        {
-            get;
-            set;
-        }
-        public IEnumerable<FeeBalancesModel> FeeBalancesList
-        {
-            get;
-            set;
+            get
+            {
+                return _IsSelected;
+            }
+            set
+            {
+                _IsSelected = value;
+                OnPropertyChanged("IsSelected");
+            }
         }
 
         #region INotifyPropertyChanged Members
@@ -41,6 +41,7 @@ namespace School_Universe.Models
     }
     public class FeeBalancesModel : INotifyPropertyChanged 
     {
+        private Boolean _IsSelected;
         public string id { get; set; } // StudentFeeID
         public DateTime apply_from { get; set; }
         public int last_day { get; set; }
@@ -63,6 +64,18 @@ namespace School_Universe.Models
         public Double fine_paid { get; set; }
         public Double balance_amount { get; set; }
         public string period { get; set; }
+        public Boolean IsSelected
+        {
+            get
+            {
+                return _IsSelected;
+            }
+            set
+            {
+                _IsSelected = value;
+                OnPropertyChanged("IsSelected");
+            }
+        }
 
         #region INotifyPropertyChanged Members
 
