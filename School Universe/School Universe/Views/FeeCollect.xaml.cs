@@ -39,5 +39,10 @@ namespace School_Universe.Views
         {
             ((FeeCollectController)grdPaymentHistory.DataContext).SelectedTabItem = 0;
         }
+
+        private void chkbxSelectedFeeBalance_Click(object sender, RoutedEventArgs e)
+        {
+            ((FeeCollectController)grdPaymentHistory.DataContext).CalculateSumOfSelectedFees();
+        }
     }
 }

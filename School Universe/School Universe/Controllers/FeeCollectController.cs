@@ -576,7 +576,7 @@ namespace School_Universe.Controllers
                     for (int count = 0; count < objSelectedPendingMonthlyFee.FeeBalancesList.Count; count++)
                         objSelectedPendingMonthlyFee.FeeBalancesList[count].IsSelected = false;
                 }
-                this.CalculateSumOfSelectedFees(objSelectedPendingMonthlyFee.FeeBalancesList);
+                this.CalculateSumOfSelectedFees();
 
             }
             catch (Exception ex)
@@ -610,7 +610,7 @@ namespace School_Universe.Controllers
             try
             {
                 FeeBalancesModel objSelectedFeeBalance = (FeeBalancesModel)obj;       
-                this.CalculateSumOfSelectedFees(objSelectedFeeBalance);
+                //this.CalculateSumOfSelectedFees(objSelectedFeeBalance);
 
             }
             catch (Exception ex)
@@ -779,12 +779,17 @@ namespace School_Universe.Controllers
 
         }
 
-        private void CalculateSumOfSelectedFees(FeeBalancesModel objFeeBalance)
+        public void CalculateSumOfSelectedFees()
         {
-            if (objFeeBalance.IsSelected)
-                SumOfAllSelectedFees += objFeeBalance.balance_amount;
-            else
-                SumOfAllSelectedFees -= objFeeBalance.balance_amount;
+            SumOfAllSelectedFees = 0;
+            for (int count = 0; count < PendingMonthlyFeeList.Count; count++)
+            {
+                for (int countFeeBalances = 0; countFeeBalances < PendingMonthlyFeeList[count].FeeBalancesList.Count; countFeeBalances++)
+                {
+                    if (PendingMonthlyFeeList[count].FeeBalancesList[countFeeBalances].IsSelected)
+                        SumOfAllSelectedFees += PendingMonthlyFeeList[count].FeeBalancesList[countFeeBalances].balance_amount;
+                }
+            }
 
         }
 
