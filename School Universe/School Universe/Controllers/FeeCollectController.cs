@@ -524,12 +524,12 @@ namespace School_Universe.Controllers
             try
             {
                 PaymentModel objPaymentHistoryModel = new PaymentModel();
-                objPaymentHistoryModel.id = "999999";
-                objPaymentHistoryModel.school_id = "999999";
-                objPaymentHistoryModel.student_fees_id = "1";
+                objPaymentHistoryModel.id = "99999";
+                objPaymentHistoryModel.school_id = "18";
+                objPaymentHistoryModel.student_fees_id = "750";
                 objPaymentHistoryModel.payment_mode = "Cash";
-                objPaymentHistoryModel.amount = 999999;
-                objPaymentHistoryModel.fine = 999999;
+                objPaymentHistoryModel.amount = 999;
+                objPaymentHistoryModel.fine = 999;
                 objPaymentHistoryModel.comment = "comment";
                 objPaymentHistoryModel.recept_no = "1234";
                 objPaymentHistoryModel.ip = "ip";

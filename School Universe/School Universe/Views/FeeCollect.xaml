@@ -185,7 +185,7 @@
                                             <TextBox VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="200" Text="{Binding MakePayment.recept_no,Mode=TwoWay}"  ToolTip="Enter Receipt Number" />
                                         </WrapPanel>
                                     </StackPanel>
-                                    <DataGrid Grid.Row="1" Grid.ColumnSpan="2" Height="315"  VerticalContentAlignment="Center" AlternationCount="2" AlternatingRowBackground="#FFD7FDFA" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding SelectedFeeListForMakePayment}"  Margin="2,20,0,0"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="14">
+                                    <DataGrid Grid.Row="1" Grid.ColumnSpan="2" Height="215"  VerticalContentAlignment="Center" AlternationCount="2" AlternatingRowBackground="#FFD7FDFA" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding SelectedFeeListForMakePayment}"  Margin="2,20,0,0"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="14">
                                         <DataGrid.Resources>
                                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                                 <Setter Property="Background" Value="#FF009688"/>
@@ -202,7 +202,7 @@
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Width="*" Header="Fee List">
                                                 <DataGridTextColumn.Binding>
-                                                    <MultiBinding StringFormat="{}{0} &#x0a;{1:MMMM yyyy}">
+                                                    <MultiBinding StringFormat="{}{0} - {1:MMM yyyy}">
                                                         <Binding Path="fees_category" />
                                                         <Binding Path="apply_from" />
                                                     </MultiBinding>
