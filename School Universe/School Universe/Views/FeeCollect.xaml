@@ -292,7 +292,7 @@
                                         <Label Grid.Row="3" Grid.Column="2"   Content="TOTAL :" Width="Auto" FontSize="16" FontWeight="Bold" Foreground="#FF009688"/>
                                         <TextBlock Grid.Row="3" Grid.Column="3"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding SumOfAllSelectedFees}" />
 
-                                        <Button Grid.Row="4" Grid.Column="3" Content="Make Payment" Margin="0,5,0,10" Width="200"  DataContext="{Binding Source={StaticResource FeeCollectController}}"   Command="{Binding PaymentHistorySaveCommand}" ToolTip="Make a Payment"></Button>
+                                        <Button Grid.Row="4" Grid.Column="3" Content="Make Payment" Margin="0,5,0,10" Width="200"  DataContext="{Binding Source={StaticResource FeeCollectController}}"   Command="{Binding MakePaymentCommand}" ToolTip="Make a Payment"></Button>
                                     </Grid>
                                 </Grid>
                             </materialDesign:Card>

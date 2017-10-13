@@ -192,6 +192,26 @@ namespace School_Universe_Businness_Layer.Businness
             }
         }
 
+        public static Boolean MakePayment(PaymentModel objPaymentModel)
+        {
+            try
+            {
+                DataTable objDatatable = MapPaymentToDataTable(objPaymentModel);
+                SqlParameter objSqlParameter = new SqlParameter("@PaymentTable", SqlDbType.Structured);
+                objSqlParameter.TypeName = "dbo.PaymentModel";
+                objSqlParameter.Value = objDatatable;
+                return DataAccess.ExecuteNonQuery(StoredProcedures.MakePayment, objSqlParameter);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
+
         private static DataTable MapPaymentToDataTable(PaymentModel objPaymentHistoryModel)
         {
             try

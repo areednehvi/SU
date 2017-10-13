@@ -50,7 +50,8 @@ namespace School_Universe.Controllers
         private ICommand _feeDueDeleteCommand;
         private ICommand _checkAllFeeDueCommand;
         private ICommand _CheckAllPendingMonthlyFeeCommand;
-        private ICommand _paymentHistorySaveCommand; 
+        private ICommand _paymentHistorySaveCommand;
+        private ICommand _makePaymentCommand;
         #endregion
 
         #region Constructor
@@ -82,6 +83,7 @@ namespace School_Universe.Controllers
             _checkAllFeeDueCommand = new RelayCommand(CheckAllFeeDue, CanCheckAllFeeDue);
             _CheckAllPendingMonthlyFeeCommand = new RelayCommand(CheckAllPendingMonthlyFee, CanCheckAllPendingMonthlyFee);
             _paymentHistorySaveCommand = new RelayCommand(SavePaymentHistory,CanSavePaymentHistory);
+            _makePaymentCommand = new RelayCommand(MakeThePayment, CanMakePayment);
         }
 
         #endregion
@@ -487,6 +489,62 @@ namespace School_Universe.Controllers
                         break;
                 }
                 
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                MessageBox.Show(errorMessage);
+            }
+            finally
+            {
+
+            }
+
+        }
+        #endregion
+
+        #region MakePaymentCommand
+        public ICommand MakePaymentCommand
+        {
+            get { return _makePaymentCommand; }
+        }
+
+
+        public bool CanMakePayment(object obj)
+        {
+            if (SumOfAllSelectedFees > 0)
+                return true;
+            else
+                return false;
+        }
+
+
+        public void MakeThePayment(object obj)
+        {
+            try
+            {
+                PaymentModel objPaymentHistoryModel = new PaymentModel();
+                objPaymentHistoryModel.id = "999999";
+                objPaymentHistoryModel.school_id = "999999";
+                objPaymentHistoryModel.student_fees_id = "1";
+                objPaymentHistoryModel.payment_mode = "Cash";
+                objPaymentHistoryModel.amount = 999999;
+                objPaymentHistoryModel.fine = 999999;
+                objPaymentHistoryModel.comment = "comment";
+                objPaymentHistoryModel.recept_no = "1234";
+                objPaymentHistoryModel.ip = "ip";
+                objPaymentHistoryModel.created_by = "1";
+                objPaymentHistoryModel.updated_by = "1";
+                objPaymentHistoryModel.created_on = DateTime.Now;
+                objPaymentHistoryModel.updated_on = DateTime.Now;
+                objPaymentHistoryModel.payment_date = DateTime.Now;
+
+                if (FeeCollectManager.MakePayment(objPaymentHistoryModel))
+                    GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");
+
+                
+
+
             }
             catch (Exception ex)
             {
