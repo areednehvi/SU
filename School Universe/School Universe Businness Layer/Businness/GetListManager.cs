@@ -98,6 +98,33 @@ namespace School_Universe_Businness_Layer.Businness
 
         }
 
+        public static ObservableCollection<PaymentModeModel> GetPaymentModes()
+        {
+
+            try
+            {
+                ObservableCollection<PaymentModeModel> lstPaymentModes = new ObservableCollection<PaymentModeModel>()
+                {
+                    new PaymentModeModel() { id ="Cash", name = "Cash" },
+                    new PaymentModeModel() { id ="Cheque", name = "Cheque" },
+                    new PaymentModeModel() { id ="Chalan", name = "Chalan" },
+                    new PaymentModeModel() { id ="Online", name = "Online" }
+                };
+                
+                return lstPaymentModes;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+
+        }
+
 
         private static ObservableCollection<GradesModel> MapDatatableToGradesModelList(DataTable objDatatable)
         {

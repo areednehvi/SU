@@ -42,6 +42,8 @@ namespace School_Universe.Models
     public class FeeBalancesModel : INotifyPropertyChanged 
     {
         private Boolean _IsSelected;
+        private Double _fine;
+        private Double _balance_amount;
         public string id { get; set; } // StudentFeeID
         public DateTime apply_from { get; set; }
         public int last_day { get; set; }
@@ -56,13 +58,35 @@ namespace School_Universe.Models
         public string comment { get; set; }
         public Double payment_amount { get; set; }
         public Double payment_fine { get; set; }
-        public Double fine { get; set; }
+        public Double fine
+        {
+            get
+            {
+                return _fine;
+            }
+            set
+            {
+                _fine = value;
+                OnPropertyChanged("fine");
+            }
+        }
         public Double concession_amount { get; set; }
         public Double amount_to_pay { get; set; }
         public Double fine_to_pay { get; set; }
         public Double paid_amount { get; set; }
         public Double fine_paid { get; set; }
-        public Double balance_amount { get; set; }
+        public Double balance_amount
+        {
+            get
+            {
+                return _balance_amount;
+            }
+            set
+            {
+                _balance_amount = value;
+                OnPropertyChanged("balance_amount");
+            }
+        }
         public string period { get; set; }
         public Boolean IsSelected
         {
@@ -95,6 +119,8 @@ namespace School_Universe.Models
         private string _recept_no;
         private Double _amount;
         private Double _fine;
+        private DateTime _payment_date;
+        private string _payment_mode;
 
         public string id { get; set; }
         public string school_id { get; set; }
@@ -135,8 +161,30 @@ namespace School_Universe.Models
                 OnPropertyChanged("recept_no");
             }
         }
-        public string payment_mode { get; set; }
-        public DateTime payment_date { get; set; }
+        public string payment_mode
+        {
+            get
+            {
+                return _payment_mode;
+            }
+            set
+            {
+                _payment_mode = value;
+                OnPropertyChanged("payment_mode");
+            }
+        }
+        public DateTime payment_date
+        {
+            get
+            {
+                return _payment_date;
+            }
+            set
+            {
+                _payment_date = value;
+                OnPropertyChanged("payment_date");
+            }
+        }
         public Double concession_amount { get; set; }
         public string month { get; set; }
         public DateTime apply_from { get; set; }
@@ -349,6 +397,12 @@ namespace School_Universe.Models
     }
 
     public class FeeCategoryModel
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+    }
+
+    public class PaymentModeModel
     {
         public string id { get; set; }
         public string name { get; set; }

@@ -26,7 +26,11 @@ namespace School_Universe.Controllers
         private FeeDueFormFieldsModel _FeeDueFormFields;
         private FeeDueListFiltersModel _FeeDueListFilters;
         private FeeCategoryModel _selectedFeeCategory;
+        private PaymentModeModel _selectedPaymentMode;
+        private ObservableCollection<PaymentModeModel> _PaymentModeList;
+        private ObservableCollection<FeeBalancesModel> _SelectedFeeListForMakePayment;
         private ObservableCollection<PendingMonthlyFeeModel> _PendingMonthlyFeeList = new ObservableCollection<PendingMonthlyFeeModel>();
+        private PaymentModel _makePayment;
         private Window _window;
         private DataGrid _paymentHistoryDataGrid;
         private DataGrid _feeDueDataGrid;
@@ -59,6 +63,8 @@ namespace School_Universe.Controllers
             _FeeDueFormFields = new FeeDueFormFieldsModel();
             _FeeDueListFilters = new FeeDueListFiltersModel();
             _PendingMonthlyFeeList= new ObservableCollection<PendingMonthlyFeeModel>();
+            _makePayment = new PaymentModel();
+            _makePayment.payment_date = DateTime.Today;
 
             //Subscribe to Model's Property changed event
             //this.FeeDueListFilters.PropertyChanged += (s, e) => {
@@ -93,6 +99,36 @@ namespace School_Universe.Controllers
                 OnPropertyChanged("PendingMonthlyFeeList");
             }
         }
+
+        public ObservableCollection<PaymentModeModel> PaymentModeList
+        {
+            get
+            {
+                return _PaymentModeList;
+            }
+
+            set
+            {
+                _PaymentModeList = value;
+                OnPropertyChanged("PaymentModeList");
+            }
+
+        }
+        public ObservableCollection<FeeBalancesModel> SelectedFeeListForMakePayment
+        {
+            get
+            {
+                return _SelectedFeeListForMakePayment;
+            }
+
+            set
+            {
+                _SelectedFeeListForMakePayment = value;
+                OnPropertyChanged("SelectedFeeListForMakePayment");
+            }
+
+        }
+        
         public ObservableCollection<PaymentModel> PaymentHistoryList
         {
             get
@@ -168,6 +204,20 @@ namespace School_Universe.Controllers
             }
         }
 
+        public PaymentModel MakePayment
+        {
+            get
+            {
+                return _makePayment;
+            }
+
+            set
+            {
+                _makePayment = value;
+            }
+
+        }
+
         public Window Window
         {
             get
@@ -216,6 +266,9 @@ namespace School_Universe.Controllers
                 {
                     case 0:
                         SumOfAllSelectedFees = 0;
+                        // Get Lists
+                        this.GetMakePaymentDropDownLists();
+                        SelectedPaymentMode = new PaymentModeModel() { id = "Cash", name = "Cash" };
                         this.GetStudentFeeBalancesList();
                         break;
                     case 1:
@@ -244,6 +297,16 @@ namespace School_Universe.Controllers
                     OnPropertyChanged("SelectedFeeCategory");
                     this.LoadStudentFeeDueListAsFiltersHaveChanged();
                 }
+            }
+        }
+
+        public PaymentModeModel SelectedPaymentMode
+        {
+            get { return _selectedPaymentMode; }
+            set
+            {
+                _selectedPaymentMode = value;
+                OnPropertyChanged("SelectedPaymentMode");
             }
         }
         public DataGrid PaymentHistorListDataGrid
@@ -650,7 +713,7 @@ namespace School_Universe.Controllers
                     for (int count = 0; count < objSelectedPendingMonthlyFee.FeeBalancesList.Count; count++)
                         objSelectedPendingMonthlyFee.FeeBalancesList[count].IsSelected = false;
                 }
-                this.CalculateSumOfSelectedFees();
+                this.CalculateSumOfSelectedFeesAndPopulateSelectedFeeListForMakePayment();
 
             }
             catch (Exception ex)
@@ -796,6 +859,12 @@ namespace School_Universe.Controllers
             FeeDueListFilters.FeeCategoryList = GetListManager.GetFeeCategories();            
         }
 
+        private void GetMakePaymentDropDownLists()
+        {
+
+            PaymentModeList = GetListManager.GetPaymentModes();
+        }
+
         private void LoadStudentFeeDueListAsFiltersHaveChanged()
         {
             ResetPagination();
@@ -819,15 +888,19 @@ namespace School_Universe.Controllers
 
         }
 
-        public void CalculateSumOfSelectedFees()
+        public void CalculateSumOfSelectedFeesAndPopulateSelectedFeeListForMakePayment()
         {
             SumOfAllSelectedFees = 0;
+            SelectedFeeListForMakePayment = new ObservableCollection<FeeBalancesModel>();
             for (int count = 0; count < PendingMonthlyFeeList.Count; count++)
             {
                 for (int countFeeBalances = 0; countFeeBalances < PendingMonthlyFeeList[count].FeeBalancesList.Count; countFeeBalances++)
                 {
                     if (PendingMonthlyFeeList[count].FeeBalancesList[countFeeBalances].IsSelected)
+                    {
+                        SelectedFeeListForMakePayment.Add(PendingMonthlyFeeList[count].FeeBalancesList[countFeeBalances]);
                         SumOfAllSelectedFees += PendingMonthlyFeeList[count].FeeBalancesList[countFeeBalances].balance_amount;
+                    }
                 }
             }
 

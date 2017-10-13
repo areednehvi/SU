@@ -44,7 +44,7 @@ namespace School_Universe.Views
 
         private void chkbxSelectedFeeBalance_Click(object sender, RoutedEventArgs e)
         {
-            ((FeeCollectController)grdPaymentHistory.DataContext).CalculateSumOfSelectedFees();
+            ((FeeCollectController)grdPaymentHistory.DataContext).CalculateSumOfSelectedFeesAndPopulateSelectedFeeListForMakePayment();
         }
     }
 }
