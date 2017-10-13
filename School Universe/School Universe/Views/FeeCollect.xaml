@@ -99,13 +99,13 @@
                                             </Viewbox>
                                         </WrapPanel>
                                         <TextBlock Grid.Column="2" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Top" Text="{Binding SumOfAllSelectedFees}" />
-                                        <Button Grid.Column="3" HorizontalAlignment="Right" Content="Pay >>"  Command="{Binding ShowHideMakePaymentScreenCommand}" CommandParameter="Pay"></Button>
+                                        <Button Grid.Column="3" HorizontalAlignment="Right" Content="Pay >>"  Command="{Binding ShowHideMakePaymentScreenCommand}" CommandParameter="Pay" ToolTip="Move Forward to Make a Payment"></Button>
                                     </Grid>
                                     <ItemsControl ItemsSource="{Binding PendingMonthlyFeeList}" DataContext="{Binding Source={StaticResource FeeCollectController}}" Grid.IsSharedSizeScope="True">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <StackPanel x:Name="spPendingMonthlyFeeList" Margin="10" Background="#FFF7F7F7" MinWidth="283" >
-                                                    <CheckBox x:Name="checkall" Margin="5,5,0,0" FontSize="15" FontWeight="DemiBold"  DataContext="{Binding Source={StaticResource FeeCollectController}}"  Command="{ Binding Path=CheckAllPendingMonthlyFeeCommand }" IsChecked="{Binding ElementName=spPendingMonthlyFeeList,Path=DataContext.IsSelected}" CommandParameter="{Binding ElementName=spPendingMonthlyFeeList,Path=DataContext}" Content="{Binding ElementName=spPendingMonthlyFeeList,Path=DataContext.Period}" />
+                                                    <CheckBox x:Name="checkall" Margin="5,5,0,0" FontSize="15" FontWeight="DemiBold"  DataContext="{Binding Source={StaticResource FeeCollectController}}"  Command="{ Binding Path=CheckAllPendingMonthlyFeeCommand }" IsChecked="{Binding ElementName=spPendingMonthlyFeeList,Path=DataContext.IsSelected}" CommandParameter="{Binding ElementName=spPendingMonthlyFeeList,Path=DataContext}" Content="{Binding ElementName=spPendingMonthlyFeeList,Path=DataContext.Period}" ToolTip="Mark All Fee Entries for this Month" />
                                                     <Separator Background="LightGray"/>
                                                     <ListBox ItemsSource="{Binding FeeBalancesList, NotifyOnSourceUpdated=True}" SelectionMode="Multiple">
                                                         <ListBox.ItemTemplate>
@@ -116,7 +116,7 @@
                                                                         <ColumnDefinition Width="auto" />
                                                                         <ColumnDefinition Width="*" />
                                                                     </Grid.ColumnDefinitions>
-                                                                    <CheckBox Grid.Column="0" Click="chkbxSelectedFeeBalance_Click" IsChecked="{Binding IsSelected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Content="{Binding fees_category}"/>
+                                                                    <CheckBox Grid.Column="0" Click="chkbxSelectedFeeBalance_Click" IsChecked="{Binding IsSelected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Content="{Binding fees_category}" ToolTip="Mark Fee Entry"/>
                                                                     <Viewbox Grid.Column="1" Width="12" Height="12">
                                                                         <Canvas Width="24" Height="24">
                                                                             <Path Data="M8,3H18L17,5H13.74C14.22,5.58 14.58,6.26 14.79,7H18L17,9H15C14.75,11.57 12.74,13.63 10.2,13.96V14H9.5L15.5,21H13L7,14V12H9.5V12C11.26,12 12.72,10.7 12.96,9H7L8,7H12.66C12.1,5.82 10.9,5 9.5,5H7L8,3Z" Fill="Black" />
@@ -158,9 +158,31 @@
                                     </ItemsControl>
                                 </StackPanel>
                             </materialDesign:Card>
-                            <materialDesign:Card x:Name="mdMakePaymentScreen" Visibility="Collapsed">
+                            <materialDesign:Card x:Name="mdMakePaymentScreen" Visibility="Collapsed" Margin="5">
                                 <Grid>
-                                    <Button HorizontalAlignment="Left" Content="&lt;&lt; Back"  Command="{Binding ShowHideMakePaymentScreenCommand}" CommandParameter="Back"></Button>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Content="&lt;&lt; Back"  Command="{Binding ShowHideMakePaymentScreenCommand}" CommandParameter="Back" ToolTip="Go Back to Fee Collection"></Button>
+                                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="10,0,0,0" >
+                                        <WrapPanel Orientation="Horizontal" >
+                                            <Label  Content="Payment Mode" Width="Auto" FontSize="16" Foreground="#FF009688"/>
+                                            <ComboBox VerticalAlignment="Stretch"  HorizontalAlignment="Center" FontSize="16" Width="200" ItemsSource="{Binding FeeDueListFilters.FeeCategoryList}" SelectedValue="{Binding SelectedFeeCategory.id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="name" SelectedValuePath="id"  SelectedItem="{Binding SelectedFeeCategory,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  ToolTip="Select Payment Method" />
+                                        </WrapPanel>
+                                        <WrapPanel Orientation="Horizontal" Margin="10,0,0,0" >
+                                            <Label  Content="Payment Date" Width="Auto" FontSize="16" Foreground="#FF009688"/>
+                                            <DatePicker VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="200" ToolTip="Select Payment Date" />
+                                        </WrapPanel>
+                                        <WrapPanel Orientation="Horizontal"  Margin="10,0,0,0" >
+                                            <Label  Content="Receipt Number" Width="Auto" FontSize="16" Foreground="#FF009688"/>
+                                            <TextBox VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="200" ToolTip="Enter Receipt Number" />
+                                        </WrapPanel>
+                                    </StackPanel>
                                 </Grid>
                             </materialDesign:Card>
                         </Grid>
@@ -294,8 +316,8 @@
                         <materialDesign:Card Grid.Row="0" Padding="5"  Margin="5,5,5,5" Height="70" >
                             <StackPanel Orientation="Horizontal" >
                                 <WrapPanel Orientation="Horizontal" >
-                                    <Label  x:Name="lblFeeCategory" Content="Fee Category" Width="Auto" FontSize="16" Foreground="#FF009688"/>
-                                    <ComboBox  x:Name="cbFeeCategory" VerticalAlignment="Stretch"  HorizontalAlignment="Center" FontSize="16" Width="220" ItemsSource="{Binding FeeDueListFilters.FeeCategoryList}" SelectedValue="{Binding SelectedFeeCategory.id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="name" SelectedValuePath="id"  SelectedItem="{Binding SelectedFeeCategory,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
+                                    <Label   Content="Fee Category" Width="Auto" FontSize="16" Foreground="#FF009688"/>
+                                    <ComboBox  VerticalAlignment="Stretch"  HorizontalAlignment="Center" FontSize="16" Width="220" ItemsSource="{Binding FeeDueListFilters.FeeCategoryList}" SelectedValue="{Binding SelectedFeeCategory.id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="name" SelectedValuePath="id"  SelectedItem="{Binding SelectedFeeCategory,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ToolTip="Filter By Fee Category"  />
                                 </WrapPanel>
                             </StackPanel>
                         </materialDesign:Card>
@@ -336,11 +358,11 @@
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn Width="50">
                                     <DataGridTemplateColumn.Header>
-                                        <CheckBox Background="White" DataContext="{Binding Source={StaticResource FeeCollectController}}" Command="{Binding Path=CheckAllFeeDueCommand }" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" Margin="9,0,0,0"></CheckBox>
+                                        <CheckBox Background="White" DataContext="{Binding Source={StaticResource FeeCollectController}}" Command="{Binding Path=CheckAllFeeDueCommand }" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" Margin="9,0,0,0" ToolTip="Select All Fee Entries"></CheckBox>
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <CheckBox IsChecked="{Binding Path=IsSelected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                                            <CheckBox IsChecked="{Binding Path=IsSelected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="Select Fees"></CheckBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -378,23 +400,23 @@
                                 <StackPanel Grid.Column="0" Orientation="Horizontal" >
                                     <WrapPanel Orientation="Horizontal" Width="220" >
                                         <Label  x:Name="lblFine" Content="Fine" Width="Auto" FontSize="16" Foreground="#FF009688"/>
-                                        <TextBox  x:Name="txtFine" TextAlignment="Center" VerticalAlignment="Stretch" FontSize="16"  Width="120" Text="{Binding FeeDueFormFields.Fine,Mode=TwoWay}"/>
+                                        <TextBox  x:Name="txtFine" TextAlignment="Center" VerticalAlignment="Stretch" FontSize="16"  Width="120" Text="{Binding FeeDueFormFields.Fine,Mode=TwoWay}" ToolTip="Enter Fine Amount"/>
                                     </WrapPanel>
                                     <WrapPanel Orientation="Horizontal" Width="260" >
                                         <Label  x:Name="lblConcession" Content="Concession" Width="Auto" FontSize="16" Foreground="#FF009688"/>
-                                        <TextBox  x:Name="txtConcession" TextAlignment="Center" VerticalAlignment="Stretch" FontSize="16"  Width="120" Text="{Binding FeeDueFormFields.Concession,Mode=TwoWay}"/>
+                                        <TextBox  x:Name="txtConcession" TextAlignment="Center" VerticalAlignment="Stretch" FontSize="16"  Width="120" Text="{Binding FeeDueFormFields.Concession,Mode=TwoWay}" ToolTip="Enter Concession Amount"/>
                                     </WrapPanel>
                                     <WrapPanel Orientation="Horizontal" Width="260" >
                                         <Label  x:Name="lblConcessionPercentage" Content="Concession %" Width="Auto" FontSize="16" Foreground="#FF009688"/>
-                                        <TextBox  x:Name="txtConcessionPercentage" TextAlignment="Center" VerticalAlignment="Stretch" FontSize="16"  Width="120" Text="{Binding FeeDueFormFields.ConcessionPercentage,Mode=TwoWay}"/>
+                                        <TextBox  x:Name="txtConcessionPercentage" TextAlignment="Center" VerticalAlignment="Stretch" FontSize="16"  Width="120" Text="{Binding FeeDueFormFields.ConcessionPercentage,Mode=TwoWay}" ToolTip="Enter Concession in Percentage"/>
                                     </WrapPanel>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
                                     <WrapPanel Orientation="Horizontal">
-                                        <Button Content="Apply" Margin="0,5,0,0" Command="{Binding FeeDueApplyCommand}"></Button>
+                                        <Button Content="Apply" Margin="0,5,0,0" Command="{Binding FeeDueApplyCommand}" ToolTip="Apply Changes to Selected Fee Entries"></Button>
                                     </WrapPanel>
                                     <WrapPanel Orientation="Horizontal">
-                                        <Button Background="Red" Content="Delete" Margin="10,5,0,0" Command="{Binding FeeDueDeleteCommand}"></Button>
+                                        <Button Background="Red" Content="Delete" Margin="10,5,0,0" Command="{Binding FeeDueDeleteCommand}" ToolTip="Delete Selected Fee Entries"></Button>
                                     </WrapPanel>
                                 </StackPanel>
                             </Grid>
