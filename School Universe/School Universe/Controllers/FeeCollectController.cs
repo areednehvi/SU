@@ -523,28 +523,30 @@ namespace School_Universe.Controllers
         {
             try
             {
-                PaymentModel objPaymentHistoryModel = new PaymentModel();
-                objPaymentHistoryModel.id = "99999";
-                objPaymentHistoryModel.school_id = "18";
-                objPaymentHistoryModel.student_fees_id = "750";
-                objPaymentHistoryModel.payment_mode = "Cash";
-                objPaymentHistoryModel.amount = 999;
-                objPaymentHistoryModel.fine = 999;
-                objPaymentHistoryModel.comment = "comment";
-                objPaymentHistoryModel.recept_no = "1234";
-                objPaymentHistoryModel.ip = "ip";
-                objPaymentHistoryModel.created_by = "1";
-                objPaymentHistoryModel.updated_by = "1";
-                objPaymentHistoryModel.created_on = DateTime.Now;
-                objPaymentHistoryModel.updated_on = DateTime.Now;
-                objPaymentHistoryModel.payment_date = DateTime.Now;
+                foreach(FeeBalancesModel objFeeBalance in SelectedFeeListForMakePayment)
+                {
+                    PaymentModel objPayment = new PaymentModel();
+                    objPayment.id = "99999";
+                    objPayment.school_id = "18";
+                    objPayment.student_fees_id = objFeeBalance.id;
+                    objPayment.payment_mode = "Cash";
+                    objPayment.amount = objFeeBalance.amount_to_pay;
+                    objPayment.fine = objFeeBalance.fine;
+                    objPayment.comment = "comment";
+                    objPayment.recept_no = "1234";
+                    objPayment.ip = null;
+                    objPayment.created_by = "1";
+                    objPayment.updated_by = "1";
+                    objPayment.created_on = DateTime.Now;
+                    objPayment.updated_on = DateTime.Now;
+                    objPayment.payment_date = DateTime.Now;
 
-                if (FeeCollectManager.MakePayment(objPaymentHistoryModel))
-                    GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");
-
+                    FeeCollectManager.MakePayment(objPayment);
+                }
                 
+                GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");
 
-
+               
             }
             catch (Exception ex)
             {
