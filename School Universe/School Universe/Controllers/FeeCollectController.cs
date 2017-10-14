@@ -6,6 +6,7 @@ using School_Universe_Businness_Layer.Businness;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -827,7 +828,28 @@ namespace School_Universe.Controllers
         {
             Window.WindowState = WindowState.Minimized;
         }
-        #endregion   
+        #endregion
+
+        #region Collections Changed
+        public void SelectedFeeListForMakePayment_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {            
+            if (e.NewItems != null)
+                foreach (FeeBalancesModel item in e.NewItems)
+                    item.PropertyChanged += FeeBalancesModel_PropertyChanged;
+
+            if (e.OldItems != null)
+                foreach (FeeBalancesModel item in e.OldItems)
+                    item.PropertyChanged -= FeeBalancesModel_PropertyChanged;
+        }
+
+        public void FeeBalancesModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "fine")
+                MessageBox.Show("babli");
+            else if (e.PropertyName == "balance_amount")
+                MessageBox.Show("babli");
+        }
+        #endregion
 
         #region INotifyPropertyChanged Members
 
@@ -947,11 +969,14 @@ namespace School_Universe.Controllers
             }
 
         }
+        
+ 
 
         public void CalculateSumOfSelectedFeesAndPopulateSelectedFeeListForMakePayment()
         {
             SumOfAllSelectedFees = 0;
             SelectedFeeListForMakePayment = new ObservableCollection<FeeBalancesModel>();
+            this.SelectedFeeListForMakePayment.CollectionChanged += SelectedFeeListForMakePayment_CollectionChanged;
             for (int count = 0; count < PendingMonthlyFeeList.Count; count++)
             {
                 for (int countFeeBalances = 0; countFeeBalances < PendingMonthlyFeeList[count].FeeBalancesList.Count; countFeeBalances++)
