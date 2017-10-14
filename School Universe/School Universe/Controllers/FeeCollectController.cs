@@ -525,15 +525,16 @@ namespace School_Universe.Controllers
             {
                 foreach(FeeBalancesModel objFeeBalance in SelectedFeeListForMakePayment)
                 {
+                    int i = 99999;
                     PaymentModel objPayment = new PaymentModel();
-                    objPayment.id = "99999";
+                    objPayment.id = (i++).ToString();
                     objPayment.school_id = "18";
                     objPayment.student_fees_id = objFeeBalance.id;
-                    objPayment.payment_mode = "Cash";
+                    objPayment.payment_mode = SelectedPaymentMode.name;
                     objPayment.amount = objFeeBalance.amount_to_pay;
                     objPayment.fine = objFeeBalance.fine;
-                    objPayment.comment = "comment";
-                    objPayment.recept_no = "1234";
+                    objPayment.comment = MakePayment.comment;
+                    objPayment.recept_no = MakePayment.recept_no;
                     objPayment.ip = null;
                     objPayment.created_by = "1";
                     objPayment.updated_by = "1";
@@ -542,8 +543,7 @@ namespace School_Universe.Controllers
                     objPayment.payment_date = DateTime.Now;
 
                     FeeCollectManager.MakePayment(objPayment);
-                }
-                
+                }                
                 GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");
 
                
