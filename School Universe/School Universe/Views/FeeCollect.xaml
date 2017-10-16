@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:School_Universe.Controllers"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:School_Universe.Views"
-             mc:Ignorable="d" Width="1203.779" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+             mc:Ignorable="d" Width="1180.779" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Window.Resources>
         <vm:FeeCollectController x:Key="FeeCollectController" />
         <Style x:Key="TabItemStyle" TargetType="{x:Type TabItem}">
@@ -104,15 +104,15 @@
                                     <ItemsControl ItemsSource="{Binding PendingMonthlyFeeList}" VerticalAlignment="Center" DataContext="{Binding Source={StaticResource FeeCollectController}}" Grid.IsSharedSizeScope="True">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <StackPanel x:Name="spPendingMonthlyFeeList" Margin="10" Background="#FFF7F7F7" MinWidth="263" >
+                                                <StackPanel x:Name="spPendingMonthlyFeeList" Margin="10" Background="#FFF7F7F7" MinWidth="243" >
                                                     <CheckBox x:Name="checkall" Margin="5,5,0,0" FontSize="15" FontWeight="DemiBold"  DataContext="{Binding Source={StaticResource FeeCollectController}}"  Command="{ Binding Path=CheckAllPendingMonthlyFeeCommand }" IsChecked="{Binding ElementName=spPendingMonthlyFeeList,Path=DataContext.IsSelected}" CommandParameter="{Binding ElementName=spPendingMonthlyFeeList,Path=DataContext}" Content="{Binding ElementName=spPendingMonthlyFeeList,Path=DataContext.Period}" ToolTip="Mark All Fee Entries for this Month" />
                                                     <Separator Background="LightGray"/>
                                                     <ListBox ItemsSource="{Binding FeeBalancesList, NotifyOnSourceUpdated=True}" SelectionMode="Multiple">
                                                         <ListBox.ItemTemplate>
                                                             <DataTemplate>
-                                                                <Grid MinWidth="250">
+                                                                <Grid MinWidth="240">
                                                                     <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition MinWidth="220" />
+                                                                        <ColumnDefinition MinWidth="200" />
                                                                         <ColumnDefinition Width="*" />
                                                                     </Grid.ColumnDefinitions>
                                                                     <CheckBox Grid.Column="0" Click="chkbxSelectedFeeBalance_Click" IsChecked="{Binding IsSelected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Content="{Binding fees_category}" ToolTip="Mark Fee Entry"/>
@@ -134,9 +134,9 @@
                                                         </ListBox.ItemContainerStyle>
                                                     </ListBox>
                                                     <Separator Background="LightGray"/>
-                                                    <Grid MinWidth="270" Height="25" VerticalAlignment="Bottom">
+                                                    <Grid MinWidth="250" Height="25" VerticalAlignment="Bottom">
                                                         <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition MinWidth="225" />
+                                                            <ColumnDefinition MinWidth="215" />
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
                                                         <TextBlock Grid.Column="0" Margin="7,0,0,0" FontSize="15" FontWeight="DemiBold" Text="Total" />
