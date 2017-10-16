@@ -1,4 +1,5 @@
-﻿using School_Universe.Shared;
+﻿using School_Universe.Models;
+using School_Universe.Shared;
 using School_Universe_Models.Models;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace School_Universe.Controllers
         #region Fields
         private Window _window;
         private StackPanel _menu;
-        private string _userName;
+        private LoginModel _Login;
         private View _View;
         private ICommand _minimizeCommand;
         private ICommand _closeCommand;
@@ -74,16 +75,16 @@ namespace School_Universe.Controllers
             }
         }
 
-        public string UserName
+        public LoginModel Login
         {
             get
             {
-                return _userName;
+                return _Login;
             }
             set
             {
-                _userName = value;
-                OnPropertyChanged("UserName");
+                _Login = value;
+                OnPropertyChanged("Login");
             }
         }
         #endregion

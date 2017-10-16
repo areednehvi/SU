@@ -30,6 +30,7 @@ namespace School_Universe.Controllers
         private ObservableCollection<PaymentModeModel> _PaymentModeList;
         private ObservableCollection<PendingMonthlyFeeModel> _PendingMonthlyFeeList = new ObservableCollection<PendingMonthlyFeeModel>();
         private MakePaymentModel _makePayment;
+        private LoginModel _CurrentLogin;
         private Window _window;
         private DataGrid _paymentHistoryDataGrid;
         private DataGrid _feeDueDataGrid;
@@ -56,6 +57,9 @@ namespace School_Universe.Controllers
         #region Constructor
         public FeeCollectController()
         {
+            //Get the Current Login
+            _CurrentLogin = (LoginModel)GeneralMethods.GetGlobalObject(GlobalObjects.CurrentLogin);
+
             _PaymentHistoryList = new ObservableCollection<PaymentModel>();
             _FeeDueList = new ObservableCollection<FeeDueModel>();
             _FeeCollectionStudent = new FeeCollectionStudentListModel();
@@ -87,6 +91,17 @@ namespace School_Universe.Controllers
         #endregion
 
         #region Properties
+        public LoginModel CurrentLogin
+        {
+            get
+            {
+                return _CurrentLogin;
+            }
+            set
+            {
+                _CurrentLogin = value;
+            }
+        }
         public ObservableCollection<PendingMonthlyFeeModel> PendingMonthlyFeeList
         {            
             get
@@ -500,29 +515,8 @@ namespace School_Universe.Controllers
         {
             try
             {
-                foreach(FeeBalancesModel objFeeBalance in MakePayment.SelectedFeeBalances)
-                {                    
-                    PaymentModel objPayment = new PaymentModel();
-                    objPayment.id = "0";
-                    objPayment.school_id = "18";
-                    objPayment.student_fees_id = objFeeBalance.id;
-                    objPayment.payment_mode = MakePayment.SelectedPaymentMode.name;
-                    objPayment.amount = objFeeBalance.balance_amount;
-                    objPayment.fine = objFeeBalance.fine;
-                    objPayment.comment = MakePayment.Payment.comment;
-                    objPayment.recept_no = MakePayment.Payment.recept_no;
-                    objPayment.ip = null;
-                    objPayment.created_by = "1";
-                    objPayment.updated_by = "1";
-                    objPayment.created_on = DateTime.Now;
-                    objPayment.updated_on = DateTime.Now;
-                    objPayment.payment_date = DateTime.Now;
-
-                    FeeCollectManager.MakePayment(objPayment);
-                }                
-                GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");
-
-               
+                if(FeeCollectManager.MakePayments(MakePayment,CurrentLogin))
+                    GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");               
             }
             catch (Exception ex)
             {
@@ -566,7 +560,7 @@ namespace School_Universe.Controllers
                     {
                         objFeeDueModel.fine = FeeDueFormFields.Fine;
                         objFeeDueModel.concession_amount = FeeDueFormFields.Concession;
-                        FeeCollectManager.UpdateFeeDue(objFeeDueModel);
+                        FeeCollectManager.UpdateFeeDue(objFeeDueModel,CurrentLogin);
                     }
                         
                 }
@@ -661,7 +655,7 @@ namespace School_Universe.Controllers
         {
             try
             {
-                if(FeeCollectManager.UpdatePaymentHistory(SelectedItemInPaymentHistoryList))
+                if(FeeCollectManager.UpdatePaymentHistory(SelectedItemInPaymentHistoryList,CurrentLogin))
                     GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");                
 
             }

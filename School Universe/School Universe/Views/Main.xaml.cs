@@ -36,7 +36,7 @@ namespace School_Universe.Views
             ((MainController)grdMain.DataContext).Menu = this.menu;
 
             if (objLogin != null)
-                ((MainController)grdMain.DataContext).UserName = objLogin.Username.ToUpper();
+                ((MainController)grdMain.DataContext).Login = objLogin;
         }
 
     }

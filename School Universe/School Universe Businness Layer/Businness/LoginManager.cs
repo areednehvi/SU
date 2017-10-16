@@ -28,7 +28,10 @@ namespace School_Universe_Businness_Layer.Businness
                 };
                 DataTable objDatable = DataAccess.GetDataTable(StoredProcedures.AuthenticateUser,lstSqlParameters);
                 if (objDatable.Rows.Count > 0)
+                {
                     isValidUser = true;
+                    objLogin.ID = objDatable.Rows[0]["id"] != DBNull.Value ? objDatable.Rows[0]["id"].ToString() : string.Empty;
+                }
             }
             catch(Exception ex)
             {

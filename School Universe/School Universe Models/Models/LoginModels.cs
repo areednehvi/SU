@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 namespace School_Universe.Models
 {
     public class LoginModel : INotifyPropertyChanged
-    {        
+    {     
         private string _username;
         private string _password;
         private string _message;
 
+        public string ID { get; set; }
         public string Username
         {
             get

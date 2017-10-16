@@ -100,6 +100,98 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return objPendingMonthlyFeeList;
         }
+
+        public static Boolean MakePayments(MakePaymentModel objMakePayment,LoginModel objCurrentLogin)
+        {
+            Boolean IsSuccess = false;
+            try
+            {
+                foreach (FeeBalancesModel objFeeBalance in objMakePayment.SelectedFeeBalances)
+                {
+                    PaymentModel objPayment = new PaymentModel();
+                    objPayment.id = "0";
+                    objPayment.school_id = "18";
+                    objPayment.student_fees_id = objFeeBalance.id;
+                    objPayment.payment_mode = objMakePayment.SelectedPaymentMode.name;
+                    objPayment.amount = objFeeBalance.balance_amount;
+                    objPayment.fine = objFeeBalance.fine;
+                    objPayment.comment = objMakePayment.Payment.comment;
+                    objPayment.recept_no = objMakePayment.Payment.recept_no;
+                    objPayment.ip = null;
+                    objPayment.created_by = objCurrentLogin.ID != null ? objCurrentLogin.ID : "0";
+                    objPayment.updated_by = objCurrentLogin.ID != null ? objCurrentLogin.ID : "0";
+                    objPayment.created_on = DateTime.Now;
+                    objPayment.updated_on = DateTime.Now;
+                    objPayment.payment_date = objMakePayment.Payment.payment_date;
+
+                    DataTable objDatatable = MapPaymentToDataTable(objPayment);
+                    SqlParameter objSqlParameter = new SqlParameter("@PaymentTable", SqlDbType.Structured);
+                    objSqlParameter.TypeName = "dbo.PaymentModel";
+                    objSqlParameter.Value = objDatatable;
+                    IsSuccess = DataAccess.ExecuteNonQuery(StoredProcedures.MakePayment, objSqlParameter);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return IsSuccess;
+        }
+
+        private static DataTable MapPaymentToDataTable(PaymentModel objPaymentHistoryModel)
+        {
+            try
+            {
+                DataTable table = new DataTable();
+                table.Columns.Add("id_offline", typeof(Guid));
+                table.Columns.Add("id", typeof(string));
+                table.Columns.Add("school_id", typeof(string));
+                table.Columns.Add("student_fees_id", typeof(string));
+                table.Columns.Add("amount", typeof(Double));
+                table.Columns.Add("fine", typeof(Double));
+                table.Columns.Add("comment", typeof(string));
+                table.Columns.Add("recept_no", typeof(string));
+                table.Columns.Add("payment_mode", typeof(string));
+                table.Columns.Add("payment_date", typeof(DateTime));
+                table.Columns.Add("ip", typeof(string));
+                table.Columns.Add("created_by", typeof(string));
+                table.Columns.Add("created_on", typeof(DateTime));
+                table.Columns.Add("updated_by", typeof(string));
+                table.Columns.Add("updated_on", typeof(DateTime));
+
+                table.Rows.Add(
+                                objPaymentHistoryModel.id_offline,
+                                objPaymentHistoryModel.id,
+                                objPaymentHistoryModel.school_id,
+                                objPaymentHistoryModel.student_fees_id,
+                                objPaymentHistoryModel.amount,
+                                objPaymentHistoryModel.fine,
+                                objPaymentHistoryModel.comment,
+                                objPaymentHistoryModel.recept_no,
+                                objPaymentHistoryModel.payment_mode,
+                                objPaymentHistoryModel.payment_date,
+                                objPaymentHistoryModel.ip,
+                                objPaymentHistoryModel.created_by,
+                                objPaymentHistoryModel.created_on,
+                                objPaymentHistoryModel.updated_by,
+                                objPaymentHistoryModel.updated_on
+                             );
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
         #endregion
 
         #region PaymentHistory
@@ -173,87 +265,20 @@ namespace School_Universe_Businness_Layer.Businness
             return objPaymentHistoryList;
         }
 
-        public static Boolean UpdatePaymentHistory(PaymentModel objPaymentModel)
+        public static Boolean UpdatePaymentHistory(PaymentModel objPayment,LoginModel objCurrentLogin)
         {
             try
             {
-                DataTable objDatatable = MapPaymentToDataTable(objPaymentModel);
+                objPayment.updated_on = DateTime.Now;
+                objPayment.updated_by = objCurrentLogin.ID!= null ? objCurrentLogin.ID : "0";
+
+                DataTable objDatatable = MapPaymentToDataTable(objPayment);
                 SqlParameter objSqlParameter = new SqlParameter("@PaymentTable", SqlDbType.Structured);
                 objSqlParameter.TypeName = "dbo.PaymentModel";
                 objSqlParameter.Value = objDatatable;
                 return DataAccess.ExecuteNonQuery(StoredProcedures.UpdatePayment, objSqlParameter);
             }
             catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-
-            }
-        }
-
-        public static Boolean MakePayment(PaymentModel objPaymentModel)
-        {
-            try
-            {
-                DataTable objDatatable = MapPaymentToDataTable(objPaymentModel);
-                SqlParameter objSqlParameter = new SqlParameter("@PaymentTable", SqlDbType.Structured);
-                objSqlParameter.TypeName = "dbo.PaymentModel";
-                objSqlParameter.Value = objDatatable;
-                return DataAccess.ExecuteNonQuery(StoredProcedures.MakePayment, objSqlParameter);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-
-            }
-        }
-
-        private static DataTable MapPaymentToDataTable(PaymentModel objPaymentHistoryModel)
-        {
-            try
-            {
-                DataTable table = new DataTable();
-                table.Columns.Add("id_offline", typeof(Guid));
-                table.Columns.Add("id",typeof(string));                
-                table.Columns.Add("school_id", typeof(string));
-                table.Columns.Add("student_fees_id", typeof(string));
-                table.Columns.Add("amount", typeof(Double));
-                table.Columns.Add("fine", typeof(Double));
-                table.Columns.Add("comment", typeof(string));
-                table.Columns.Add("recept_no", typeof(string));
-                table.Columns.Add("payment_mode", typeof(string));
-                table.Columns.Add("payment_date", typeof(DateTime));
-                table.Columns.Add("ip", typeof(string));
-                table.Columns.Add("created_by", typeof(string));
-                table.Columns.Add("created_on", typeof(DateTime));
-                table.Columns.Add("updated_by", typeof(string));
-                table.Columns.Add("updated_on", typeof(DateTime));
-
-                table.Rows.Add(
-                                objPaymentHistoryModel.id_offline,
-                                objPaymentHistoryModel.id,                                
-                                objPaymentHistoryModel.school_id, 
-                                objPaymentHistoryModel.student_fees_id, 
-                                objPaymentHistoryModel.amount, 
-                                objPaymentHistoryModel.fine, 
-                                objPaymentHistoryModel.comment, 
-                                objPaymentHistoryModel.recept_no, 
-                                objPaymentHistoryModel.payment_mode, 
-                                objPaymentHistoryModel.payment_date,
-                                objPaymentHistoryModel.ip, 
-                                objPaymentHistoryModel.created_by,
-                                objPaymentHistoryModel.created_on,
-                                objPaymentHistoryModel.updated_by,
-                                objPaymentHistoryModel.updated_on
-                             );
-                return table;
-            }
-            catch (Exception ex)
             {
                 throw ex;
             }
@@ -326,13 +351,19 @@ namespace School_Universe_Businness_Layer.Businness
             return objFeeDueList;
         }
 
-        public static Boolean UpdateFeeDue(FeeDueModel objFeeDueModel)
+        public static Boolean UpdateFeeDue(FeeDueModel objFeeDueModel,LoginModel objCurrentLogin)
         {
             try
             {
+                objFeeDueModel.updated_on = DateTime.Now;
+                objFeeDueModel.updated_by = objCurrentLogin.ID != null ? objCurrentLogin.ID : "0";
+
+                DataTable objDatatable = MapFeeDueToDataTable(objFeeDueModel);
                 SqlParameter objSqlParameter = new SqlParameter("@StudentFeesTable", SqlDbType.Structured);
-                objSqlParameter.Value = objFeeDueModel.id;
+                objSqlParameter.TypeName = "dbo.FeeDueModel";
+                objSqlParameter.Value = objDatatable;
                 return DataAccess.ExecuteNonQuery(StoredProcedures.UpdateFeeDue, objSqlParameter);
+
             }
             catch (Exception ex)
             {

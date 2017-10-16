@@ -83,6 +83,9 @@ namespace School_Universe.Controllers
                 Login.Password = pwBox.Password;
                 if (LoginManager.ValidateUser(Login))
                 {
+                    //Maintain state of Login
+                    GeneralMethods.CreateGlobalObject(GlobalObjects.CurrentLogin, Login);                    
+                    //open window after authentication
                     Main objMainWindow = new Main(Login);
                     objMainWindow.Show();
                     Window.Close();
