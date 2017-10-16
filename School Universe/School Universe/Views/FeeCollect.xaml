@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:School_Universe.Controllers"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:School_Universe.Views"
-             mc:Ignorable="d" Width="1263.779" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+             mc:Ignorable="d" Width="1203.779" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Window.Resources>
         <vm:FeeCollectController x:Key="FeeCollectController" />
         <Style x:Key="TabItemStyle" TargetType="{x:Type TabItem}">
@@ -101,16 +101,16 @@
                                         <TextBlock Grid.Column="2" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Top" Text="{Binding SumOfAllSelectedFees}" />
                                         <Button Grid.Column="3" HorizontalAlignment="Right" Content="Pay >>"  Command="{Binding ShowHideMakePaymentScreenCommand}" CommandParameter="Pay" ToolTip="Move Forward to Make a Payment"></Button>
                                     </Grid>
-                                    <ItemsControl ItemsSource="{Binding PendingMonthlyFeeList}" DataContext="{Binding Source={StaticResource FeeCollectController}}" Grid.IsSharedSizeScope="True">
+                                    <ItemsControl ItemsSource="{Binding PendingMonthlyFeeList}" VerticalAlignment="Center" DataContext="{Binding Source={StaticResource FeeCollectController}}" Grid.IsSharedSizeScope="True">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <StackPanel x:Name="spPendingMonthlyFeeList" Margin="10" Background="#FFF7F7F7" MinWidth="283" >
+                                                <StackPanel x:Name="spPendingMonthlyFeeList" Margin="10" Background="#FFF7F7F7" MinWidth="263" >
                                                     <CheckBox x:Name="checkall" Margin="5,5,0,0" FontSize="15" FontWeight="DemiBold"  DataContext="{Binding Source={StaticResource FeeCollectController}}"  Command="{ Binding Path=CheckAllPendingMonthlyFeeCommand }" IsChecked="{Binding ElementName=spPendingMonthlyFeeList,Path=DataContext.IsSelected}" CommandParameter="{Binding ElementName=spPendingMonthlyFeeList,Path=DataContext}" Content="{Binding ElementName=spPendingMonthlyFeeList,Path=DataContext.Period}" ToolTip="Mark All Fee Entries for this Month" />
                                                     <Separator Background="LightGray"/>
                                                     <ListBox ItemsSource="{Binding FeeBalancesList, NotifyOnSourceUpdated=True}" SelectionMode="Multiple">
                                                         <ListBox.ItemTemplate>
                                                             <DataTemplate>
-                                                                <Grid MinWidth="270">
+                                                                <Grid MinWidth="250">
                                                                     <Grid.ColumnDefinitions>
                                                                         <ColumnDefinition MinWidth="220" />
                                                                         <ColumnDefinition Width="*" />
@@ -140,7 +140,7 @@
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
                                                         <TextBlock Grid.Column="0" Margin="7,0,0,0" FontSize="15" FontWeight="DemiBold" Text="Total" />
-                                                        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,7,0" >
+                                                        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,12,0" >
                                                             <TextBlock FontWeight="Bold"  Text="{Binding Total}" />
                                                             <Viewbox Margin="0,0,0,5"  Width="12" Height="12">
                                                                 <Canvas Width="24" Height="24">
