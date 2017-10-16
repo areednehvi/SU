@@ -113,16 +113,17 @@
                                                                 <Grid MinWidth="270">
                                                                     <Grid.ColumnDefinitions>
                                                                         <ColumnDefinition MinWidth="220" />
-                                                                        <ColumnDefinition Width="auto" />
                                                                         <ColumnDefinition Width="*" />
                                                                     </Grid.ColumnDefinitions>
                                                                     <CheckBox Grid.Column="0" Click="chkbxSelectedFeeBalance_Click" IsChecked="{Binding IsSelected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Content="{Binding fees_category}" ToolTip="Mark Fee Entry"/>
-                                                                    <Viewbox Grid.Column="1" Width="12" Height="12">
-                                                                        <Canvas Width="24" Height="24">
-                                                                            <Path Data="M8,3H18L17,5H13.74C14.22,5.58 14.58,6.26 14.79,7H18L17,9H15C14.75,11.57 12.74,13.63 10.2,13.96V14H9.5L15.5,21H13L7,14V12H9.5V12C11.26,12 12.72,10.7 12.96,9H7L8,7H12.66C12.1,5.82 10.9,5 9.5,5H7L8,3Z" Fill="Black" />
-                                                                        </Canvas>
-                                                                    </Viewbox>
-                                                                    <TextBlock Grid.Column="2" HorizontalAlignment="Right" FontWeight="Bold" Text="{Binding balance_amount}" />
+                                                                    <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                                                                        <TextBlock FontWeight="Bold" Text="{Binding balance_amount}" />
+                                                                        <Viewbox Width="12" Height="12">
+                                                                            <Canvas Width="24" Height="24">
+                                                                                <Path Data="M8,3H18L17,5H13.74C14.22,5.58 14.58,6.26 14.79,7H18L17,9H15C14.75,11.57 12.74,13.63 10.2,13.96V14H9.5L15.5,21H13L7,14V12H9.5V12C11.26,12 12.72,10.7 12.96,9H7L8,7H12.66C12.1,5.82 10.9,5 9.5,5H7L8,3Z" Fill="Black" />
+                                                                            </Canvas>
+                                                                        </Viewbox>
+                                                                    </StackPanel>
                                                                 </Grid>
                                                             </DataTemplate>
                                                         </ListBox.ItemTemplate>
@@ -136,16 +137,17 @@
                                                     <Grid MinWidth="270" Height="25" VerticalAlignment="Bottom">
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition MinWidth="225" />
-                                                            <ColumnDefinition Width="auto" />
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
                                                         <TextBlock Grid.Column="0" Margin="7,0,0,0" FontSize="15" FontWeight="DemiBold" Text="Total" />
-                                                        <Viewbox Grid.Column="1" Width="12" Height="12">
-                                                            <Canvas Width="24" Height="24">
-                                                                <Path Data="M8,3H18L17,5H13.74C14.22,5.58 14.58,6.26 14.79,7H18L17,9H15C14.75,11.57 12.74,13.63 10.2,13.96V14H9.5L15.5,21H13L7,14V12H9.5V12C11.26,12 12.72,10.7 12.96,9H7L8,7H12.66C12.1,5.82 10.9,5 9.5,5H7L8,3Z" Fill="Black" />
-                                                            </Canvas>
-                                                        </Viewbox>
-                                                        <TextBlock Grid.Column="2" HorizontalAlignment="Right" FontWeight="Bold" Margin="0,0,7,0" Text="{Binding Total}" />
+                                                        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,7,0" >
+                                                            <TextBlock FontWeight="Bold"  Text="{Binding Total}" />
+                                                            <Viewbox Margin="0,0,0,5"  Width="12" Height="12">
+                                                                <Canvas Width="24" Height="24">
+                                                                    <Path Data="M8,3H18L17,5H13.74C14.22,5.58 14.58,6.26 14.79,7H18L17,9H15C14.75,11.57 12.74,13.63 10.2,13.96V14H9.5L15.5,21H13L7,14V12H9.5V12C11.26,12 12.72,10.7 12.96,9H7L8,7H12.66C12.1,5.82 10.9,5 9.5,5H7L8,3Z" Fill="Black" />
+                                                                </Canvas>
+                                                            </Viewbox>
+                                                        </StackPanel>
                                                     </Grid>
                                                 </StackPanel>
                                             </DataTemplate>
@@ -275,24 +277,74 @@
                                         </Grid.ColumnDefinitions>
 
                                         <Label Grid.Row="0" Grid.Column="0"  Content="Total Fee :" Width="Auto" FontSize="16" FontWeight="Bold" Foreground="#FF009688"/>
-                                        <TextBlock Grid.Row="0" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding MakePayment.TotalOfSelectedFeeBalancesFee}" />
+                                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Margin="0,0,30,0" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                                            <TextBlock FontSize="16" FontWeight="Bold"  Text="{Binding MakePayment.TotalOfSelectedFeeBalancesFee}" />
+                                            <Viewbox  Width="12" Height="12">
+                                                <Canvas Width="24" Height="24">
+                                                    <Path Data="M8,3H18L17,5H13.74C14.22,5.58 14.58,6.26 14.79,7H18L17,9H15C14.75,11.57 12.74,13.63 10.2,13.96V14H9.5L15.5,21H13L7,14V12H9.5V12C11.26,12 12.72,10.7 12.96,9H7L8,7H12.66C12.1,5.82 10.9,5 9.5,5H7L8,3Z" Fill="Black" />
+                                                </Canvas>
+                                            </Viewbox>
+                                        </StackPanel>
                                         <Label Grid.Row="0" Grid.Column="2" Content="Amount :" Width="Auto" FontSize="16" FontWeight="Bold" Foreground="#FF009688"/>
-                                        <TextBlock Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding MakePayment.TotalOfSelectedFeeBalancesAmount}" />
+                                        
+                                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3" Margin="0,0,30,0" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                                            <TextBlock FontSize="16" FontWeight="Bold"    Text="{Binding MakePayment.TotalOfSelectedFeeBalancesAmount}" />
+                                            <Viewbox  Width="12" Height="12">
+                                                <Canvas Width="24" Height="24">
+                                                    <Path Data="M8,3H18L17,5H13.74C14.22,5.58 14.58,6.26 14.79,7H18L17,9H15C14.75,11.57 12.74,13.63 10.2,13.96V14H9.5L15.5,21H13L7,14V12H9.5V12C11.26,12 12.72,10.7 12.96,9H7L8,7H12.66C12.1,5.82 10.9,5 9.5,5H7L8,3Z" Fill="Black" />
+                                                </Canvas>
+                                            </Viewbox>
+                                        </StackPanel>
 
                                         <Label Grid.Row="1" Grid.Column="2"   Content="Fine :" Width="Auto" FontSize="16" FontWeight="Bold" Foreground="#FF009688"/>
-                                        <TextBlock Grid.Row="1" Grid.Column="3"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding MakePayment.TotalOfSelectedFeeBalancesFine}" />
+                                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" Margin="0,0,30,0" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                                            <TextBlock FontSize="16" FontWeight="Bold"    Text="{Binding MakePayment.TotalOfSelectedFeeBalancesAmount}" />
+                                            <Viewbox  Width="12" Height="12">
+                                                <Canvas Width="24" Height="24">
+                                                    <Path Data="M8,3H18L17,5H13.74C14.22,5.58 14.58,6.26 14.79,7H18L17,9H15C14.75,11.57 12.74,13.63 10.2,13.96V14H9.5L15.5,21H13L7,14V12H9.5V12C11.26,12 12.72,10.7 12.96,9H7L8,7H12.66C12.1,5.82 10.9,5 9.5,5H7L8,3Z" Fill="Black" />
+                                                </Canvas>
+                                            </Viewbox>
+                                        </StackPanel>
 
                                         <Label Grid.Row="2" Grid.Column="0"  Content="Already Paid :" Width="Auto" FontSize="16" FontWeight="Bold" Foreground="#FF009688"/>
-                                        <TextBlock Grid.Row="2" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding MakePayment.TotalOfAlreadyPaidAmount}" />
+                                        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="0,0,30,0" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                                            <TextBlock FontSize="16" FontWeight="Bold"    Text="{Binding MakePayment.TotalOfAlreadyPaidAmount}" />
+                                            <Viewbox  Width="12" Height="12">
+                                                <Canvas Width="24" Height="24">
+                                                    <Path Data="M8,3H18L17,5H13.74C14.22,5.58 14.58,6.26 14.79,7H18L17,9H15C14.75,11.57 12.74,13.63 10.2,13.96V14H9.5L15.5,21H13L7,14V12H9.5V12C11.26,12 12.72,10.7 12.96,9H7L8,7H12.66C12.1,5.82 10.9,5 9.5,5H7L8,3Z" Fill="Black" />
+                                                </Canvas>
+                                            </Viewbox>
+                                        </StackPanel>
                                         <Label Grid.Row="2" Grid.Column="2"   Content="Concession :" Width="Auto" FontSize="16" FontWeight="Bold" Foreground="#FF009688"/>
-                                        <TextBlock Grid.Row="2" Grid.Column="3"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding MakePayment.TotalOfSelectedFeeBalancesConcession}" />
+                                        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3" Margin="0,0,30,0" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                                            <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding MakePayment.TotalOfSelectedFeeBalancesConcession}" />
+                                            <Viewbox  Width="12" Height="12">
+                                                <Canvas Width="24" Height="24">
+                                                    <Path Data="M8,3H18L17,5H13.74C14.22,5.58 14.58,6.26 14.79,7H18L17,9H15C14.75,11.57 12.74,13.63 10.2,13.96V14H9.5L15.5,21H13L7,14V12H9.5V12C11.26,12 12.72,10.7 12.96,9H7L8,7H12.66C12.1,5.82 10.9,5 9.5,5H7L8,3Z" Fill="Black" />
+                                                </Canvas>
+                                            </Viewbox>
+                                        </StackPanel>
 
                                         <Label Grid.Row="3" Grid.Column="0"  Content="Balance :" Width="Auto" FontSize="16" FontWeight="Bold" Foreground="#FF009688"/>
-                                        <TextBlock Grid.Row="3" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding MakePayment.TotalBalance}" />
+                                        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Margin="0,0,30,0" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                                            <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding MakePayment.TotalBalance}" />
+                                            <Viewbox  Width="12" Height="12">
+                                                <Canvas Width="24" Height="24">
+                                                    <Path Data="M8,3H18L17,5H13.74C14.22,5.58 14.58,6.26 14.79,7H18L17,9H15C14.75,11.57 12.74,13.63 10.2,13.96V14H9.5L15.5,21H13L7,14V12H9.5V12C11.26,12 12.72,10.7 12.96,9H7L8,7H12.66C12.1,5.82 10.9,5 9.5,5H7L8,3Z" Fill="Black" />
+                                                </Canvas>
+                                            </Viewbox>
+                                        </StackPanel>
                                         <Label Grid.Row="3" Grid.Column="2"   Content="TOTAL :" Width="Auto" FontSize="16" FontWeight="Bold" Foreground="#FF009688"/>
-                                        <TextBlock Grid.Row="3" Grid.Column="3"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding MakePayment.TotalOfSelectedFeeBalancesGrandTotal}" />
+                                        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="3" Margin="0,0,30,0" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                                            <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding MakePayment.TotalOfSelectedFeeBalancesGrandTotal}" />
+                                            <Viewbox  Width="12" Height="12">
+                                                <Canvas Width="24" Height="24">
+                                                    <Path Data="M8,3H18L17,5H13.74C14.22,5.58 14.58,6.26 14.79,7H18L17,9H15C14.75,11.57 12.74,13.63 10.2,13.96V14H9.5L15.5,21H13L7,14V12H9.5V12C11.26,12 12.72,10.7 12.96,9H7L8,7H12.66C12.1,5.82 10.9,5 9.5,5H7L8,3Z" Fill="Black" />
+                                                </Canvas>
+                                            </Viewbox>
+                                        </StackPanel>
 
-                                        <Button Grid.Row="4" Grid.Column="3" Content="Make Payment" Margin="0,5,0,10" Width="200"  DataContext="{Binding Source={StaticResource FeeCollectController}}"   Command="{Binding MakePaymentCommand}" ToolTip="Make a Payment"></Button>
+                                        <Button Grid.Row="4" Grid.Column="3" HorizontalAlignment="Right" Content="Make Payment" Margin="0,5,30,10" Width="200"  DataContext="{Binding Source={StaticResource FeeCollectController}}"   Command="{Binding MakePaymentCommand}" ToolTip="Make a Payment"></Button>
                                     </Grid>
                                 </Grid>
                             </materialDesign:Card>
