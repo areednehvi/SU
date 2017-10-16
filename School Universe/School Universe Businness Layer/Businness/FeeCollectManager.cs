@@ -137,6 +137,7 @@ namespace School_Universe_Businness_Layer.Businness
                 {
                     PaymentModel objPaymentHistory = new PaymentModel();
                     objPaymentHistory.id = row["id"] != DBNull.Value ? row["id"].ToString() : string.Empty;
+                    objPaymentHistory.id_offline = row["id_offline"] != DBNull.Value ? Guid.Parse(row["id_offline"].ToString()) : Guid.Empty;
                     objPaymentHistory.school_id = row["school_id"] != DBNull.Value ? row["school_id"].ToString() : string.Empty;
                     objPaymentHistory.student_fees_id = row["student_fees_id"] != DBNull.Value ? row["student_fees_id"].ToString() : string.Empty;
                     objPaymentHistory.amount = row["amount"] != DBNull.Value ? Convert.ToDouble(row["amount"]) : 0;
@@ -217,7 +218,8 @@ namespace School_Universe_Businness_Layer.Businness
             try
             {
                 DataTable table = new DataTable();
-                table.Columns.Add("id",typeof(string));
+                table.Columns.Add("id_offline", typeof(Guid));
+                table.Columns.Add("id",typeof(string));                
                 table.Columns.Add("school_id", typeof(string));
                 table.Columns.Add("student_fees_id", typeof(string));
                 table.Columns.Add("amount", typeof(Double));
@@ -232,7 +234,9 @@ namespace School_Universe_Businness_Layer.Businness
                 table.Columns.Add("updated_by", typeof(string));
                 table.Columns.Add("updated_on", typeof(DateTime));
 
-                table.Rows.Add( objPaymentHistoryModel.id, 
+                table.Rows.Add(
+                                objPaymentHistoryModel.id_offline,
+                                objPaymentHistoryModel.id,                                
                                 objPaymentHistoryModel.school_id, 
                                 objPaymentHistoryModel.student_fees_id, 
                                 objPaymentHistoryModel.amount, 

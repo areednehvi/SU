@@ -107,7 +107,7 @@ namespace School_Universe_Businness_Layer.Businness
                 {
                     new PaymentModeModel() { id ="Cash", name = "Cash" },
                     new PaymentModeModel() { id ="Cheque", name = "Cheque" },
-                    new PaymentModeModel() { id ="Chalan", name = "Chalan" },
+                    new PaymentModeModel() { id ="Challan", name = "Challan" },
                     new PaymentModeModel() { id ="Online", name = "Online" }
                 };
                 

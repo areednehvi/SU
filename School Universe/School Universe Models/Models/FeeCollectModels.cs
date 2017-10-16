@@ -67,6 +67,7 @@ namespace School_Universe.Models
             set
             {
                 _fine = value;
+                balance_amount = amount_to_pay - concession_amount + fine;                 
                 OnPropertyChanged("fine");
             }
         }
@@ -123,6 +124,7 @@ namespace School_Universe.Models
         private string _payment_mode;
 
         public string id { get; set; }
+        public Guid id_offline { get; set; }
         public string school_id { get; set; }
         public string student_fees_id { get; set; }
         public Double amount
@@ -407,6 +409,138 @@ namespace School_Universe.Models
         public string id { get; set; }
         public string name { get; set; }
     }
+
+    public class MakePaymentModel :INotifyPropertyChanged
+    {
+        private ObservableCollection<FeeBalancesModel> _SelectedFeeBalances;
+        private PaymentModeModel _SelectedPaymentMode;
+        private Double _TotalOfSelectedFeeBalancesFee;
+        private Double _TotalOfSelectedFeeBalancesAmount;
+        private Double _TotalOfAlreadyPaidAmount;
+        private Double _TotalBalance;
+        private Double _TotalOfSelectedFeeBalancesFine;
+        private Double _TotalOfSelectedFeeBalancesGrandTotal;
+        private Double _TotalOfSelectedFeeBalancesConcession;
+        public PaymentModel Payment{ get; set;}
+        public PaymentModeModel SelectedPaymentMode
+        {
+            get { return _SelectedPaymentMode; }
+            set
+            {
+                _SelectedPaymentMode = value;
+                OnPropertyChanged("SelectedPaymentMode");
+            }
+        }
+        public ObservableCollection<FeeBalancesModel> SelectedFeeBalances
+        {
+            get
+            {
+                return _SelectedFeeBalances;
+            }
+            set
+            {
+                _SelectedFeeBalances = value;
+                OnPropertyChanged("SelectedFeeBalances");
+            }
+        }
+        public Double TotalOfSelectedFeeBalancesFee
+        {
+            get
+            {
+                return _TotalOfSelectedFeeBalancesFee;
+            }
+            set
+            {
+                _TotalOfSelectedFeeBalancesFee = value;
+                OnPropertyChanged("TotalOfSelectedFeeBalancesFee");
+            }
+        }
+        public Double TotalOfSelectedFeeBalancesFine
+        {
+            get
+            {
+                return _TotalOfSelectedFeeBalancesFine;
+            }
+            set
+            {
+                _TotalOfSelectedFeeBalancesFine = value;
+                OnPropertyChanged("TotalOfSelectedFeeBalancesFine");
+            }
+        }
+        public Double TotalOfSelectedFeeBalancesConcession
+        {
+            get
+            {
+                return _TotalOfSelectedFeeBalancesConcession;
+            }
+            set
+            {
+                _TotalOfSelectedFeeBalancesConcession = value;
+                OnPropertyChanged("TotalOfSelectedFeeBalancesConcession");
+            }
+        }
+        public Double TotalOfSelectedFeeBalancesGrandTotal
+        {
+            get
+            {
+                return _TotalOfSelectedFeeBalancesGrandTotal;
+            }
+            set
+            {
+                _TotalOfSelectedFeeBalancesGrandTotal = value;
+                OnPropertyChanged("TotalOfSelectedFeeBalancesGrandTotal");
+            }
+        }
+        public Double TotalOfSelectedFeeBalancesAmount
+        {
+            get
+            {
+                return _TotalOfSelectedFeeBalancesAmount;
+            }
+            set
+            {
+                _TotalOfSelectedFeeBalancesAmount = value;
+                OnPropertyChanged("TotalOfSelectedFeeBalancesAmount");
+            }
+        }
+        public Double TotalOfAlreadyPaidAmount
+        {
+            get
+            {
+                return _TotalOfAlreadyPaidAmount;
+            }
+            set
+            {
+                _TotalOfAlreadyPaidAmount = value;
+                OnPropertyChanged("TotalOfAlreadyPaidAmount");
+            }
+        }
+        public Double TotalBalance
+        {
+            get
+            {
+                return _TotalBalance;
+            }
+            set
+            {
+                _TotalBalance = value;
+                OnPropertyChanged("TotalBalance");
+            }
+        }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
+    }
+
 
 
 }

@@ -174,18 +174,18 @@
                                     <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="10,0,0,0" >
                                         <WrapPanel Orientation="Horizontal" >
                                             <Label  Content="Payment Mode" Width="Auto" FontSize="16" Foreground="#FF009688"/>
-                                            <ComboBox VerticalAlignment="Stretch"  HorizontalAlignment="Center" FontSize="16" Width="200" ItemsSource="{Binding PaymentModeList}" SelectedValue="{Binding SelectedPaymentMode.id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="name" SelectedValuePath="id"  SelectedItem="{Binding SelectedPaymentMode,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  ToolTip="Select Payment Method" />
+                                            <ComboBox VerticalAlignment="Stretch"  HorizontalAlignment="Center" FontSize="16" Width="200" ItemsSource="{Binding PaymentModeList}" SelectedValue="{Binding MakePayment.SelectedPaymentMode.id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="name" SelectedValuePath="id"  SelectedItem="{Binding MakePayment.SelectedPaymentMode,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  ToolTip="Select Payment Method" />
                                         </WrapPanel>
                                         <WrapPanel Orientation="Horizontal" Margin="10,0,0,0" >
                                             <Label  Content="Payment Date" Width="Auto" FontSize="16" Foreground="#FF009688"/>
-                                            <DatePicker x:Name="dpPaymentDate" VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="200" SelectedDate="{Binding MakePayment.payment_date,  StringFormat=dd/MM/yyyy,Mode=TwoWay}" ToolTip="Select Payment Date" />
+                                            <DatePicker x:Name="dpPaymentDate" VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="200" SelectedDate="{Binding MakePayment.Payment.payment_date,StringFormat=dd/MM/yyyy,Mode=TwoWay}" ToolTip="Select Payment Date" />
                                         </WrapPanel>
                                         <WrapPanel Orientation="Horizontal"  Margin="10,0,0,0" >
                                             <Label  Content="Receipt Number" Width="Auto" FontSize="16" Foreground="#FF009688"/>
-                                            <TextBox VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="200" Text="{Binding MakePayment.recept_no,Mode=TwoWay}"  ToolTip="Enter Receipt Number" />
+                                            <TextBox VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="200" Text="{Binding MakePayment.Payment.recept_no,Mode=TwoWay}"  ToolTip="Enter Receipt Number" />
                                         </WrapPanel>
                                     </StackPanel>
-                                    <DataGrid Grid.Row="1" Grid.ColumnSpan="2" Height="215"  VerticalContentAlignment="Center" AlternationCount="2" AlternatingRowBackground="#FFD7FDFA" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding SelectedFeeListForMakePayment}"  Margin="2,20,0,0"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="14">
+                                    <DataGrid Grid.Row="1" Grid.ColumnSpan="2" Height="215"  VerticalContentAlignment="Center" AlternationCount="2" AlternatingRowBackground="#FFD7FDFA" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding MakePayment.SelectedFeeBalances}"  Margin="2,20,0,0"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="14">
                                         <DataGrid.Resources>
                                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                                 <Setter Property="Background" Value="#FF009688"/>
@@ -275,22 +275,22 @@
                                         </Grid.ColumnDefinitions>
 
                                         <Label Grid.Row="0" Grid.Column="0"  Content="Total Fee :" Width="Auto" FontSize="16" FontWeight="Bold" Foreground="#FF009688"/>
-                                        <TextBlock Grid.Row="0" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="1231" />
+                                        <TextBlock Grid.Row="0" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding MakePayment.TotalOfSelectedFeeBalancesFee}" />
                                         <Label Grid.Row="0" Grid.Column="2" Content="Amount :" Width="Auto" FontSize="16" FontWeight="Bold" Foreground="#FF009688"/>
-                                        <TextBlock Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="122" />
+                                        <TextBlock Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding MakePayment.TotalOfSelectedFeeBalancesAmount}" />
 
                                         <Label Grid.Row="1" Grid.Column="2"   Content="Fine :" Width="Auto" FontSize="16" FontWeight="Bold" Foreground="#FF009688"/>
-                                        <TextBlock Grid.Row="1" Grid.Column="3"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="122" />
+                                        <TextBlock Grid.Row="1" Grid.Column="3"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding MakePayment.TotalOfSelectedFeeBalancesFine}" />
 
                                         <Label Grid.Row="2" Grid.Column="0"  Content="Already Paid :" Width="Auto" FontSize="16" FontWeight="Bold" Foreground="#FF009688"/>
-                                        <TextBlock Grid.Row="2" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="1231" />
+                                        <TextBlock Grid.Row="2" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding MakePayment.TotalOfAlreadyPaidAmount}" />
                                         <Label Grid.Row="2" Grid.Column="2"   Content="Concession :" Width="Auto" FontSize="16" FontWeight="Bold" Foreground="#FF009688"/>
-                                        <TextBlock Grid.Row="2" Grid.Column="3"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="122" />
+                                        <TextBlock Grid.Row="2" Grid.Column="3"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding MakePayment.TotalOfSelectedFeeBalancesConcession}" />
 
                                         <Label Grid.Row="3" Grid.Column="0"  Content="Balance :" Width="Auto" FontSize="16" FontWeight="Bold" Foreground="#FF009688"/>
-                                        <TextBlock Grid.Row="3" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="1231" />
+                                        <TextBlock Grid.Row="3" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding MakePayment.TotalBalance}" />
                                         <Label Grid.Row="3" Grid.Column="2"   Content="TOTAL :" Width="Auto" FontSize="16" FontWeight="Bold" Foreground="#FF009688"/>
-                                        <TextBlock Grid.Row="3" Grid.Column="3"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding SumOfAllSelectedFees}" />
+                                        <TextBlock Grid.Row="3" Grid.Column="3"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Width="100" Text="{Binding MakePayment.TotalOfSelectedFeeBalancesGrandTotal}" />
 
                                         <Button Grid.Row="4" Grid.Column="3" Content="Make Payment" Margin="0,5,0,10" Width="200"  DataContext="{Binding Source={StaticResource FeeCollectController}}"   Command="{Binding MakePaymentCommand}" ToolTip="Make a Payment"></Button>
                                     </Grid>
