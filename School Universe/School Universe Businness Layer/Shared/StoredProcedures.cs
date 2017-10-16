@@ -18,5 +18,6 @@ namespace School_Universe_Businness_Layer.Shared
         public static string MakePayment = "MakePayment";
         public static string UpdateFeeDue = "UpdateFeeDue";
         public static string DeleteRecord = "DeleteRecord";
+        public static string GetSchoolInfo = "GetSchoolInfo";
     }
 }

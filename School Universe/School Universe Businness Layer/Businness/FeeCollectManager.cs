@@ -101,7 +101,7 @@ namespace School_Universe_Businness_Layer.Businness
             return objPendingMonthlyFeeList;
         }
 
-        public static Boolean MakePayments(MakePaymentModel objMakePayment,LoginModel objCurrentLogin)
+        public static Boolean MakePayments(MakePaymentModel objMakePayment,LoginModel objCurrentLogin, SchoolModel SchoolInfo)
         {
             Boolean IsSuccess = false;
             try
@@ -110,7 +110,7 @@ namespace School_Universe_Businness_Layer.Businness
                 {
                     PaymentModel objPayment = new PaymentModel();
                     objPayment.id = "0";
-                    objPayment.school_id = "18";
+                    objPayment.school_id = SchoolInfo.id;
                     objPayment.student_fees_id = objFeeBalance.id;
                     objPayment.payment_mode = objMakePayment.SelectedPaymentMode.name;
                     objPayment.amount = objFeeBalance.balance_amount;

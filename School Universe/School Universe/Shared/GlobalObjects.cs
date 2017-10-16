@@ -9,5 +9,6 @@ namespace School_Universe.Shared
     static class GlobalObjects
     {
         public static string CurrentLogin = "CurrentLogin";
+        public static string SchoolInfo = "SchoolInfo";
     }
 }

@@ -31,6 +31,7 @@ namespace School_Universe.Controllers
         private ObservableCollection<PendingMonthlyFeeModel> _PendingMonthlyFeeList = new ObservableCollection<PendingMonthlyFeeModel>();
         private MakePaymentModel _makePayment;
         private LoginModel _CurrentLogin;
+        private SchoolModel _SchoolInfo;
         private Window _window;
         private DataGrid _paymentHistoryDataGrid;
         private DataGrid _feeDueDataGrid;
@@ -56,9 +57,9 @@ namespace School_Universe.Controllers
 
         #region Constructor
         public FeeCollectController()
-        {
-            //Get the Current Login
-            _CurrentLogin = (LoginModel)GeneralMethods.GetGlobalObject(GlobalObjects.CurrentLogin);
+        {            
+            //Get Global Objects
+            GetGlobalObjects();           
 
             _PaymentHistoryList = new ObservableCollection<PaymentModel>();
             _FeeDueList = new ObservableCollection<FeeDueModel>();
@@ -86,7 +87,7 @@ namespace School_Universe.Controllers
             _CheckAllPendingMonthlyFeeCommand = new RelayCommand(CheckAllPendingMonthlyFee, CanCheckAllPendingMonthlyFee);
             _paymentHistorySaveCommand = new RelayCommand(SavePaymentHistory,CanSavePaymentHistory);
             _makePaymentCommand = new RelayCommand(MakeThePayment, CanMakePayment);
-        }
+        }        
 
         #endregion
 
@@ -100,6 +101,17 @@ namespace School_Universe.Controllers
             set
             {
                 _CurrentLogin = value;
+            }
+        }
+        public SchoolModel SchoolInfo
+        {
+            get
+            {
+                return _SchoolInfo;
+            }
+            set
+            {
+                _SchoolInfo = value;
             }
         }
         public ObservableCollection<PendingMonthlyFeeModel> PendingMonthlyFeeList
@@ -515,7 +527,7 @@ namespace School_Universe.Controllers
         {
             try
             {
-                if(FeeCollectManager.MakePayments(MakePayment,CurrentLogin))
+                if(FeeCollectManager.MakePayments(MakePayment,CurrentLogin,SchoolInfo))
                     GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");               
             }
             catch (Exception ex)
@@ -978,5 +990,13 @@ namespace School_Universe.Controllers
         }
 
         #endregion
+
+        private void GetGlobalObjects()
+        {
+            //Get the Current Login
+            _CurrentLogin = (LoginModel)GeneralMethods.GetGlobalObject(GlobalObjects.CurrentLogin);
+            //Get School Info
+            _SchoolInfo = (SchoolModel)GeneralMethods.GetGlobalObject(GlobalObjects.SchoolInfo);
+        }
     }
 }

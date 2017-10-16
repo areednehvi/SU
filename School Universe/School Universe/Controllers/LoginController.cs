@@ -17,7 +17,8 @@ namespace School_Universe.Controllers
     {
         #region Fields
         private LoginModel _login;
-        private Window _window;
+        private SchoolModel _SchoolInfo;
+        private Window _window;        
         private ICommand _loginCommand;
         private ICommand _closeCommand;
         private ICommand _minimizeCommand;
@@ -43,6 +44,18 @@ namespace School_Universe.Controllers
             set
             {
                 _login = value;
+            }
+        }
+
+        public SchoolModel SchoolInfo
+        {
+            get
+            {
+                return _SchoolInfo;
+            }
+            set
+            {
+                _SchoolInfo = value;
             }
         }
 
@@ -83,8 +96,9 @@ namespace School_Universe.Controllers
                 Login.Password = pwBox.Password;
                 if (LoginManager.ValidateUser(Login))
                 {
-                    //Maintain state of Login
-                    GeneralMethods.CreateGlobalObject(GlobalObjects.CurrentLogin, Login);                    
+                    //Create Global Objects
+                    CreateGlobalObjects();
+                                        
                     //open window after authentication
                     Main objMainWindow = new Main(Login);
                     objMainWindow.Show();
@@ -146,6 +160,17 @@ namespace School_Universe.Controllers
             Window.WindowState = WindowState.Minimized;
         }
         #endregion
+
+        #region Private Functions
+        private void CreateGlobalObjects()
+        {
+            //Maintain state of Login
+            GeneralMethods.CreateGlobalObject(GlobalObjects.CurrentLogin, Login);
+            //Maintain state of School Info
+            SchoolInfo = LoginManager.GetSchooInfo();
+            GeneralMethods.CreateGlobalObject(GlobalObjects.SchoolInfo, SchoolInfo);
+        }
+        #endregion  
 
     }
 }

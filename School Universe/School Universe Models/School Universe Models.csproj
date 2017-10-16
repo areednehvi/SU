@@ -43,6 +43,7 @@
     <Compile Include="Models\FeeCollectModels.cs" />
     <Compile Include="Models\FeeCollectionListModels.cs" />
     <Compile Include="Models\GetListModels.cs" />
+    <Compile Include="Models\SchoolModels.cs" />
     <Compile Include="Models\LoginModels.cs" />
     <Compile Include="Models\ViewsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
