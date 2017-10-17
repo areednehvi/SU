@@ -24,6 +24,7 @@ namespace School_Universe.Controllers
         private ICommand _closeCommand;
         private ICommand _menuCommand;
         private ICommand _loadViewCommand;
+        private ICommand _logOutCommand;
         #endregion
 
         #region Constructor
@@ -35,6 +36,7 @@ namespace School_Universe.Controllers
             _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
             _menuCommand = new RelayCommand(OpenMenu, CanOpenMenu);
             _loadViewCommand = new RelayCommand(LoadView, CanLoadView);
+            _logOutCommand = new RelayCommand(LogOut, CanLogOut);
         }
         #endregion
 
@@ -171,6 +173,33 @@ namespace School_Universe.Controllers
             View objView = (View)obj;
             SelectedView = objView;
             Menu.Visibility = Visibility.Collapsed;
+        }
+        #endregion
+
+        #region LogOutCommand
+
+        public ICommand LogOutCommand
+        {
+            get { return _logOutCommand; }
+        }
+
+
+        public bool CanLogOut(object obj)
+        {
+            return true;
+        }
+
+
+        public void LogOut(object obj)
+        {                        
+            for (int intCounter = Application.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
+            {
+                if(Application.Current.Windows[intCounter] != Window)
+                    Application.Current.Windows[intCounter].Close();
+            }
+            LoginWindow winLogin = new LoginWindow();
+            winLogin.Show();
+            Window.Close();
         }
         #endregion
 

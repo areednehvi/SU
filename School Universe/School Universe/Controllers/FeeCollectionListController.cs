@@ -31,13 +31,14 @@ namespace School_Universe.Controllers
         private ICommand _nextPageCommand;
         private ICommand _previousPageCommand;
         private ICommand _minimizeCommand;
+        private ICommand _logOutCommand;
         private ICommand _closeCommand;
         #endregion
 
         #region Constructor
         public FeeCollectionListController()
         {
-             _feeCollectionStudentList = new ObservableCollection<FeeCollectionStudentListModel>();
+            _feeCollectionStudentList = new ObservableCollection<FeeCollectionStudentListModel>();
             _FeeCollectionListFilters = new FeeCollectionListFiltersModel();
             _FeeCollectionListOtherFileds = new FeeCollectionListOtherFiledsModel();
             // Get Lists
@@ -56,7 +57,7 @@ namespace School_Universe.Controllers
             _nextPageCommand = new RelayCommand(MoveToNextPage, CanMoveToNextPage);
             _previousPageCommand = new RelayCommand(MoveToPreviousPage, CanMoveToPreviousPage);
             _closeCommand = new RelayCommand(CloseLogin, CanClose);
-            _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
+            _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);            
 
             NoRecordsFound = "Visible";
         }
@@ -301,7 +302,7 @@ namespace School_Universe.Controllers
         {
             Window.WindowState = WindowState.Minimized;
         }
-        #endregion
+        #endregion        
 
         #region INotifyPropertyChanged Members
 

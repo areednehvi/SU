@@ -89,7 +89,7 @@
                         </StackPanel>
                     </MenuItem.Header>
                 </MenuItem>
-                <MenuItem Cursor="Hand">
+                <MenuItem Cursor="Hand" Command="{Binding LogOutCommand}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Viewbox Width="24" Height="24" Margin="0,0,5,0">
