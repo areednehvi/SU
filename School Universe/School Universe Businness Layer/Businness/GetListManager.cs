@@ -125,6 +125,34 @@ namespace School_Universe_Businness_Layer.Businness
 
         }
 
+        public static ObservableCollection<NoOfRowsInGridsModel> GetNoOfRowsInGridsList()
+        {
+
+            try
+            {
+                ObservableCollection<NoOfRowsInGridsModel> lstNoOfRowsInGrids = new ObservableCollection<NoOfRowsInGridsModel>()
+                {
+                    new NoOfRowsInGridsModel() { id ="10", name = "10" },
+                    new NoOfRowsInGridsModel() { id ="20", name = "20" },
+                    new NoOfRowsInGridsModel() { id ="50", name = "50" },
+                    new NoOfRowsInGridsModel() { id ="100", name = "100" },
+                    new NoOfRowsInGridsModel() { id ="200", name = "200" }
+                };
+
+                return lstNoOfRowsInGrids;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+
+        }
+
 
         private static ObservableCollection<GradesModel> MapDatatableToGradesModelList(DataTable objDatatable)
         {

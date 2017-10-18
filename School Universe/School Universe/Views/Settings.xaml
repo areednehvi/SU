@@ -4,11 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:School_Universe.Views"
+             xmlns:vm="clr-namespace:School_Universe.Controllers"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.DataContext>
+        <vm:SettingsController />
+    </UserControl.DataContext>
     <Grid>
-        <TextBlock FontSize="20" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
-            Settings View
-        </TextBlock>
+        <materialDesign:Card>
+            <WrapPanel  Orientation="Horizontal" Margin="30">
+                <Label  Content="No of rows in grids" Width="Auto" FontSize="16" Foreground="#FF009688" />
+                <ComboBox VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="120" ItemsSource="{Binding Settings.NoOfRowsInGrids}" DisplayMemberPath="name" SelectedIndex="2" SelectedItem="{Binding SelectedNoOfRowsInGrids,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="30,0,0,0"  />
+            </WrapPanel>
+        </materialDesign:Card>
     </Grid>
 </UserControl>

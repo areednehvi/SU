@@ -31,7 +31,6 @@ namespace School_Universe.Controllers
         private ICommand _nextPageCommand;
         private ICommand _previousPageCommand;
         private ICommand _minimizeCommand;
-        private ICommand _logOutCommand;
         private ICommand _closeCommand;
         #endregion
 
