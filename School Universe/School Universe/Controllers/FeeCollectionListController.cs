@@ -25,7 +25,7 @@ namespace School_Universe.Controllers
         private SectionsModel _selectedSectionModel;
         private Window _window;
         private DataGrid _dataGrid;
-        private int NoOfRecords = 50;
+        private int NoOfRecords;
         private int fromRowNo,pageNo, NoOfRecordsPerPage, toRowNo;
         private string _NoRecordsFound;
         private ICommand _nextPageCommand;
@@ -42,6 +42,8 @@ namespace School_Universe.Controllers
             _FeeCollectionListOtherFileds = new FeeCollectionListOtherFiledsModel();
             // Get Lists
             this.GetDropDownLists();
+            //Get Settings
+            this.GetSettings();
             // Set pagination
             this.ResetPagination();
 
@@ -348,6 +350,12 @@ namespace School_Universe.Controllers
 
             FeeCollectionListFilters.GradesList = GetListManager.GetGrades();
             FeeCollectionListFilters.SectionsList = GetListManager.GetSections();
+        }
+
+        private void GetSettings()
+        {
+            string noOfRecords = SettingsManager.GetSetting(SettingDefinitions.NoOfRowsInGrids);
+            NoOfRecords = noOfRecords != null ? Convert.ToInt32(noOfRecords) : 50;
         }
 
         private void LoadFeeCollectionAsFiltersHaveChanged()

@@ -29,6 +29,8 @@ namespace School_Universe.Controllers
 
             //Get Settings Drop down lists
             this.GetSettingsDropDownLists();
+            //Get Settings
+            this.GetSettings();
         }
         #endregion
 
@@ -54,8 +56,9 @@ namespace School_Universe.Controllers
             set
             {
                 _SelectedNoOfRowsInGrids = value;
+                OnPropertyChanged("SelectedNoOfRowsInGrids");
                 //Save to DB
-                SettingsManager.SaveSetting(SelectedNoOfRowsInGrids);
+                SettingsManager.SaveSetting(SettingDefinitions.NoOfRowsInGrids,SelectedNoOfRowsInGrids.id);
             }
         }
 
@@ -69,6 +72,12 @@ namespace School_Universe.Controllers
         private void GetSettingsDropDownLists()
         {
             Settings.NoOfRowsInGrids = GetListManager.GetNoOfRowsInGridsList();
+        }
+        private void GetSettings()
+        {
+            string noOfRecords = SettingsManager.GetSetting(SettingDefinitions.NoOfRowsInGrids);
+            noOfRecords = noOfRecords != null ? noOfRecords : "50";
+            SelectedNoOfRowsInGrids = new NoOfRowsInGridsModel() { id = noOfRecords, name = noOfRecords };
         }
         #endregion
 

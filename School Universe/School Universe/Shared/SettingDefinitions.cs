@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace School_Universe_Businness_Layer.Shared
+namespace School_Universe.Shared
 {
-    static class SettingNames
+    static class SettingDefinitions
     {
         public static string NoOfRowsInGrids = "NoOfRowsInGrids";
     }

@@ -15,7 +15,7 @@
         <materialDesign:Card>
             <WrapPanel  Orientation="Horizontal" Margin="30">
                 <Label  Content="No of rows in grids" Width="Auto" FontSize="16" Foreground="#FF009688" />
-                <ComboBox VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="120" ItemsSource="{Binding Settings.NoOfRowsInGrids}" DisplayMemberPath="name" SelectedIndex="2" SelectedItem="{Binding SelectedNoOfRowsInGrids,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="30,0,0,0"  />
+                <ComboBox VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="16" Width="120" ItemsSource="{Binding Settings.NoOfRowsInGrids}" DisplayMemberPath="name" SelectedValuePath="id"   SelectedItem="{Binding SelectedNoOfRowsInGrids,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedValue="{Binding SelectedNoOfRowsInGrids.id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="30,0,0,0"  />
             </WrapPanel>
         </materialDesign:Card>
     </Grid>

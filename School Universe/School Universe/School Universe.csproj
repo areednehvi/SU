@@ -86,6 +86,7 @@
     <Compile Include="Shared\RelayCommand.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Shared\GlobalObjects.cs" />
+    <Compile Include="Shared\SettingDefinitions.cs" />
     <Compile Include="Shared\ViewDefinitions.cs" />
     <Compile Include="Views\FeeCollect.xaml.cs">
       <DependentUpon>FeeCollect.xaml</DependentUpon>

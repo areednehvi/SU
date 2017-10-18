@@ -38,7 +38,7 @@ namespace School_Universe.Controllers
         private Card _pendingMonthlyFeesMaterialDesignCard;
         private Card _makePaymentScreenMaterialDesignCard;
         private int _SelectedTabItem;
-        private int NoOfRecords = 50;
+        private int NoOfRecords;
         private int fromRowNo,pageNo, NoOfRecordsPerPage, toRowNo;
         private Double _SumOfAllSelectedFees;
         private string _NoRecordsFound;
@@ -59,7 +59,9 @@ namespace School_Universe.Controllers
         public FeeCollectController()
         {            
             //Get Global Objects
-            GetGlobalObjects();           
+            GetGlobalObjects();
+            //Get Settings
+            this.GetSettings();
 
             _PaymentHistoryList = new ObservableCollection<PaymentModel>();
             _FeeDueList = new ObservableCollection<FeeDueModel>();
@@ -987,9 +989,7 @@ namespace School_Universe.Controllers
                 }
             }
 
-        }
-
-        #endregion
+        }        
 
         private void GetGlobalObjects()
         {
@@ -998,5 +998,12 @@ namespace School_Universe.Controllers
             //Get School Info
             _SchoolInfo = (SchoolModel)GeneralMethods.GetGlobalObject(GlobalObjects.SchoolInfo);
         }
+
+        private void GetSettings()
+        {
+            string noOfRecords = SettingsManager.GetSetting(SettingDefinitions.NoOfRowsInGrids);
+            NoOfRecords = noOfRecords != null ? Convert.ToInt32(noOfRecords) : 50;
+        }
+        #endregion
     }
 }

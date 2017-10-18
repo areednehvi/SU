@@ -46,7 +46,6 @@
     <Compile Include="Businness\SettingsManager.cs" />
     <Compile Include="Businness\LoginManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shared\SettingNames.cs" />
     <Compile Include="Shared\StoredProcedures.cs" />
   </ItemGroup>
   <ItemGroup>

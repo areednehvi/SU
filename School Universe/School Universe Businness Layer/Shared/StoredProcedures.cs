@@ -20,5 +20,6 @@ namespace School_Universe_Businness_Layer.Shared
         public static string DeleteRecord = "DeleteRecord";
         public static string GetSchoolInfo = "GetSchoolInfo";
         public static string SaveSettings = "SaveSettings";
+        public static string GetSettings = "GetSettings";
     }
 }
