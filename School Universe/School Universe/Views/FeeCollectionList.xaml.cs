@@ -28,6 +28,7 @@ namespace School_Universe.Views
             GridLength gl = new GridLength(height);
             grdRowNo2.Height = gl;
             ((FeeCollectionListController)grdFeeCollectionList.DataContext).FeeCollectionListDataGrid = this.dataGridFeeCollectionList;
+            //((FeeCollectionListController)grdFeeCollectionList.DataContext).Window = this;
         }
     }
 }

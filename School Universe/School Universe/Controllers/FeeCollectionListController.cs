@@ -23,15 +23,12 @@ namespace School_Universe.Controllers
         private FeeCollectionListOtherFiledsModel _FeeCollectionListOtherFileds;
         private GradesModel _selectedGradeModel;
         private SectionsModel _selectedSectionModel;
-        private Window _window;
         private DataGrid _dataGrid;
         private int NoOfRecords;
         private int fromRowNo,pageNo, NoOfRecordsPerPage, toRowNo;
         private string _NoRecordsFound;
         private ICommand _nextPageCommand;
         private ICommand _previousPageCommand;
-        private ICommand _minimizeCommand;
-        private ICommand _closeCommand;
         #endregion
 
         #region Constructor
@@ -56,9 +53,7 @@ namespace School_Universe.Controllers
             this.GetFeeCollectionStudentList();
             //Initialize  Commands
             _nextPageCommand = new RelayCommand(MoveToNextPage, CanMoveToNextPage);
-            _previousPageCommand = new RelayCommand(MoveToPreviousPage, CanMoveToPreviousPage);
-            _closeCommand = new RelayCommand(CloseLogin, CanClose);
-            _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);            
+            _previousPageCommand = new RelayCommand(MoveToPreviousPage, CanMoveToPreviousPage);        
 
             NoRecordsFound = "Visible";
         }
@@ -147,17 +142,6 @@ namespace School_Universe.Controllers
             }
         }
 
-        public Window Window
-        {
-            get
-            {
-                return _window;
-            }
-            set
-            {
-                _window = value;
-            }
-        }
         public DataGrid FeeCollectionListDataGrid
         {
             get
@@ -208,6 +192,7 @@ namespace School_Universe.Controllers
                 if (pageNo > 1 && FeeCollectionStudentList.Count == 0)
                     MoveToPreviousPage(obj);
                 FeeCollectionListDataGrid.ItemsSource = FeeCollectionStudentList;
+                CloseOtherWindows();
             }
             catch (Exception ex)
             {
@@ -250,8 +235,9 @@ namespace School_Universe.Controllers
                     fromRowNo = (toRowNo + 1) - NoOfRecordsPerPage;
                     this.GetFeeCollectionStudentList();
                     FeeCollectionListDataGrid.ItemsSource = FeeCollectionStudentList;
-                }                
-                
+                }
+                CloseOtherWindows();
+
             }
             catch (Exception ex)
             {
@@ -265,45 +251,6 @@ namespace School_Universe.Controllers
         }
         #endregion
 
-        #region CloseCommand
-
-        public ICommand CloseCommand
-        {
-            get { return _closeCommand; }
-        }
-
-
-        public bool CanClose(object obj)
-        {
-            return true;
-        }
-
-
-        public void CloseLogin(object obj)
-        {
-            Window.Close();
-        }
-        #endregion
-
-        #region MinimizeCommand
-
-        public ICommand MinimizeCommand
-        {
-            get { return _minimizeCommand; }
-        }
-
-
-        public bool CanMinimize(object obj)
-        {
-            return true;
-        }
-
-
-        public void MinimizeLogin(object obj)
-        {
-            Window.WindowState = WindowState.Minimized;
-        }
-        #endregion        
 
         #region INotifyPropertyChanged Members
 
@@ -373,6 +320,18 @@ namespace School_Universe.Controllers
         {
             FeeCollect objFeeCollectWindow = new FeeCollect(SelectedItemInFeeCollectionStudentList);
             objFeeCollectWindow.Show();
+        }
+
+        private void CloseOtherWindows()
+        {
+            for (int intCounter = Application.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
+            {
+                if (Application.Current.Windows[intCounter].Name == "FeeCollectWindow")
+                {
+                    Application.Current.Windows[intCounter].Close();
+                    break;
+                }
+            }
         }
 
     }

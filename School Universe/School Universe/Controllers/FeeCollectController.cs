@@ -871,7 +871,8 @@ namespace School_Universe.Controllers
         {
             try
             {
-                 PendingMonthlyFeeList = FeeCollectManager.GetStudentFeeBalances(FeeCollectionStudentList.id.ToString());               
+                if (FeeCollectionStudentList != null)
+                    PendingMonthlyFeeList = FeeCollectManager.GetStudentFeeBalances(FeeCollectionStudentList.id.ToString());
                 //NoRecordsFound = PaymentHistoryList.Count > 0 ? "Collapsed" : "Visible";
             }
             catch (Exception ex)

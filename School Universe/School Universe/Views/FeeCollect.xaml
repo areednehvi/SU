@@ -1,4 +1,5 @@
 ﻿<Window x:Class="School_Universe.Views.FeeCollect"
+             x:Name="FeeCollectWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +7,12 @@
              xmlns:vm="clr-namespace:School_Universe.Controllers"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:School_Universe.Views"
-             mc:Ignorable="d" Width="1180.779" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+             mc:Ignorable="d" Width="1180.779" 
+             WindowStyle="None" 
+             AllowsTransparency="True" 
+             WindowStartupLocation="CenterScreen" 
+             Loaded="Window_Loaded"
+             Title="Collect Fee">
     <Window.Resources>
         <vm:FeeCollectController x:Key="FeeCollectController" />
         <Style x:Key="TabItemStyle" TargetType="{x:Type TabItem}">

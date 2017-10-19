@@ -59,6 +59,8 @@ namespace School_Universe.Controllers
                 OnPropertyChanged("SelectedNoOfRowsInGrids");
                 //Save to DB
                 SettingsManager.SaveSetting(SettingDefinitions.NoOfRowsInGrids,SelectedNoOfRowsInGrids.id);
+                //Close Other Windows
+                CloseOtherWindows();
             }
         }
 
@@ -78,6 +80,14 @@ namespace School_Universe.Controllers
             string noOfRecords = SettingsManager.GetSetting(SettingDefinitions.NoOfRowsInGrids);
             noOfRecords = noOfRecords != null ? noOfRecords : "50";
             SelectedNoOfRowsInGrids = new NoOfRowsInGridsModel() { id = noOfRecords, name = noOfRecords };
+        }
+        private void CloseOtherWindows()
+        {
+            for (int intCounter = Application.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
+            {
+                if (Application.Current.Windows[intCounter].Name == "FeeCollectWindow")
+                    Application.Current.Windows[intCounter].Close();
+            }
         }
         #endregion
 

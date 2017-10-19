@@ -1,4 +1,5 @@
 ﻿<Window x:Class="School_Universe.Views.Main"
+        x:Name="MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,7 +11,7 @@
         mc:Ignorable="d"
         WindowState="Maximized"
         WindowStyle="None"
-        Title="main" Height="522.458" Width="1107.839">
+        Title="Fee Collection List" Height="522.458" Width="1107.839">
     <Window.DataContext>
         <vm:MainController />
     </Window.DataContext>
