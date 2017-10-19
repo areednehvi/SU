@@ -31,6 +31,15 @@ namespace School_Universe.Controllers
             this.GetSettingsDropDownLists();
             //Get Settings
             this.GetSettings();
+
+            //Subscribe to Model's Property changed event
+            this.Settings.PropertyChanged += (s, e) => {
+                if(e.PropertyName == SettingDefinitions.AlwaysShowMenuBar)
+                {
+                    //Save to DB
+                    SettingsManager.SaveSetting(SettingDefinitions.AlwaysShowMenuBar, Settings.AlwaysShowMenuBar.ToString());
+                }
+            };
         }
         #endregion
 
@@ -44,6 +53,7 @@ namespace School_Universe.Controllers
             set
             {
                 _Settings = value;
+                OnPropertyChanged("Settings");
             }
         }
 
@@ -77,9 +87,13 @@ namespace School_Universe.Controllers
         }
         private void GetSettings()
         {
-            string noOfRecords = SettingsManager.GetSetting(SettingDefinitions.NoOfRowsInGrids);
+            //NoOfRecordsInGrids
+            var noOfRecords = SettingsManager.GetSetting(SettingDefinitions.NoOfRowsInGrids);
             noOfRecords = noOfRecords != null ? noOfRecords : "50";
             SelectedNoOfRowsInGrids = new NoOfRowsInGridsModel() { id = noOfRecords, name = noOfRecords };
+            //AlwaysShowMenuBar
+            var alwaysShowMenuBar = SettingsManager.GetSetting(SettingDefinitions.AlwaysShowMenuBar);
+            Settings.AlwaysShowMenuBar = alwaysShowMenuBar == null ? false : Convert.ToBoolean(alwaysShowMenuBar);
         }
         private void CloseOtherWindows()
         {

@@ -1,5 +1,6 @@
 ﻿using School_Universe.Models;
 using School_Universe.Shared;
+using School_Universe_Businness_Layer.Businness;
 using School_Universe_Models.Models;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace School_Universe.Controllers
         private StackPanel _menu;
         private LoginModel _Login;
         private View _View;
+        private Visibility _MenuVisibility;
         private ICommand _minimizeCommand;
         private ICommand _closeCommand;
         private ICommand _menuCommand;
@@ -30,6 +32,7 @@ namespace School_Universe.Controllers
         #region Constructor
         public MainController()
         {
+            _MenuVisibility = new Visibility();
             SelectedView = ViewDefinitions.FeeCollectionListView; // startup View
             //Initialize Commands
             _closeCommand = new RelayCommand(CloseLogin, CanClose);
@@ -37,6 +40,8 @@ namespace School_Universe.Controllers
             _menuCommand = new RelayCommand(OpenMenu, CanOpenMenu);
             _loadViewCommand = new RelayCommand(LoadView, CanLoadView);
             _logOutCommand = new RelayCommand(LogOut, CanLogOut);
+            //Get Settings
+            this.GetSettings();
         }
         #endregion
 
@@ -87,6 +92,17 @@ namespace School_Universe.Controllers
             {
                 _Login = value;
                 OnPropertyChanged("Login");
+            }
+        }
+        public Visibility MenuVisibility
+        {
+            get
+            {
+                return _MenuVisibility;
+            }
+            set
+            {
+                _MenuVisibility = value;
             }
         }
         #endregion
@@ -172,7 +188,9 @@ namespace School_Universe.Controllers
         {
             View objView = (View)obj;
             SelectedView = objView;
-            Menu.Visibility = Visibility.Collapsed;
+            this.GetSettings();
+            if (MenuVisibility == Visibility.Collapsed)            
+                Menu.Visibility = Visibility.Collapsed;
         }
         #endregion
 
@@ -212,6 +230,14 @@ namespace School_Universe.Controllers
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+        #endregion
+
+        #region Private Functions
+        private void GetSettings()
+        {
+            var alwaysShowMenuBar = SettingsManager.GetSetting(SettingDefinitions.AlwaysShowMenuBar);
+            MenuVisibility = alwaysShowMenuBar == null || Convert.ToBoolean(alwaysShowMenuBar) == false ? Visibility.Collapsed : Visibility.Visible;
         }
         #endregion
 

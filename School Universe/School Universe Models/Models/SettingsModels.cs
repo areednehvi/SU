@@ -11,6 +11,7 @@ namespace School_Universe.Models
     public class SettingsModel : INotifyPropertyChanged
     {     
         private ObservableCollection<NoOfRowsInGridsModel> _NoOfRowsInGrids;
+        private Boolean _AlwaysShowMenuBar;
         public ObservableCollection<NoOfRowsInGridsModel> NoOfRowsInGrids
         {
             get
@@ -21,6 +22,19 @@ namespace School_Universe.Models
             {
                 _NoOfRowsInGrids = value;
                 OnPropertyChanged("NoOfRowsInGrids");
+            }
+        }
+
+        public Boolean AlwaysShowMenuBar
+        {
+            get
+            {
+                return _AlwaysShowMenuBar;
+            }
+            set
+            {
+                _AlwaysShowMenuBar = value;
+                OnPropertyChanged("AlwaysShowMenuBar");
             }
         }
 
