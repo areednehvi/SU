@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace School_Universe.Shared
 {
-    static class SettingDefinitions
+    public class SettingDefinitions
     {
         public static string NoOfRowsInGrids = "NoOfRowsInGrids";
         public static string AlwaysShowMenuBar = "AlwaysShowMenuBar";

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace School_Universe.Shared
 {
-    public class GlobalObjects
+    public class SyncDefinitions
     {
-        public static string CurrentLogin = "CurrentLogin";
-        public static string SchoolInfo = "SchoolInfo";
+        public static string Users = "Users";
+        
     }
 }
