@@ -192,7 +192,6 @@ namespace School_Universe.Controllers
                 if (pageNo > 1 && FeeCollectionStudentList.Count == 0)
                     MoveToPreviousPage(obj);
                 FeeCollectionListDataGrid.ItemsSource = FeeCollectionStudentList;
-                CloseOtherWindows();
             }
             catch (Exception ex)
             {
@@ -236,7 +235,6 @@ namespace School_Universe.Controllers
                     this.GetFeeCollectionStudentList();
                     FeeCollectionListDataGrid.ItemsSource = FeeCollectionStudentList;
                 }
-                CloseOtherWindows();
 
             }
             catch (Exception ex)
@@ -318,19 +316,10 @@ namespace School_Universe.Controllers
 
         private void loadCollectFeeWindow()
         {
-            FeeCollect objFeeCollectWindow = new FeeCollect(SelectedItemInFeeCollectionStudentList);
-            objFeeCollectWindow.Show();
-        }
-
-        private void CloseOtherWindows()
-        {
-            for (int intCounter = Application.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
+            if (SelectedItemInFeeCollectionStudentList != null)
             {
-                if (Application.Current.Windows[intCounter].Name == "FeeCollectWindow")
-                {
-                    Application.Current.Windows[intCounter].Close();
-                    break;
-                }
+                FeeCollect objFeeCollectWindow = new FeeCollect(SelectedItemInFeeCollectionStudentList);
+                objFeeCollectWindow.Show();
             }
         }
 
