@@ -32,13 +32,20 @@
                 <Label FontWeight="DemiBold" Margin="20,0,0,0" VerticalAlignment="Center"   Content="1. Users" Width="Auto" FontSize="16" Foreground="#FF009688" />
             </Border>
             <Border Grid.Row="0" Grid.Column="1" BorderThickness="0,1,1,1" BorderBrush="LightGray" Background="#FFE4FFE8" >
-                <Label Content="34/100 Records" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10" Margin="0,5,0,0" FontStyle="Italic" />
+                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10" Margin="0,5,5,0" FontStyle="Italic" >
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} / {1} Records">
+                            <Binding Path="Progress" />
+                            <Binding Path="Maximum" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
             </Border>
             <Border Grid.Row="0" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
-                <Button Content="Sync" Margin="30,0,30,0" Command="{Binding SyncCommand}" CommandParameter="{x:Static shared:SyncDefinitions.Users}" ToolTip="Sync With Online" />
+                <Button Content="Sync" IsEnabled="{Binding Path=IsSyncNotInProgress}" Margin="30,0,30,0" Command="{Binding SyncCommand}" CommandParameter="{x:Static shared:SyncDefinitions.Users}" ToolTip="Sync With Online" />                
             </Border>
             <Border Grid.Row="0" Grid.Column="3" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
-                <ProgressBar Margin="30,0,30,0" Height="30" Minimum="0" Maximum="100" Value="34" />
+                <ProgressBar Margin="30,0,30,0" Height="30" Value="{Binding Path=Progress}" Minimum="{Binding Minimum}" Maximum="{Binding Maximum}" />            
             </Border>
         </Grid>
     </materialDesign:Card>

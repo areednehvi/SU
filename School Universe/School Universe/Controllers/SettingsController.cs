@@ -19,6 +19,7 @@ namespace School_Universe.Controllers
         #region Fields
         private SettingsModel _Settings;
         private NoOfRowsInGridsModel _SelectedNoOfRowsInGrids;
+        private int _Maximum;
         #endregion
 
         #region Constructor
