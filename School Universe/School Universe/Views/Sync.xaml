@@ -17,7 +17,7 @@
     <materialDesign:Card Margin="0,30,0,0">
         <Grid Margin="20">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
+                <RowDefinition Height="65" />
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -44,7 +44,10 @@
                 <Button Content="Sync" IsEnabled="{Binding Path=IsSyncNotInProgress,Mode=OneWay}" Margin="30,0,30,0" Command="{Binding SyncCommand}" CommandParameter="{x:Static shared:SyncDefinitions.Users}" ToolTip="Sync With Online" />                
             </Border>
             <Border Grid.Row="0" Grid.Column="3" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
-                <ProgressBar Margin="30,0,30,0" Height="30" Value="{Binding Path=Progress}" Minimum="{Binding Minimum}" Maximum="{Binding Maximum}" />            
+                <StackPanel>
+                    <ProgressBar Margin="30,10,30,0" Height="30" Value="{Binding Path=Progress}" Minimum="{Binding Minimum}" Maximum="{Binding Maximum}" />
+                    <Label FontWeight="DemiBold" Margin="25,0,0,0" VerticalAlignment="Center"   Content="{Binding SyncStatus}" Width="Auto" FontSize="10" FontStyle="Italic" />
+                </StackPanel>
             </Border>
         </Grid>
     </materialDesign:Card>

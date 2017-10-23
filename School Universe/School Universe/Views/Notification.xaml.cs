@@ -27,10 +27,14 @@ namespace School_Universe.Views
             tbMessage.Text = "Saved Successfully";
         }
 
-        public Notification(string Title, string Message)
+        public Notification(string Title, string Message, Boolean IsError = false)
         {
             InitializeComponent();
             tbTitle.Text = Title;
+            if (IsError)
+            {
+                tbTitle.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFF3939"));
+            }
             tbMessage.Text = Message;
         }
 

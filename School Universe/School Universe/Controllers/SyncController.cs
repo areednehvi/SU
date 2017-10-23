@@ -20,6 +20,7 @@ namespace School_Universe.Controllers
         #region Fields
         private ICommand _SyncCommand;
         private string _SyncDefnition;
+        private string _SyncStatus;
         int _Progress;
         Double _ProgressPercentage;
         bool _IsSyncInProgress;
@@ -43,6 +44,18 @@ namespace School_Universe.Controllers
                 _IsSyncInProgress = value;
                 OnPropertyChanged("IsSyncInProgress");
                 OnPropertyChanged("IsSyncNotInProgress");
+            }
+        }
+        public string SyncStatus
+        {
+            get
+            {
+                return _SyncStatus;
+            }
+            set
+            {
+                _SyncStatus = value;
+                OnPropertyChanged("SyncStatus");
             }
         }
 
@@ -149,6 +162,7 @@ namespace School_Universe.Controllers
         {
             try
             {
+                
                 SyncDefnition = (string)obj;
 
                 ResetProgress();
@@ -205,6 +219,15 @@ namespace School_Universe.Controllers
         void SyncRecords(object sender, DoWorkEventArgs e)
         {
             //BackgroundWorker worker = sender as BackgroundWorker;
+            SyncStatus = "Checking Internet Connection...";
+            if (!GeneralMethods.IsInternetAvailable())
+            {
+                //GeneralMethods.ShowNotification("Internet Not Available!", "Please check your Internet Connection!", true);
+                SyncStatus = "Internet Not Available...";
+                return;
+            }
+            SyncStatus = "Syncing...";
+
             Maximum = 1000;
             if (SyncDefinitions.Users == SyncDefnition)
             {
