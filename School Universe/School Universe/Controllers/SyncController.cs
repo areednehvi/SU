@@ -21,6 +21,7 @@ namespace School_Universe.Controllers
         private ICommand _SyncCommand;
         private string _SyncDefnition;
         int _Progress;
+        Double _ProgressPercentage;
         bool _IsSyncInProgress;
         int _Minimum = 0, _Maximum = 1;
         #endregion
@@ -40,8 +41,8 @@ namespace School_Universe.Controllers
             set
             {
                 _IsSyncInProgress = value;
-                OnPropertyChanged("IsInProgress");
-                OnPropertyChanged("IsNotInProgress");
+                OnPropertyChanged("IsSyncInProgress");
+                OnPropertyChanged("IsSyncNotInProgress");
             }
         }
 
@@ -75,7 +76,20 @@ namespace School_Universe.Controllers
             set
             {
                 _Minimum = value;
-                OnPropertyChanged("Min");
+                OnPropertyChanged("Minimum");
+            }
+        }
+
+        public Double ProgressPercentage
+        {
+            get
+            {
+                return _ProgressPercentage;
+            }
+            set
+            {
+                _ProgressPercentage = value;
+                OnPropertyChanged("ProgressPercentage");
             }
         }
 
@@ -99,6 +113,7 @@ namespace School_Universe.Controllers
                 {
                     _Progress = _Maximum;
                 }
+                ProgressPercentage = ((Double)_Progress / (Double)Maximum) * 100;
                 OnPropertyChanged("Progress");
             }
         }
@@ -123,10 +138,10 @@ namespace School_Universe.Controllers
 
         public bool CanSync(object obj)
         {
-            if (IsSyncInProgress)
-                return false;
-            else
+            if (IsSyncNotInProgress)
                 return true;
+            else
+                return false;
         }
 
 

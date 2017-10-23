@@ -22,7 +22,7 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="50" />
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
@@ -32,17 +32,16 @@
                 <Label FontWeight="DemiBold" Margin="20,0,0,0" VerticalAlignment="Center"   Content="1. Users" Width="Auto" FontSize="16" Foreground="#FF009688" />
             </Border>
             <Border Grid.Row="0" Grid.Column="1" BorderThickness="0,1,1,1" BorderBrush="LightGray" Background="#FFE4FFE8" >
-                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10" Margin="0,5,5,0" FontStyle="Italic" IsEnabled="{Binding Path=IsSyncInProgress}">
+                <TextBlock Visibility="Hidden" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10" Margin="0,5,5,0" FontStyle="Italic" IsEnabled="{Binding Path=IsSyncInProgress}">
                     <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0} / {1} Records">
-                            <Binding Path="Progress" />
-                            <Binding Path="Maximum" />
+                        <MultiBinding StringFormat="{}{0} %">
+                            <Binding Path="ProgressPercentage" />
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
             </Border>
             <Border Grid.Row="0" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
-                <Button Content="Sync" IsEnabled="{Binding Path=IsSyncNotInProgress}" Margin="30,0,30,0" Command="{Binding SyncCommand}" CommandParameter="{x:Static shared:SyncDefinitions.Users}" ToolTip="Sync With Online" />                
+                <Button Content="Sync" IsEnabled="{Binding Path=IsSyncNotInProgress,Mode=OneWay}" Margin="30,0,30,0" Command="{Binding SyncCommand}" CommandParameter="{x:Static shared:SyncDefinitions.Users}" ToolTip="Sync With Online" />                
             </Border>
             <Border Grid.Row="0" Grid.Column="3" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
                 <ProgressBar Margin="30,0,30,0" Height="30" Value="{Binding Path=Progress}" Minimum="{Binding Minimum}" Maximum="{Binding Maximum}" />            
