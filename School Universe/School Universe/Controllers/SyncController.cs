@@ -19,9 +19,10 @@ namespace School_Universe.Controllers
     {
         #region Fields
         private ICommand _SyncCommand;
+        private string _SyncDefnition;
         int _Progress;
         bool _IsSyncInProgress;
-        int _Minimum = 0, _Maximum = 1000;
+        int _Minimum = 0, _Maximum = 1;
         #endregion
 
         #region Constructor
@@ -61,7 +62,7 @@ namespace School_Universe.Controllers
             set
             {
                 _Maximum = value;
-                OnPropertyChanged("Max");
+                OnPropertyChanged("Maximum");
             }
         }
 
@@ -102,6 +103,15 @@ namespace School_Universe.Controllers
             }
         }
 
+        public string SyncDefnition
+        {
+            get { return _SyncDefnition; }
+            set
+            {
+                _SyncDefnition = value;
+            }
+        }
+
         #endregion
 
         #region SyncCommand
@@ -124,7 +134,7 @@ namespace School_Universe.Controllers
         {
             try
             {
-                string SyncDefnition = (string)obj;
+                SyncDefnition = (string)obj;
 
                 ResetProgress();
                 IsSyncInProgress = true;
@@ -145,12 +155,9 @@ namespace School_Universe.Controllers
                 // Configure the function to run when completed
                 objBackgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(SyncCompleted);
 
-                // Launch the sync
-                if (SyncDefinitions.Users == SyncDefnition)
-                {
-                    
-                    objBackgroundWorker.RunWorkerAsync();
-                }
+                // Launch the sync               
+                objBackgroundWorker.RunWorkerAsync();
+                
             }
             catch (Exception ex)
             {
@@ -182,12 +189,17 @@ namespace School_Universe.Controllers
 
         void SyncRecords(object sender, DoWorkEventArgs e)
         {
-            BackgroundWorker worker = sender as BackgroundWorker;
-            for (int i = _Minimum; i < _Maximum; i++)
+            //BackgroundWorker worker = sender as BackgroundWorker;
+            Maximum = 1000;
+            if (SyncDefinitions.Users == SyncDefnition)
             {
-                Progress++;
-                Thread.Sleep(10);
+                for (int i = _Minimum; i < _Maximum; i++)
+                {
+                    Progress++;
+                    Thread.Sleep(10);
+                }
             }
+            
         }
 
         void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)

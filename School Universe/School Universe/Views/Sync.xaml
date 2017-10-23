@@ -32,7 +32,7 @@
                 <Label FontWeight="DemiBold" Margin="20,0,0,0" VerticalAlignment="Center"   Content="1. Users" Width="Auto" FontSize="16" Foreground="#FF009688" />
             </Border>
             <Border Grid.Row="0" Grid.Column="1" BorderThickness="0,1,1,1" BorderBrush="LightGray" Background="#FFE4FFE8" >
-                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10" Margin="0,5,5,0" FontStyle="Italic" >
+                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10" Margin="0,5,5,0" FontStyle="Italic" IsEnabled="{Binding Path=IsSyncInProgress}">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} / {1} Records">
                             <Binding Path="Progress" />
