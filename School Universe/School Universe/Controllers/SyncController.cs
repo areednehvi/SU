@@ -126,14 +126,13 @@ namespace School_Universe.Controllers
         void SyncRecords(object sender, DoWorkEventArgs e)
         {
             //BackgroundWorker worker = sender as BackgroundWorker;
-            SyncModel.SyncStatus = "Checking Internet Connection...";
+            SyncModel.SyncStatus = SyncNotifications.CheckingInternetConnection;
             if (!GeneralMethods.IsInternetAvailable())
             {
-                //GeneralMethods.ShowNotification("Internet Not Available!", "Please check your Internet Connection!", true);
-                SyncModel.SyncStatus = "Internet Not Available...";
+                SyncModel.SyncStatus = SyncNotifications.InternetNotAvailable;
                 return;
             }
-            SyncModel.SyncStatus = "Syncing...";
+            SyncModel.SyncStatus = SyncNotifications.SyncStarted;
 
             SyncModel.SyncProgress.Maximum = 1000;
             if (SyncModules.Users == SyncModel.SyncModule)
@@ -156,7 +155,9 @@ namespace School_Universe.Controllers
         void SyncCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             SyncModel.IsSyncInProgress = false;
-            SyncModel.SyncStatus = "Sync Completed";
+            if(SyncModel.SyncStatus == SyncNotifications.InternetNotAvailable)
+                GeneralMethods.ShowNotification("Internet Not Available!", "Please check your Internet Connection!", true);
+
         }
         #endregion
 
