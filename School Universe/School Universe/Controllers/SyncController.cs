@@ -19,127 +19,34 @@ namespace School_Universe.Controllers
     {
         #region Fields
         private ICommand _SyncCommand;
-        private string _SyncDefnition;
-        private string _SyncStatus;
-        int _Progress;
-        Double _ProgressPercentage;
-        bool _IsSyncInProgress;
-        int _Minimum = 0, _Maximum = 1;
+        private SyncModel _SyncModel;
+        
         #endregion
 
         #region Constructor
         public SyncController()
         {
+            _SyncModel = new SyncModel() { SyncProgress = new SyncProgress()  };
             //Initialise Commands
             _SyncCommand = new RelayCommand(Sync, CanSync);
         }
         #endregion
 
         #region Properties
-        public bool IsSyncInProgress
-        {
-            get { return _IsSyncInProgress; }
-            set
-            {
-                _IsSyncInProgress = value;
-                OnPropertyChanged("IsSyncInProgress");
-                OnPropertyChanged("IsSyncNotInProgress");
-            }
-        }
-        public string SyncStatus
+        
+        public SyncModel SyncModel
         {
             get
             {
-                return _SyncStatus;
+                return _SyncModel;
             }
             set
             {
-                _SyncStatus = value;
-                OnPropertyChanged("SyncStatus");
+                _SyncModel = value;
+                OnPropertyChanged("SyncModel");
             }
         }
-
-        public bool IsSyncNotInProgress
-        {
-            get
-            {
-                return !IsSyncInProgress;
-            }
-        }
-
-        public int Maximum
-        {
-            get
-            {
-                return _Maximum;
-            }
-            set
-            {
-                _Maximum = value;
-                OnPropertyChanged("Maximum");
-            }
-        }
-
-        public int Minimum
-        {
-            get
-            {
-                return _Minimum;
-            }
-            set
-            {
-                _Minimum = value;
-                OnPropertyChanged("Minimum");
-            }
-        }
-
-        public Double ProgressPercentage
-        {
-            get
-            {
-                return _ProgressPercentage;
-            }
-            set
-            {
-                _ProgressPercentage = value;
-                OnPropertyChanged("ProgressPercentage");
-            }
-        }
-
-        public int Progress
-        {
-            get { return _Progress; }
-            set
-            {
-                if (value <= _Maximum)
-                {
-                    if (value >= _Minimum)
-                    {
-                        _Progress = value;
-                    }
-                    else
-                    {
-                        _Progress = _Minimum;
-                    }
-                }
-                else
-                {
-                    _Progress = _Maximum;
-                }
-                ProgressPercentage = ((Double)_Progress / (Double)Maximum) * 100;
-                OnPropertyChanged("Progress");
-            }
-        }
-
-        public string SyncDefnition
-        {
-            get { return _SyncDefnition; }
-            set
-            {
-                _SyncDefnition = value;
-            }
-        }
-
+               
         #endregion
 
         #region SyncCommand
@@ -151,7 +58,7 @@ namespace School_Universe.Controllers
 
         public bool CanSync(object obj)
         {
-            if (IsSyncNotInProgress)
+            if (SyncModel.IsSyncNotInProgress)
                 return true;
             else
                 return false;
@@ -162,11 +69,11 @@ namespace School_Universe.Controllers
         {
             try
             {
-                
-                SyncDefnition = (string)obj;
+
+                SyncModel.SyncModule = (string)obj;
 
                 ResetProgress();
-                IsSyncInProgress = true;
+                SyncModel.IsSyncInProgress = true;
                 BackgroundWorker objBackgroundWorker = new BackgroundWorker();
 
                 // Configure the function that will run when started
@@ -206,34 +113,34 @@ namespace School_Universe.Controllers
         {
             for (int intCounter = Application.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
             {
-                if (Application.Current.Windows[intCounter].Name == "FeeCollectWindow")
+                if (Application.Current.Windows[intCounter].Name == WindowDefnitions.FeeCollectWindow)
                     Application.Current.Windows[intCounter].Close();
             }
         }
 
         private void ResetProgress()
         {
-            Progress = Minimum;
+            SyncModel.SyncProgress.Progress = SyncModel.SyncProgress.Minimum;
         }
 
         void SyncRecords(object sender, DoWorkEventArgs e)
         {
             //BackgroundWorker worker = sender as BackgroundWorker;
-            SyncStatus = "Checking Internet Connection...";
+            SyncModel.SyncStatus = "Checking Internet Connection...";
             if (!GeneralMethods.IsInternetAvailable())
             {
                 //GeneralMethods.ShowNotification("Internet Not Available!", "Please check your Internet Connection!", true);
-                SyncStatus = "Internet Not Available...";
+                SyncModel.SyncStatus = "Internet Not Available...";
                 return;
             }
-            SyncStatus = "Syncing...";
+            SyncModel.SyncStatus = "Syncing...";
 
-            Maximum = 1000;
-            if (SyncDefinitions.Users == SyncDefnition)
+            SyncModel.SyncProgress.Maximum = 1000;
+            if (SyncModules.Users == SyncModel.SyncModule)
             {
-                for (int i = _Minimum; i < _Maximum; i++)
+                for (int i = SyncModel.SyncProgress.Minimum; i < SyncModel.SyncProgress.Maximum; i++)
                 {
-                    Progress++;
+                    SyncModel.SyncProgress.Progress++;
                     Thread.Sleep(10);
                 }
             }
@@ -248,7 +155,8 @@ namespace School_Universe.Controllers
 
         void SyncCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            IsSyncInProgress = false;
+            SyncModel.IsSyncInProgress = false;
+            SyncModel.SyncStatus = "Sync Completed";
         }
         #endregion
 

@@ -32,21 +32,21 @@
                 <Label FontWeight="DemiBold" Margin="20,0,0,0" VerticalAlignment="Center"   Content="1. Users" Width="Auto" FontSize="16" Foreground="#FF009688" />
             </Border>
             <Border Grid.Row="0" Grid.Column="1" BorderThickness="0,1,1,1" BorderBrush="LightGray" Background="#FFE4FFE8" >
-                <TextBlock Visibility="Hidden" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10" Margin="0,5,5,0" FontStyle="Italic" IsEnabled="{Binding Path=IsSyncInProgress}">
+                <TextBlock Visibility="Visible" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10" Margin="0,5,5,0" FontStyle="Italic" IsEnabled="{Binding Path= SyncModel.IsSyncInProgress}">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} %">
-                            <Binding Path="ProgressPercentage" />
+                            <Binding Path="SyncModel.SyncProgress.ProgressPercentage" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnSourceUpdated="True" />
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
             </Border>
             <Border Grid.Row="0" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
-                <Button Content="Sync" IsEnabled="{Binding Path=IsSyncNotInProgress,Mode=OneWay}" Margin="30,0,30,0" Command="{Binding SyncCommand}" CommandParameter="{x:Static shared:SyncDefinitions.Users}" ToolTip="Sync With Online" />                
+                <Button Content="Sync" IsEnabled="{Binding Path= SyncModel.IsSyncNotInProgress,Mode=OneWay}" Margin="30,0,30,0" Command="{Binding SyncCommand}" CommandParameter="{x:Static shared:SyncModules.Users}" ToolTip="Sync With Online" />                
             </Border>
             <Border Grid.Row="0" Grid.Column="3" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
                 <StackPanel>
-                    <ProgressBar Margin="30,10,30,0" Height="30" Value="{Binding Path=Progress}" Minimum="{Binding Minimum}" Maximum="{Binding Maximum}" />
-                    <Label FontWeight="DemiBold" Margin="25,0,0,0" VerticalAlignment="Center"   Content="{Binding SyncStatus}" Width="Auto" FontSize="10" FontStyle="Italic" />
+                    <ProgressBar Margin="30,10,30,0" Height="30" Value="{Binding Path= SyncModel.SyncProgress.Progress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding SyncModel.SyncProgress.Minimum}" Maximum="{Binding SyncModel.SyncProgress.Maximum}" />
+                    <Label FontWeight="DemiBold" Margin="25,0,0,0" VerticalAlignment="Center"   Content="{Binding SyncModel.SyncStatus}" Width="Auto" FontSize="11" FontStyle="Italic" />
                 </StackPanel>
             </Border>
         </Grid>

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace School_Universe.Shared
 {
-    public class SyncDefinitions
+    public class WindowDefnitions
     {
-        public static string Users = "Users";
+        public static string FeeCollectWindow = "FeeCollectWindow";
         
     }
 }

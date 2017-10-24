@@ -100,7 +100,7 @@ namespace School_Universe.Controllers
         {
             for (int intCounter = Application.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
             {
-                if (Application.Current.Windows[intCounter].Name == "FeeCollectWindow")
+                if (Application.Current.Windows[intCounter].Name == WindowDefnitions.FeeCollectWindow)
                     Application.Current.Windows[intCounter].Close();
             }
         }
