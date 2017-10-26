@@ -26,7 +26,10 @@ namespace School_Universe.Controllers
         #region Constructor
         public SyncController()
         {
-            _SyncModel = new SyncModel() { SyncProgress = new SyncProgress()  };
+            _SyncModel = new SyncModel() {
+                SyncProgress = new SyncProgressModel(),                
+                SyncTableInfoList = SyncManager.GetSyncTableInfo()
+            };
             //Initialise Commands
             _SyncCommand = new RelayCommand(Sync, CanSync);
         }
@@ -133,17 +136,19 @@ namespace School_Universe.Controllers
                 return;
             }
             SyncModel.SyncStatus = SyncNotifications.SyncStarted;
-
-            SyncModel.SyncProgress.Maximum = 1000;
+            
             if (SyncModules.Users == SyncModel.SyncModule)
             {
+                SyncModel.SyncProgress.Maximum = 1000;
                 for (int i = SyncModel.SyncProgress.Minimum; i < SyncModel.SyncProgress.Maximum; i++)
                 {
                     SyncModel.SyncProgress.Progress++;
                     Thread.Sleep(10);
                 }
             }
-            
+            SyncModel.SyncStatus = SyncNotifications.SyncCompleted;
+
+
         }
 
         void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -157,6 +162,8 @@ namespace School_Universe.Controllers
             SyncModel.IsSyncInProgress = false;
             if(SyncModel.SyncStatus == SyncNotifications.InternetNotAvailable)
                 GeneralMethods.ShowNotification("Internet Not Available!", "Please check your Internet Connection!", true);
+            else if(SyncModel.SyncStatus == SyncNotifications.SyncCompleted)
+                GeneralMethods.ShowNotification("Sync Completed!", "Sync finished Successfully!");
 
         }
         #endregion
