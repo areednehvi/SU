@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static School_Universe_Models.Models.DBModels;
 
 namespace School_Universe_Businness_Layer.Businness
 {

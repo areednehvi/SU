@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static School_Universe_Models.Models.DBModels;
 
 namespace School_Universe.Models
 {
@@ -14,7 +15,7 @@ namespace School_Universe.Models
         private string _SyncStatus;
         private bool _IsSyncInProgress;
         private SyncProgressModel _SyncProgress;
-        private ObservableCollection<SyncTableInfoModel> _SyncTableInfoList;        
+        private ObservableCollection<SyncTableInfoModel> _SyncTableInfoList;
 
         public bool IsSyncInProgress
         {
@@ -172,10 +173,7 @@ namespace School_Universe.Models
 
     }
 
-    public class SyncTableInfoModel
-    {
-        public string id_offline { get; set;}
-        public string TableName { get; set; }
-        public DateTime LastSyncedOn { get; set; }
-    }
+    
+
+
 }
