@@ -15,6 +15,7 @@ namespace School_Universe.Models
         private string _SyncStatus;
         private bool _IsSyncInProgress;
         private SyncProgressModel _SyncProgress;
+        private SyncDBmodels _SyncDBModels;
         private ObservableCollection<SyncTableInfoModel> _SyncTableInfoList;
 
         public bool IsSyncInProgress
@@ -64,6 +65,14 @@ namespace School_Universe.Models
             {
                 _SyncProgress = value;
                 OnPropertyChanged("SyncProgress");
+            }
+        }
+        public SyncDBmodels SyncDBmodels
+        {
+            get { return _SyncDBModels; }
+            set
+            {
+                _SyncDBModels = value;
             }
         }
 
@@ -171,6 +180,31 @@ namespace School_Universe.Models
         }
         #endregion
 
+    }
+
+    public class SyncDBmodels
+    {
+        public List<fee_categoriesModel> fee_categoriesList { get; set; }
+        public List<feesModel> feesList { get; set; }
+        public List<filesModel> filesList { get; set; }
+        public List<grade_feesModel> grade_feesList { get; set; }
+        public List<gradesModel> gradesList { get; set; }
+        public List<parentsModel> parentsList { get; set; }
+        public List<route_stopsModel> route_stopsList { get; set; }
+        public List<route_vehicle_stopsModel> route_vehicle_stopsList { get; set; }
+        public List<route_vehicle_stops_fee_logsModel> route_vehicle_stops_fee_logsList { get; set; }
+        public List<route_vehiclesModel> route_vehiclesList { get; set; }
+        public List<routesModel> routesList { get; set; }
+        public List<sectionsModel> sectionsList { get; set; }
+        public List<sessionsModel> sessionsList { get; set; }
+        public List<student_feesModel> student_feesList { get; set; }
+        public List<student_grade_session_logModel> student_grade_session_logList { get; set; }
+        public List<student_paymentsModel> student_paymentsList { get; set; }
+        public List<studentsModel> studentsList { get; set; }
+        public List<trip_stopsModel> trip_stopsList { get; set; }
+        public List<user_avatar_filesModel> user_avatar_filesList { get; set; }
+        public List<usersModel> usersList { get; set; }
+        public List<vehiclesModel> vehiclesList { get; set; }
     }
 
     

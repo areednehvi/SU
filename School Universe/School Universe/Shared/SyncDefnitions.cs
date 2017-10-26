@@ -18,7 +18,9 @@ namespace School_Universe.Shared
     }
     public class SyncNotifications
     {
-        public static string SyncStarted = "Syncing...";
+        public static string SyncStarted = "Sync Started...";
+        public static string GettingDataFromOnline = "Getting Data from Online...";
+        public static string SendingDataToOnline = "Sending Data To Online...";
         public static string SyncCompleted = "Sync Completed";
         public static string InternetNotAvailable = "Internet Not Available";
         public static string CheckingInternetConnection = " Checking Internet Connection...";

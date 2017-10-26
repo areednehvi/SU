@@ -19,33 +19,33 @@ namespace School_Universe.Controllers
     {
         #region Fields
         private ICommand _SyncCommand;
-        private SyncModel _SyncModel;
+        private SyncModel _Sync;
         
         #endregion
 
         #region Constructor
         public SyncController()
         {
-            _SyncModel = new SyncModel() {
+            _Sync = new SyncModel() {
                 SyncProgress = new SyncProgressModel(),                
                 SyncTableInfoList = SyncManager.GetSyncTableInfo()
             };
             //Initialise Commands
-            _SyncCommand = new RelayCommand(Sync, CanSync);
+            _SyncCommand = new RelayCommand(StartSync, CanSync);
         }
         #endregion
 
         #region Properties
         
-        public SyncModel SyncModel
+        public SyncModel Sync
         {
             get
             {
-                return _SyncModel;
+                return _Sync;
             }
             set
             {
-                _SyncModel = value;
+                _Sync = value;
                 OnPropertyChanged("SyncModel");
             }
         }
@@ -61,22 +61,22 @@ namespace School_Universe.Controllers
 
         public bool CanSync(object obj)
         {
-            if (SyncModel.IsSyncNotInProgress)
+            if (Sync.IsSyncNotInProgress)
                 return true;
             else
                 return false;
         }
 
 
-        public void Sync(object obj)
+        public void StartSync(object obj)
         {
             try
             {
 
-                SyncModel.SyncModule = (string)obj;
+                Sync.SyncModule = (string)obj;
 
                 ResetProgress();
-                SyncModel.IsSyncInProgress = true;
+                Sync.IsSyncInProgress = true;
                 BackgroundWorker objBackgroundWorker = new BackgroundWorker();
 
                 // Configure the function that will run when started
@@ -123,30 +123,44 @@ namespace School_Universe.Controllers
 
         private void ResetProgress()
         {
-            SyncModel.SyncProgress.Progress = SyncModel.SyncProgress.Minimum;
+            Sync.SyncProgress.Progress = Sync.SyncProgress.Minimum;
         }
 
         void SyncRecords(object sender, DoWorkEventArgs e)
         {
             //BackgroundWorker worker = sender as BackgroundWorker;
-            SyncModel.SyncStatus = SyncNotifications.CheckingInternetConnection;
+            Sync.SyncStatus = SyncNotifications.CheckingInternetConnection;
             if (!GeneralMethods.IsInternetAvailable())
             {
-                SyncModel.SyncStatus = SyncNotifications.InternetNotAvailable;
+                Sync.SyncStatus = SyncNotifications.InternetNotAvailable;
                 return;
             }
-            SyncModel.SyncStatus = SyncNotifications.SyncStarted;
-            
-            if (SyncModules.Users == SyncModel.SyncModule)
+            Sync.SyncStatus = SyncNotifications.SyncStarted;
+            Sync.SyncDBmodels = new SyncDBmodels();
+
+            if (SyncModules.Users == Sync.SyncModule)
             {
-                SyncModel.SyncProgress.Maximum = 1000;
-                for (int i = SyncModel.SyncProgress.Minimum; i < SyncModel.SyncProgress.Maximum; i++)
+                Sync.SyncStatus = SyncNotifications.GettingDataFromOnline;
+                Sync.SyncDBmodels.usersList = SyncManager.GetUsersFromOnline();
+                Sync.SyncProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                //getting Data
+                for(int count= 0; count < Sync.SyncDBmodels.usersList.Count; count++)
                 {
-                    SyncModel.SyncProgress.Progress++;
+                    string i = Sync.SyncDBmodels.usersList[count].id;
                     Thread.Sleep(10);
+                    Sync.SyncProgress.Progress++;
                 }
+                //Sending Data
+                Sync.SyncStatus = SyncNotifications.SendingDataToOnline;
+                for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
+                {
+                    string i = Sync.SyncDBmodels.usersList[count].id;
+                    Thread.Sleep(10);
+                    Sync.SyncProgress.Progress++;
+                }
+
             }
-            SyncModel.SyncStatus = SyncNotifications.SyncCompleted;
+            Sync.SyncStatus = SyncNotifications.SyncCompleted;
 
 
         }
@@ -159,10 +173,10 @@ namespace School_Universe.Controllers
 
         void SyncCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            SyncModel.IsSyncInProgress = false;
-            if(SyncModel.SyncStatus == SyncNotifications.InternetNotAvailable)
+            Sync.IsSyncInProgress = false;
+            if(Sync.SyncStatus == SyncNotifications.InternetNotAvailable)
                 GeneralMethods.ShowNotification("Internet Not Available!", "Please check your Internet Connection!", true);
-            else if(SyncModel.SyncStatus == SyncNotifications.SyncCompleted)
+            else if(Sync.SyncStatus == SyncNotifications.SyncCompleted)
                 GeneralMethods.ShowNotification("Sync Completed!", "Sync finished Successfully!");
 
         }

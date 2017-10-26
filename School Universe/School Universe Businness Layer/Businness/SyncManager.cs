@@ -14,8 +14,34 @@ using static School_Universe_Models.Models.DBModels;
 namespace School_Universe_Businness_Layer.Businness
 {
     public class SyncManager
-    { 
+    {
 
+        #region Get Data from Online
+        public static List<usersModel> GetUsersFromOnline()
+        {
+            List<usersModel> lstUsers = new List<usersModel>();
+            try
+            {
+                for (int i = 0; i < 1000; i++)
+                {
+                    usersModel objUser = new usersModel();
+                    objUser.id = (i++).ToString();
+                    lstUsers.Add(objUser);
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return lstUsers;
+        }
+        #endregion
+
+        #region Last Sync Info from SyncTableInfo
         public static ObservableCollection<SyncTableInfoModel> GetSyncTableInfo()
         {            
             try
@@ -60,7 +86,7 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstSyncTableInfoList;
         }
-
+        #endregion
     }
 
 }

@@ -219,7 +219,7 @@ namespace School_Universe_Models.Models
             public DateTime updated_on { get; set; }
 
         }
-        public class student_payments
+        public class student_paymentsModel   
         {
             public string id_offline { get; set; }
             public string id { get; set; }
@@ -238,7 +238,7 @@ namespace School_Universe_Models.Models
             public DateTime updated_on { get; set; }
 
         }
-        public class students
+        public class studentsModel
         {
             public string id { get; set; }
             public string school_id { get; set; }
