@@ -27,7 +27,14 @@ namespace School_Universe.Controllers
         public SyncController()
         {
             _Sync = new SyncModel() {
-                SyncProgress = new SyncProgressModel(),                
+                SyncModuleList = new List<SyncModule>() {
+                    new SyncModule(){ Module = SyncModules.Users, SyncModuleProgress = new SyncModuleProgressModel() },
+                    new SyncModule(){ Module = SyncModules.Students, SyncModuleProgress = new SyncModuleProgressModel() },
+                    new SyncModule(){ Module = SyncModules.Grades, SyncModuleProgress = new SyncModuleProgressModel() },
+                    new SyncModule(){ Module = SyncModules.Transportation, SyncModuleProgress = new SyncModuleProgressModel() },
+                    new SyncModule(){ Module = SyncModules.Fees, SyncModuleProgress = new SyncModuleProgressModel() },
+                    new SyncModule(){ Module = SyncModules.Payments, SyncModuleProgress = new SyncModuleProgressModel() }
+                },
                 SyncTableInfoList = SyncManager.GetSyncTableInfo()
             };
             //Initialise Commands
@@ -73,7 +80,7 @@ namespace School_Universe.Controllers
             try
             {
 
-                Sync.SyncModule = (string)obj;
+                Sync.SyncModuleList[0].Module = (string)obj;
 
                 ResetProgress();
                 Sync.IsSyncInProgress = true;
@@ -123,44 +130,46 @@ namespace School_Universe.Controllers
 
         private void ResetProgress()
         {
-            Sync.SyncProgress.Progress = Sync.SyncProgress.Minimum;
+            Sync.SyncModuleList[0].SyncModuleProgress.Progress = Sync.SyncModuleList[0].SyncModuleProgress.Minimum;
         }
 
-        void SyncRecords(object sender, DoWorkEventArgs e)
+        private void SyncRecords(object sender, DoWorkEventArgs e)
         {
-            //BackgroundWorker worker = sender as BackgroundWorker;
-            Sync.SyncStatus = SyncNotifications.CheckingInternetConnection;
-            if (!GeneralMethods.IsInternetAvailable())
+            try
             {
-                Sync.SyncStatus = SyncNotifications.InternetNotAvailable;
-                return;
-            }
-            Sync.SyncStatus = SyncNotifications.SyncStarted;
-            Sync.SyncDBmodels = new SyncDBmodels();
+                //BackgroundWorker worker = sender as BackgroundWorker;
+                Sync.SyncStatus = SyncNotifications.CheckingInternetConnection;
+                if (!GeneralMethods.IsInternetAvailable())
+                {
+                    Sync.SyncStatus = SyncNotifications.InternetNotAvailable;
+                    return;
+                }
+                Sync.SyncStatus = SyncNotifications.SyncStarted;
+                Sync.SyncDBmodels = new SyncDBmodels();
 
-            if (SyncModules.Users == Sync.SyncModule)
+                if (SyncModules.Users == Sync.SyncModuleList[0].Module)
+                    SyncUsers();
+                else if (SyncModules.Students == Sync.SyncModuleList[0].Module)
+                    SyncStudents();
+                else if (SyncModules.Grades == Sync.SyncModuleList[0].Module)
+                    SyncGrades();
+                else if (SyncModules.Transportation == Sync.SyncModuleList[0].Module)
+                    SyncTransportation();
+                else if (SyncModules.Fees == Sync.SyncModuleList[0].Module)
+                    SyncFees();
+                else if (SyncModules.Payments == Sync.SyncModuleList[0].Module)
+                    SyncPayments();
+
+                Sync.SyncStatus = SyncNotifications.SyncCompleted;
+            }
+            catch(Exception ex)
             {
-                Sync.SyncStatus = SyncNotifications.GettingDataFromOnline;
-                Sync.SyncDBmodels.usersList = SyncManager.GetUsersFromOnline();
-                Sync.SyncProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
-                //getting Data
-                for(int count= 0; count < Sync.SyncDBmodels.usersList.Count; count++)
-                {
-                    string i = Sync.SyncDBmodels.usersList[count].id;
-                    Thread.Sleep(10);
-                    Sync.SyncProgress.Progress++;
-                }
-                //Sending Data
-                Sync.SyncStatus = SyncNotifications.SendingDataToOnline;
-                for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
-                {
-                    string i = Sync.SyncDBmodels.usersList[count].id;
-                    Thread.Sleep(10);
-                    Sync.SyncProgress.Progress++;
-                }
+                throw ex;
+            }
+            finally
+            {
 
             }
-            Sync.SyncStatus = SyncNotifications.SyncCompleted;
 
 
         }
@@ -191,6 +200,219 @@ namespace School_Universe.Controllers
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+        #endregion
+
+        #region Sync Functions
+        private Boolean SyncUsers()
+        {
+            Boolean IsSuccess = false;
+            try
+            {
+                Sync.SyncStatus = SyncNotifications.GettingDataFromOnline;
+                Sync.SyncDBmodels.usersList = SyncManager.GetUsersFromOnline();
+                Sync.SyncModuleList[0].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                //getting Data
+                for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
+                {
+                    string i = Sync.SyncDBmodels.usersList[count].id;
+                    Thread.Sleep(10);
+                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                }
+                //Sending Data
+                Sync.SyncStatus = SyncNotifications.SendingDataToOnline;
+                for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
+                {
+                    string i = Sync.SyncDBmodels.usersList[count].id;
+                    Thread.Sleep(10);
+                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                }
+                IsSuccess = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return IsSuccess;         
+        }
+        private Boolean SyncStudents()
+        {
+            Boolean IsSuccess = false;
+            try
+            {
+                Sync.SyncStatus = SyncNotifications.GettingDataFromOnline;
+                Sync.SyncDBmodels.usersList = SyncManager.GetUsersFromOnline();
+                Sync.SyncModuleList[0].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                //getting Data
+                for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
+                {
+                    string i = Sync.SyncDBmodels.usersList[count].id;
+                    Thread.Sleep(10);
+                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                }
+                //Sending Data
+                Sync.SyncStatus = SyncNotifications.SendingDataToOnline;
+                for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
+                {
+                    string i = Sync.SyncDBmodels.usersList[count].id;
+                    Thread.Sleep(10);
+                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                }
+                IsSuccess = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return IsSuccess;
+        }
+        private Boolean SyncGrades()
+        {
+            Boolean IsSuccess = false;
+            try
+            {
+                Sync.SyncStatus = SyncNotifications.GettingDataFromOnline;
+                Sync.SyncDBmodels.usersList = SyncManager.GetUsersFromOnline();
+                Sync.SyncModuleList[0].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                //getting Data
+                for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
+                {
+                    string i = Sync.SyncDBmodels.usersList[count].id;
+                    Thread.Sleep(10);
+                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                }
+                //Sending Data
+                Sync.SyncStatus = SyncNotifications.SendingDataToOnline;
+                for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
+                {
+                    string i = Sync.SyncDBmodels.usersList[count].id;
+                    Thread.Sleep(10);
+                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                }
+                IsSuccess = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return IsSuccess;
+        }
+        private Boolean SyncTransportation()
+        {
+            Boolean IsSuccess = false;
+            try
+            {
+                Sync.SyncStatus = SyncNotifications.GettingDataFromOnline;
+                Sync.SyncDBmodels.usersList = SyncManager.GetUsersFromOnline();
+                Sync.SyncModuleList[0].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                //getting Data
+                for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
+                {
+                    string i = Sync.SyncDBmodels.usersList[count].id;
+                    Thread.Sleep(10);
+                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                }
+                //Sending Data
+                Sync.SyncStatus = SyncNotifications.SendingDataToOnline;
+                for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
+                {
+                    string i = Sync.SyncDBmodels.usersList[count].id;
+                    Thread.Sleep(10);
+                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                }
+                IsSuccess = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return IsSuccess;
+        }
+        private Boolean SyncFees()
+        {
+            Boolean IsSuccess = false;
+            try
+            {
+                Sync.SyncStatus = SyncNotifications.GettingDataFromOnline;
+                Sync.SyncDBmodels.usersList = SyncManager.GetUsersFromOnline();
+                Sync.SyncModuleList[0].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                //getting Data
+                for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
+                {
+                    string i = Sync.SyncDBmodels.usersList[count].id;
+                    Thread.Sleep(10);
+                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                }
+                //Sending Data
+                Sync.SyncStatus = SyncNotifications.SendingDataToOnline;
+                for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
+                {
+                    string i = Sync.SyncDBmodels.usersList[count].id;
+                    Thread.Sleep(10);
+                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                }
+                IsSuccess = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return IsSuccess;
+        }
+        private Boolean SyncPayments()
+        {
+            Boolean IsSuccess = false;
+            try
+            {
+                Sync.SyncStatus = SyncNotifications.GettingDataFromOnline;
+                Sync.SyncDBmodels.usersList = SyncManager.GetUsersFromOnline();
+                Sync.SyncModuleList[0].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                //getting Data
+                for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
+                {
+                    string i = Sync.SyncDBmodels.usersList[count].id;
+                    Thread.Sleep(10);
+                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                }
+                //Sending Data
+                Sync.SyncStatus = SyncNotifications.SendingDataToOnline;
+                for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
+                {
+                    string i = Sync.SyncDBmodels.usersList[count].id;
+                    Thread.Sleep(10);
+                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                }
+                IsSuccess = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return IsSuccess;
         }
         #endregion
 

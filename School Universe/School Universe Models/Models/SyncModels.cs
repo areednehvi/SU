@@ -11,10 +11,9 @@ namespace School_Universe.Models
 {
     public class SyncModel : INotifyPropertyChanged
     {
-        private string _SyncModule;
+        private List<SyncModule> _SyncModuleList;
         private string _SyncStatus;
         private bool _IsSyncInProgress;
-        private SyncProgressModel _SyncProgress;
         private SyncDBmodels _SyncDBModels;
         private ObservableCollection<SyncTableInfoModel> _SyncTableInfoList;
 
@@ -48,25 +47,16 @@ namespace School_Universe.Models
                 return !IsSyncInProgress;
             }
         }
-        public string SyncModule
+        public List<SyncModule> SyncModuleList
         {
-            get { return _SyncModule; }
+            get { return _SyncModuleList; }
             set
             {
-                _SyncModule = value;
+                _SyncModuleList = value;
                 OnPropertyChanged("SyncModule");
             }
         }
 
-        public SyncProgressModel SyncProgress
-        {
-            get { return _SyncProgress; }
-            set
-            {
-                _SyncProgress = value;
-                OnPropertyChanged("SyncProgress");
-            }
-        }
         public SyncDBmodels SyncDBmodels
         {
             get { return _SyncDBModels; }
@@ -98,7 +88,7 @@ namespace School_Universe.Models
         #endregion
     }
 
-    public class SyncProgressModel : INotifyPropertyChanged
+    public class SyncModuleProgressModel : INotifyPropertyChanged
     {
         int _Progress;
         Double _ProgressPercentage;
@@ -180,6 +170,12 @@ namespace School_Universe.Models
         }
         #endregion
 
+    }
+
+    public class SyncModule
+    {
+        public string Module { get; set; }
+        public SyncModuleProgressModel SyncModuleProgress { get; set; }
     }
 
     public class SyncDBmodels
