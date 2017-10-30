@@ -71,10 +71,21 @@ namespace School_Universe.Controllers
 
         public bool CanSync(object obj)
         {
-            if (Sync.IsSyncNotInProgress)
-                return true;
-            else
-                return false;
+            bool IsEnabled = false;
+            Sync.CurrentSyncModule = (string)obj;
+            if (SyncModules.Users == Sync.CurrentSyncModule)
+                IsEnabled = true;
+            else if (SyncModules.Students == Sync.CurrentSyncModule)
+                IsEnabled = Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleStatus == SyncNotifications.SyncCompleted ? true : false;
+            else if (SyncModules.Grades == Sync.CurrentSyncModule)
+                IsEnabled = Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Students)].SyncModuleStatus == SyncNotifications.SyncCompleted ? true : false;
+            else if (SyncModules.Transportation == Sync.CurrentSyncModule)
+                IsEnabled = Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Grades)].SyncModuleStatus == SyncNotifications.SyncCompleted ? true : false;
+            else if (SyncModules.Fees == Sync.CurrentSyncModule)
+                IsEnabled = Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Transportation)].SyncModuleStatus == SyncNotifications.SyncCompleted ? true : false;
+            else if (SyncModules.Payments == Sync.CurrentSyncModule)
+                IsEnabled = Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleStatus == SyncNotifications.SyncCompleted ? true : false;
+            return IsEnabled;
         }
 
 
@@ -82,8 +93,6 @@ namespace School_Universe.Controllers
         {
             try
             {
-
-                Sync.CurrentSyncModule = (string)obj;
 
                 ResetProgress();
                 Sync.IsSyncInProgress = true;
@@ -134,6 +143,7 @@ namespace School_Universe.Controllers
                 return true;
             else
                 return false;
+
         }
 
 
