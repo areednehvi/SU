@@ -15,6 +15,7 @@ namespace School_Universe.Shared
         public static string Transportation = "Transportation";
         public static string Fees = "Fees";
         public static string Payments = "Payments";
+        public static string All = "All";
 
         static Dictionary<string, int> _SyncModules= new Dictionary<string, int>
         {
@@ -23,7 +24,8 @@ namespace School_Universe.Shared
             {Grades, 2},
             {Transportation, 3},
             {Fees, 4},
-            {Payments, 5}
+            {Payments, 5},
+            {All, 6}
         };
 
 
@@ -48,6 +50,7 @@ namespace School_Universe.Shared
         public static string GettingDataFromOnline = "Getting Data from Online...";
         public static string SendingDataToOnline = "Sending Data To Online...";
         public static string SyncCompleted = "Sync Completed";
+        public static string SyncingModule = "Syncing Module ";
         public static string InternetNotAvailable = "Internet Not Available";
         public static string CheckingInternetConnection = " Checking Internet Connection...";
 

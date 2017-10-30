@@ -12,6 +12,7 @@ namespace School_Universe.Models
     public class SyncModel : INotifyPropertyChanged
     {
         private List<SyncModule> _SyncModuleList;
+        public SyncProgressModel SyncAllProgress { get; set; }
         private string _CurrentSyncModule;
         private string _SyncStatus;
         private bool _IsSyncInProgress;
@@ -101,10 +102,10 @@ namespace School_Universe.Models
         #endregion
     }
 
-    public class SyncModuleProgressModel : INotifyPropertyChanged
+    public class SyncProgressModel : INotifyPropertyChanged
     {
         int _Progress;
-        Double _ProgressPercentage;
+        Decimal _ProgressPercentage;
         int _Minimum = 0, _Maximum = 1;
 
         public int Maximum
@@ -133,7 +134,7 @@ namespace School_Universe.Models
             }
         }
 
-        public Double ProgressPercentage
+        public Decimal ProgressPercentage
         {
             get
             {
@@ -166,7 +167,7 @@ namespace School_Universe.Models
                 {
                     _Progress = _Maximum;
                 }
-                ProgressPercentage = ((Double)_Progress / (Double)Maximum) * 100;
+                ProgressPercentage = Decimal.Round(((Decimal)_Progress / (Decimal)Maximum) * 100, 2);
                 OnPropertyChanged("Progress");
             }
         }
@@ -201,7 +202,7 @@ namespace School_Universe.Models
                 OnPropertyChanged("SyncModuleStatus");
             }
         }   
-        public SyncModuleProgressModel SyncModuleProgress { get; set; }
+        public SyncProgressModel SyncModuleProgress { get; set; }
 
         #region INotifyPropertyChanged Members
 
