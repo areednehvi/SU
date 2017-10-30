@@ -50,7 +50,7 @@
             <Border Grid.Row="0" Grid.Column="3" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
                 <StackPanel>
                     <ProgressBar Margin="30,10,30,0" Height="30" Value="{Binding Path= Sync.SyncModuleList[0].SyncModuleProgress.Progress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding Sync.SyncModuleList[0].SyncModuleProgress.Minimum}" Maximum="{Binding Sync.SyncModuleList[0].SyncModuleProgress.Maximum}" />
-                    <Label FontWeight="DemiBold" Margin="25,0,0,0" VerticalAlignment="Center"   Content="{Binding Sync.SyncStatus}" Width="Auto" FontSize="11" FontStyle="Italic" />
+                    <Label FontWeight="DemiBold" Margin="25,0,0,0" VerticalAlignment="Center"   Content="{Binding Sync.SyncModuleList[0].SyncModuleStatus,Mode=TwoWay}" Width="Auto" FontSize="11" FontStyle="Italic" />
                 </StackPanel>
             </Border>
 
@@ -62,7 +62,7 @@
                 <TextBlock Visibility="Visible" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10" Margin="0,5,5,0" FontStyle="Italic" IsEnabled="{Binding Path= Sync.IsSyncInProgress}">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} %">
-                            <Binding Path="Sync.SyncModuleList[0].SyncModuleProgress.ProgressPercentage" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnSourceUpdated="True" />
+                            <Binding Path="Sync.SyncModuleList[1].SyncModuleProgress.ProgressPercentage" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnSourceUpdated="True" />
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
@@ -72,8 +72,8 @@
             </Border>
             <Border Grid.Row="1" Grid.Column="3" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
                 <StackPanel>
-                    <ProgressBar Margin="30,10,30,0" Height="30" Value="{Binding Path= Sync.SyncModuleList[0].SyncModuleProgress.Progress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding Sync.SyncModuleList[0].SyncModuleProgress.Minimum}" Maximum="{Binding Sync.SyncModuleList[0].SyncModuleProgress.Maximum}" />
-                    <Label FontWeight="DemiBold" Margin="25,0,0,0" VerticalAlignment="Center"   Content="{Binding Sync.SyncStatus}" Width="Auto" FontSize="11" FontStyle="Italic" />
+                    <ProgressBar Margin="30,10,30,0" Height="30" Value="{Binding Path= Sync.SyncModuleList[1].SyncModuleProgress.Progress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding Sync.SyncModuleList[1].SyncModuleProgress.Minimum}" Maximum="{Binding Sync.SyncModuleList[1].SyncModuleProgress.Maximum}" />
+                    <Label FontWeight="DemiBold" Margin="25,0,0,0" VerticalAlignment="Center"   Content="{Binding Sync.SyncModuleList[1].SyncModuleStatus,Mode=TwoWay}" Width="Auto" FontSize="11" FontStyle="Italic" />
                 </StackPanel>
             </Border>
 
@@ -85,7 +85,7 @@
                 <TextBlock Visibility="Visible" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10" Margin="0,5,5,0" FontStyle="Italic" IsEnabled="{Binding Path= Sync.IsSyncInProgress}">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} %">
-                            <Binding Path="Sync.SyncModuleList[0].SyncModuleProgress.ProgressPercentage" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnSourceUpdated="True" />
+                            <Binding Path="Sync.SyncModuleList[2].SyncModuleProgress.ProgressPercentage" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnSourceUpdated="True" />
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
@@ -95,8 +95,8 @@
             </Border>
             <Border Grid.Row="2" Grid.Column="3" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
                 <StackPanel>
-                    <ProgressBar Margin="30,10,30,0" Height="30" Value="{Binding Path= Sync.SyncModuleList[0].SyncModuleProgress.Progress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding Sync.SyncModuleList[0].SyncModuleProgress.Minimum}" Maximum="{Binding Sync.SyncModuleList[0].SyncModuleProgress.Maximum}" />
-                    <Label FontWeight="DemiBold" Margin="25,0,0,0" VerticalAlignment="Center"   Content="{Binding Sync.SyncStatus}" Width="Auto" FontSize="11" FontStyle="Italic" />
+                    <ProgressBar Margin="30,10,30,0" Height="30" Value="{Binding Path= Sync.SyncModuleList[2].SyncModuleProgress.Progress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding Sync.SyncModuleList[2].SyncModuleProgress.Minimum}" Maximum="{Binding Sync.SyncModuleList[2].SyncModuleProgress.Maximum}" />
+                    <Label FontWeight="DemiBold" Margin="25,0,0,0" VerticalAlignment="Center"   Content="{Binding Sync.SyncModuleList[2].SyncModuleStatus,Mode=TwoWay}" Width="Auto" FontSize="11" FontStyle="Italic" />
                 </StackPanel>
             </Border>
 
@@ -108,7 +108,7 @@
                 <TextBlock Visibility="Visible" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10" Margin="0,5,5,0" FontStyle="Italic" IsEnabled="{Binding Path= Sync.IsSyncInProgress}">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} %">
-                            <Binding Path="Sync.SyncModuleList[0].SyncModuleProgress.ProgressPercentage" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnSourceUpdated="True" />
+                            <Binding Path="Sync.SyncModuleList[3].SyncModuleProgress.ProgressPercentage" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnSourceUpdated="True" />
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
@@ -118,8 +118,8 @@
             </Border>
             <Border Grid.Row="3" Grid.Column="3" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
                 <StackPanel>
-                    <ProgressBar Margin="30,10,30,0" Height="30" Value="{Binding Path= Sync.SyncModuleList[0].SyncModuleProgress.Progress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding Sync.SyncModuleList[0].SyncModuleProgress.Minimum}" Maximum="{Binding Sync.SyncModuleList[0].SyncModuleProgress.Maximum}" />
-                    <Label FontWeight="DemiBold" Margin="25,0,0,0" VerticalAlignment="Center"   Content="{Binding Sync.SyncStatus}" Width="Auto" FontSize="11" FontStyle="Italic" />
+                    <ProgressBar Margin="30,10,30,0" Height="30" Value="{Binding Path= Sync.SyncModuleList[3].SyncModuleProgress.Progress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding Sync.SyncModuleList[3].SyncModuleProgress.Minimum}" Maximum="{Binding Sync.SyncModuleList[3].SyncModuleProgress.Maximum}" />
+                    <Label FontWeight="DemiBold" Margin="25,0,0,0" VerticalAlignment="Center"   Content="{Binding Sync.SyncModuleList[3].SyncModuleStatus,Mode=TwoWay}" Width="Auto" FontSize="11" FontStyle="Italic" />
                 </StackPanel>
             </Border>
 
@@ -131,7 +131,7 @@
                 <TextBlock Visibility="Visible" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10" Margin="0,5,5,0" FontStyle="Italic" IsEnabled="{Binding Path= Sync.IsSyncInProgress}">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} %">
-                            <Binding Path="Sync.SyncModuleList[0].SyncModuleProgress.ProgressPercentage" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnSourceUpdated="True" />
+                            <Binding Path="Sync.SyncModuleList[4].SyncModuleProgress.ProgressPercentage" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnSourceUpdated="True" />
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
@@ -141,8 +141,8 @@
             </Border>
             <Border Grid.Row="4" Grid.Column="3" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
                 <StackPanel>
-                    <ProgressBar Margin="30,10,30,0" Height="30" Value="{Binding Path= Sync.SyncModuleList[0].SyncModuleProgress.Progress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding Sync.SyncModuleList[0].SyncModuleProgress.Minimum}" Maximum="{Binding Sync.SyncModuleList[0].SyncModuleProgress.Maximum}" />
-                    <Label FontWeight="DemiBold" Margin="25,0,0,0" VerticalAlignment="Center"   Content="{Binding Sync.SyncStatus}" Width="Auto" FontSize="11" FontStyle="Italic" />
+                    <ProgressBar Margin="30,10,30,0" Height="30" Value="{Binding Path= Sync.SyncModuleList[4].SyncModuleProgress.Progress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding Sync.SyncModuleList[4].SyncModuleProgress.Minimum}" Maximum="{Binding Sync.SyncModuleList[4].SyncModuleProgress.Maximum}" />
+                    <Label FontWeight="DemiBold" Margin="25,0,0,0" VerticalAlignment="Center"   Content="{Binding Sync.SyncModuleList[4].SyncModuleStatus,Mode=TwoWay}" Width="Auto" FontSize="11" FontStyle="Italic" />
                 </StackPanel>
             </Border>
 
@@ -154,7 +154,7 @@
                 <TextBlock Visibility="Visible" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10" Margin="0,5,5,0" FontStyle="Italic" IsEnabled="{Binding Path= Sync.IsSyncInProgress}">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} %">
-                            <Binding Path="Sync.SyncModuleList[0].SyncModuleProgress.ProgressPercentage" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnSourceUpdated="True" />
+                            <Binding Path="Sync.SyncModuleList[5].SyncModuleProgress.ProgressPercentage" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnSourceUpdated="True" />
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
@@ -164,8 +164,8 @@
             </Border>
             <Border Grid.Row="5" Grid.Column="3" BorderThickness="1" BorderBrush="LightGray" Background="#FFF3F3F3">
                 <StackPanel>
-                    <ProgressBar Margin="30,10,30,0" Height="30" Value="{Binding Path= Sync.SyncModuleList[0].SyncModuleProgress.Progress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding Sync.SyncModuleList[0].SyncModuleProgress.Minimum}" Maximum="{Binding Sync.SyncModuleList[0].SyncModuleProgress.Maximum}" />
-                    <Label FontWeight="DemiBold" Margin="25,0,0,0" VerticalAlignment="Center"   Content="{Binding Sync.SyncStatus}" Width="Auto" FontSize="11" FontStyle="Italic" />
+                    <ProgressBar Margin="30,10,30,0" Height="30" Value="{Binding Path= Sync.SyncModuleList[5].SyncModuleProgress.Progress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Minimum="{Binding Sync.SyncModuleList[5].SyncModuleProgress.Minimum}" Maximum="{Binding Sync.SyncModuleList[5].SyncModuleProgress.Maximum}" />
+                    <Label FontWeight="DemiBold" Margin="25,0,0,0" VerticalAlignment="Center"   Content="{Binding Sync.SyncModuleList[5].SyncModuleStatus,Mode=TwoWay}" Width="Auto" FontSize="11" FontStyle="Italic" />
                 </StackPanel>
             </Border>
         </Grid>

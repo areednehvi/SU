@@ -12,6 +12,7 @@ namespace School_Universe.Models
     public class SyncModel : INotifyPropertyChanged
     {
         private List<SyncModule> _SyncModuleList;
+        private string _CurrentSyncModule;
         private string _SyncStatus;
         private bool _IsSyncInProgress;
         private SyncDBmodels _SyncDBModels;
@@ -37,6 +38,18 @@ namespace School_Universe.Models
             {
                 _SyncStatus = value;
                 OnPropertyChanged("SyncStatus");
+            }
+        }
+        public string CurrentSyncModule
+        {
+            get
+            {
+                return _CurrentSyncModule;
+            }
+            set
+            {
+                _CurrentSyncModule = value;
+                OnPropertyChanged("CurrentSyncModule");
             }
         }
 
@@ -172,10 +185,36 @@ namespace School_Universe.Models
 
     }
 
-    public class SyncModule
+    public class SyncModule : INotifyPropertyChanged
     {
-        public string Module { get; set; }
+        private string _SyncModuleStatus;
+        public string Module { get; set; }     
+        public string SyncModuleStatus
+        {
+            get
+            {
+                return _SyncModuleStatus;
+            }
+            set
+            {
+                _SyncModuleStatus = value;
+                OnPropertyChanged("SyncModuleStatus");
+            }
+        }   
         public SyncModuleProgressModel SyncModuleProgress { get; set; }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
+
     }
 
     public class SyncDBmodels

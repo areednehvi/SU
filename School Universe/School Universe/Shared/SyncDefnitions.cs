@@ -6,16 +6,42 @@ using System.Threading.Tasks;
 
 namespace School_Universe.Shared
 {
-    public class SyncModules
+
+    static class SyncModules
     {
         public static string Users = "Users";
         public static string Students = "Students";
         public static string Grades = "Grades";
         public static string Transportation = "Transportation";
-        public static string Fees = "Fees";        
+        public static string Fees = "Fees";
         public static string Payments = "Payments";
 
+        static Dictionary<string, int> _SyncModules= new Dictionary<string, int>
+        {
+            {Users, 0},
+            {Students, 1},
+            {Grades, 2},
+            {Transportation, 3},
+            {Fees, 4},
+            {Payments, 5}
+        };
+
+
+        public static int GetSyncModuleID(string word)
+        {
+            // Try to get the result in the static Dictionary
+            int result;
+            if (_SyncModules.TryGetValue(word, out result))
+            {
+                return result;
+            }
+            else
+            {
+                return -1;
+            }
+        }
     }
+
     public class SyncNotifications
     {
         public static string SyncStarted = "Sync Started...";
@@ -24,7 +50,7 @@ namespace School_Universe.Shared
         public static string SyncCompleted = "Sync Completed";
         public static string InternetNotAvailable = "Internet Not Available";
         public static string CheckingInternetConnection = " Checking Internet Connection...";
-       
+
     }
     public class Tables
     {

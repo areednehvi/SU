@@ -80,7 +80,7 @@ namespace School_Universe.Controllers
             try
             {
 
-                Sync.SyncModuleList[0].Module = (string)obj;
+                Sync.CurrentSyncModule = (string)obj;
 
                 ResetProgress();
                 Sync.IsSyncInProgress = true;
@@ -130,7 +130,7 @@ namespace School_Universe.Controllers
 
         private void ResetProgress()
         {
-            Sync.SyncModuleList[0].SyncModuleProgress.Progress = Sync.SyncModuleList[0].SyncModuleProgress.Minimum;
+            Sync.SyncModuleList[SyncModules.GetSyncModuleID(Sync.CurrentSyncModule)].SyncModuleProgress.Progress = Sync.SyncModuleList[SyncModules.GetSyncModuleID(Sync.CurrentSyncModule)].SyncModuleProgress.Minimum;
         }
 
         private void SyncRecords(object sender, DoWorkEventArgs e)
@@ -147,17 +147,17 @@ namespace School_Universe.Controllers
                 Sync.SyncStatus = SyncNotifications.SyncStarted;
                 Sync.SyncDBmodels = new SyncDBmodels();
 
-                if (SyncModules.Users == Sync.SyncModuleList[0].Module)
+                if (SyncModules.Users == Sync.CurrentSyncModule)
                     SyncUsers();
-                else if (SyncModules.Students == Sync.SyncModuleList[0].Module)
+                else if (SyncModules.Students == Sync.CurrentSyncModule)
                     SyncStudents();
-                else if (SyncModules.Grades == Sync.SyncModuleList[0].Module)
+                else if (SyncModules.Grades == Sync.CurrentSyncModule)
                     SyncGrades();
-                else if (SyncModules.Transportation == Sync.SyncModuleList[0].Module)
+                else if (SyncModules.Transportation == Sync.CurrentSyncModule)
                     SyncTransportation();
-                else if (SyncModules.Fees == Sync.SyncModuleList[0].Module)
+                else if (SyncModules.Fees == Sync.CurrentSyncModule)
                     SyncFees();
-                else if (SyncModules.Payments == Sync.SyncModuleList[0].Module)
+                else if (SyncModules.Payments == Sync.CurrentSyncModule)
                     SyncPayments();
 
                 Sync.SyncStatus = SyncNotifications.SyncCompleted;
@@ -211,22 +211,24 @@ namespace School_Universe.Controllers
             {
                 Sync.SyncStatus = SyncNotifications.GettingDataFromOnline;
                 Sync.SyncDBmodels.usersList = SyncManager.GetUsersFromOnline();
-                Sync.SyncModuleList[0].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleStatus = SyncNotifications.GettingDataFromOnline;
                 //getting Data
                 for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
                 {
                     string i = Sync.SyncDBmodels.usersList[count].id;
                     Thread.Sleep(10);
-                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                    Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleProgress.Progress++;
                 }
                 //Sending Data
-                Sync.SyncStatus = SyncNotifications.SendingDataToOnline;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleStatus = SyncNotifications.SendingDataToOnline;
                 for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
                 {
                     string i = Sync.SyncDBmodels.usersList[count].id;
                     Thread.Sleep(10);
-                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                    Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleProgress.Progress++;
                 }
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleStatus = SyncNotifications.SyncCompleted;
                 IsSuccess = true;
             }
             catch (Exception ex)
@@ -246,22 +248,24 @@ namespace School_Universe.Controllers
             {
                 Sync.SyncStatus = SyncNotifications.GettingDataFromOnline;
                 Sync.SyncDBmodels.usersList = SyncManager.GetUsersFromOnline();
-                Sync.SyncModuleList[0].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Students)].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Students)].SyncModuleStatus = SyncNotifications.GettingDataFromOnline;
                 //getting Data
                 for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
                 {
                     string i = Sync.SyncDBmodels.usersList[count].id;
                     Thread.Sleep(10);
-                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                    Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Students)].SyncModuleProgress.Progress++;
                 }
                 //Sending Data
-                Sync.SyncStatus = SyncNotifications.SendingDataToOnline;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Students)].SyncModuleStatus = SyncNotifications.SendingDataToOnline;
                 for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
                 {
                     string i = Sync.SyncDBmodels.usersList[count].id;
                     Thread.Sleep(10);
-                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                    Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Students)].SyncModuleProgress.Progress++;
                 }
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleStatus = SyncNotifications.SyncCompleted;
                 IsSuccess = true;
             }
             catch (Exception ex)
@@ -281,22 +285,24 @@ namespace School_Universe.Controllers
             {
                 Sync.SyncStatus = SyncNotifications.GettingDataFromOnline;
                 Sync.SyncDBmodels.usersList = SyncManager.GetUsersFromOnline();
-                Sync.SyncModuleList[0].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Grades)].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Grades)].SyncModuleStatus = SyncNotifications.GettingDataFromOnline;
                 //getting Data
                 for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
                 {
                     string i = Sync.SyncDBmodels.usersList[count].id;
                     Thread.Sleep(10);
-                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                    Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Grades)].SyncModuleProgress.Progress++;
                 }
                 //Sending Data
-                Sync.SyncStatus = SyncNotifications.SendingDataToOnline;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Grades)].SyncModuleStatus = SyncNotifications.SendingDataToOnline;
                 for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
                 {
                     string i = Sync.SyncDBmodels.usersList[count].id;
                     Thread.Sleep(10);
-                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                    Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Grades)].SyncModuleProgress.Progress++;
                 }
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Grades)].SyncModuleStatus = SyncNotifications.SyncCompleted;
                 IsSuccess = true;
             }
             catch (Exception ex)
@@ -316,23 +322,25 @@ namespace School_Universe.Controllers
             {
                 Sync.SyncStatus = SyncNotifications.GettingDataFromOnline;
                 Sync.SyncDBmodels.usersList = SyncManager.GetUsersFromOnline();
-                Sync.SyncModuleList[0].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Transportation)].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Transportation)].SyncModuleStatus = SyncNotifications.GettingDataFromOnline;
                 //getting Data
                 for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
                 {
                     string i = Sync.SyncDBmodels.usersList[count].id;
                     Thread.Sleep(10);
-                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                    Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Transportation)].SyncModuleProgress.Progress++;
                 }
                 //Sending Data
-                Sync.SyncStatus = SyncNotifications.SendingDataToOnline;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Transportation)].SyncModuleStatus = SyncNotifications.SendingDataToOnline;
                 for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
                 {
                     string i = Sync.SyncDBmodels.usersList[count].id;
                     Thread.Sleep(10);
-                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                    Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Transportation)].SyncModuleProgress.Progress++;
                 }
                 IsSuccess = true;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Transportation)].SyncModuleStatus = SyncNotifications.SyncCompleted;
             }
             catch (Exception ex)
             {
@@ -351,23 +359,25 @@ namespace School_Universe.Controllers
             {
                 Sync.SyncStatus = SyncNotifications.GettingDataFromOnline;
                 Sync.SyncDBmodels.usersList = SyncManager.GetUsersFromOnline();
-                Sync.SyncModuleList[0].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleStatus = SyncNotifications.GettingDataFromOnline;
                 //getting Data
                 for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
                 {
                     string i = Sync.SyncDBmodels.usersList[count].id;
                     Thread.Sleep(10);
-                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                    Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleProgress.Progress++;
                 }
                 //Sending Data
-                Sync.SyncStatus = SyncNotifications.SendingDataToOnline;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleStatus = SyncNotifications.SendingDataToOnline;
                 for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
                 {
                     string i = Sync.SyncDBmodels.usersList[count].id;
                     Thread.Sleep(10);
-                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                    Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleProgress.Progress++;
                 }
                 IsSuccess = true;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleStatus = SyncNotifications.SyncCompleted;
             }
             catch (Exception ex)
             {
@@ -386,23 +396,25 @@ namespace School_Universe.Controllers
             {
                 Sync.SyncStatus = SyncNotifications.GettingDataFromOnline;
                 Sync.SyncDBmodels.usersList = SyncManager.GetUsersFromOnline();
-                Sync.SyncModuleList[0].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleProgress.Maximum = Sync.SyncDBmodels.usersList.Count + Sync.SyncDBmodels.usersList.Count;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleStatus = SyncNotifications.GettingDataFromOnline;
                 //getting Data
                 for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
                 {
                     string i = Sync.SyncDBmodels.usersList[count].id;
                     Thread.Sleep(10);
-                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                    Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleProgress.Progress++;
                 }
                 //Sending Data
-                Sync.SyncStatus = SyncNotifications.SendingDataToOnline;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleStatus = SyncNotifications.SendingDataToOnline;
                 for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
                 {
                     string i = Sync.SyncDBmodels.usersList[count].id;
                     Thread.Sleep(10);
-                    Sync.SyncModuleList[0].SyncModuleProgress.Progress++;
+                    Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleProgress.Progress++;
                 }
                 IsSuccess = true;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleStatus = SyncNotifications.SyncCompleted;
             }
             catch (Exception ex)
             {
