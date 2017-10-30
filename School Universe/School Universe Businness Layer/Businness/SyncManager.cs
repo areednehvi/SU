@@ -22,10 +22,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<fee_categoriesModel> lstFeeCategories = new List<fee_categoriesModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     fee_categoriesModel objfee_categories = new fee_categoriesModel();
-                    objfee_categories.id = (i++).ToString();
+                    objfee_categories.id = (i).ToString();
                     lstFeeCategories.Add(objfee_categories);
                 }
             }
@@ -44,10 +44,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<feesModel> lstFees = new List<feesModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     feesModel objfees = new feesModel();
-                    objfees.id = (i++).ToString();
+                    objfees.id = (i).ToString();
                     lstFees.Add(objfees);
                 }
             }
@@ -66,10 +66,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<filesModel> lstFiles = new List<filesModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     filesModel objfiles = new filesModel();
-                    objfiles.id = (i++).ToString();
+                    objfiles.id = (i).ToString();
                     lstFiles.Add(objfiles);
                 }
             }
@@ -88,10 +88,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<grade_feesModel> lstgrade_fees = new List<grade_feesModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     grade_feesModel objgrade_fees = new grade_feesModel();
-                    objgrade_fees.id = (i++).ToString();
+                    objgrade_fees.id = (i).ToString();
                     lstgrade_fees.Add(objgrade_fees);
                 }
             }
@@ -110,10 +110,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<gradesModel> lstgrades = new List<gradesModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     gradesModel objgrades = new gradesModel();
-                    objgrades.id = (i++).ToString();
+                    objgrades.id = (i).ToString();
                     lstgrades.Add(objgrades);
                 }
             }
@@ -132,10 +132,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<parentsModel> lstparents = new List<parentsModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     parentsModel objparents = new parentsModel();
-                    objparents.id = (i++).ToString();
+                    objparents.id = (i).ToString();
                     lstparents.Add(objparents);
                 }
             }
@@ -154,10 +154,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<route_stopsModel> lstroute_stops = new List<route_stopsModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     route_stopsModel objroute_stops = new route_stopsModel();
-                    objroute_stops.id = (i++).ToString();
+                    objroute_stops.id = (i).ToString();
                     lstroute_stops.Add(objroute_stops);
                 }
             }
@@ -176,10 +176,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<route_vehicle_stopsModel> lstroute_vehicle_stops = new List<route_vehicle_stopsModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     route_vehicle_stopsModel objroute_vehicle_stops = new route_vehicle_stopsModel();
-                    objroute_vehicle_stops.id = (i++).ToString();
+                    objroute_vehicle_stops.id = (i).ToString();
                     lstroute_vehicle_stops.Add(objroute_vehicle_stops);
                 }
             }
@@ -198,10 +198,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<route_vehicle_stops_fee_logsModel> lstroute_vehicle_stops_fee_logs = new List<route_vehicle_stops_fee_logsModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     route_vehicle_stops_fee_logsModel objroute_vehicle_stops_fee_log = new route_vehicle_stops_fee_logsModel();
-                    objroute_vehicle_stops_fee_log.id = (i++).ToString();
+                    objroute_vehicle_stops_fee_log.id = (i).ToString();
                     lstroute_vehicle_stops_fee_logs.Add(objroute_vehicle_stops_fee_log);
                 }
             }
@@ -220,10 +220,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<route_vehiclesModel> lstroute_vehicles = new List<route_vehiclesModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     route_vehiclesModel objroute_vehicles = new route_vehiclesModel();
-                    objroute_vehicles.id = (i++).ToString();
+                    objroute_vehicles.id = (i).ToString();
                     lstroute_vehicles.Add(objroute_vehicles);
                 }
             }
@@ -242,10 +242,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<routesModel> lstroutes = new List<routesModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     routesModel objroutes = new routesModel();
-                    objroutes.id = (i++).ToString();
+                    objroutes.id = (i).ToString();
                     lstroutes.Add(objroutes);
                 }
             }
@@ -264,10 +264,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<sectionsModel> lstsections = new List<sectionsModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     sectionsModel objsections = new sectionsModel();
-                    objsections.id = (i++).ToString();
+                    objsections.id = (i).ToString();
                     lstsections.Add(objsections);
                 }
             }
@@ -286,10 +286,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<sessionsModel> lstsessions = new List<sessionsModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     sessionsModel objsessions = new sessionsModel();
-                    objsessions.id = (i++).ToString();
+                    objsessions.id = (i).ToString();
                     lstsessions.Add(objsessions);
                 }
             }
@@ -308,10 +308,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<student_feesModel> lststudent_fees = new List<student_feesModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     student_feesModel objstudent_fees = new student_feesModel();
-                    objstudent_fees.id = (i++).ToString();
+                    objstudent_fees.id = (i).ToString();
                     lststudent_fees.Add(objstudent_fees);
                 }
             }
@@ -330,10 +330,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<student_grade_session_logModel> lststudent_grade_session_log = new List<student_grade_session_logModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     student_grade_session_logModel objstudent_grade_session_log = new student_grade_session_logModel();
-                    objstudent_grade_session_log.id = (i++).ToString();
+                    objstudent_grade_session_log.id = (i).ToString();
                     lststudent_grade_session_log.Add(objstudent_grade_session_log);
                 }
             }
@@ -352,10 +352,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<student_paymentsModel> lststudent_payments = new List<student_paymentsModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     student_paymentsModel objstudent_payments = new student_paymentsModel();
-                    objstudent_payments.id = (i++).ToString();
+                    objstudent_payments.id = (i).ToString();
                     lststudent_payments.Add(objstudent_payments);
                 }
             }
@@ -374,10 +374,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<studentsModel> lststudents = new List<studentsModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     studentsModel objstudents = new studentsModel();
-                    objstudents.id = (i++).ToString();
+                    objstudents.id = (i).ToString();
                     lststudents.Add(objstudents);
                 }
             }
@@ -396,10 +396,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<trip_stopsModel> lsttrip_stops = new List<trip_stopsModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     trip_stopsModel objtrip_stops = new trip_stopsModel();
-                    objtrip_stops.id = (i++).ToString();
+                    objtrip_stops.id = (i).ToString();
                     lsttrip_stops.Add(objtrip_stops);
                 }
             }
@@ -418,10 +418,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<user_avatar_filesModel> lstuser_avatar_files = new List<user_avatar_filesModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     user_avatar_filesModel objuser_avatar_files = new user_avatar_filesModel();
-                    objuser_avatar_files.id = (i++).ToString();
+                    objuser_avatar_files.id = (i).ToString();
                     lstuser_avatar_files.Add(objuser_avatar_files);
                 }
             }
@@ -440,10 +440,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<usersModel> lstUsers = new List<usersModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     usersModel objUser = new usersModel();
-                    objUser.id = (i++).ToString();
+                    objUser.id = (i).ToString();
                     lstUsers.Add(objUser);
                 }
             }
@@ -462,10 +462,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<vehiclesModel> lstvehicles = new List<vehiclesModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     vehiclesModel objvehicles = new vehiclesModel();
-                    objvehicles.id = (i++).ToString();
+                    objvehicles.id = (i).ToString();
                     lstvehicles.Add(objvehicles);
                 }
             }
@@ -487,10 +487,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<student_feesModel> lststudent_fees = new List<student_feesModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     student_feesModel objstudent_fees = new student_feesModel();
-                    objstudent_fees.id = (i++).ToString();
+                    objstudent_fees.id = (i).ToString();
                     lststudent_fees.Add(objstudent_fees);
                 }
             }
@@ -509,10 +509,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<student_paymentsModel> lststudent_payments = new List<student_paymentsModel>();
             try
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     student_paymentsModel objstudent_payments = new student_paymentsModel();
-                    objstudent_payments.id = (i++).ToString();
+                    objstudent_payments.id = (i).ToString();
                     lststudent_payments.Add(objstudent_payments);
                 }
             }
