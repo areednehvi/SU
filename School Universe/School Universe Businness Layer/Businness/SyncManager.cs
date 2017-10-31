@@ -528,6 +528,27 @@ namespace School_Universe_Businness_Layer.Businness
         }
         #endregion
 
+        #region Sync Data from Online
+        public static Boolean SyncUsersFromOnline(usersModel objusers)
+        {
+            Boolean IsSuccess = false;
+            try
+            {
+
+            }
+            catch(Exception ex)
+            {
+
+            }
+            finally
+            {
+
+            }
+            return IsSuccess;            
+        }
+     
+        #endregion
+
         #region Last Sync Info from SyncTableInfo
         public static List<SyncTableInfoModel> GetSyncTableInfo()
         {            
