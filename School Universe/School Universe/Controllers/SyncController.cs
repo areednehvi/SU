@@ -283,6 +283,8 @@ namespace School_Universe.Controllers
                 GeneralMethods.ShowNotification("Internet Not Available!", "Please check your Internet Connection!", true);
             else if (Sync.SyncStatus == SyncNotifications.SyncCompleted)
             {
+                UpdateLastSyncDateForModules();
+
                 GeneralMethods.ShowNotification("Sync Completed!", "Sync finished Successfully!");
                 GeneralMethods.Log("Sync finished Successfully!",true);
             }
@@ -290,13 +292,27 @@ namespace School_Universe.Controllers
         }
         void SyncAllCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            Sync.IsSyncInProgress = false;
-            //if (Sync.SyncStatus == SyncNotifications.InternetNotAvailable)
-            //    GeneralMethods.ShowNotification("Internet Not Available!", "Please check your Internet Connection!", true);
-            //else if (Sync.SyncStatus == SyncNotifications.SyncCompleted)
-            GeneralMethods.ShowNotification("Sync Completed!", "Syncing all Modules finished Successfully!");
-            GeneralMethods.Log("Syncing all Modules finished Successfully!", true);
+            try
+            {
+                Sync.IsSyncInProgress = false;
+                if (Sync.SyncStatus == SyncNotifications.InternetNotAvailable)
+                    GeneralMethods.ShowNotification("Internet Not Available!", "Please check your Internet Connection!", true);
+                else if (Sync.SyncStatus == SyncNotifications.SyncCompleted)
+                {
+                    UpdateLastSyncDateForModules();
 
+                    GeneralMethods.ShowNotification("Sync Completed!", "Syncing all Modules finished Successfully!");
+                    GeneralMethods.Log("Syncing all Modules finished Successfully!", true);
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }           
         }
         #endregion
 
@@ -372,6 +388,8 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.users)].LastSyncedOn = DateTime.Now;
 
             //user_avatar_files
             for (int count = 0; count < Sync.SyncDBmodels.user_avatar_filesList.Count; count++)
@@ -383,7 +401,9 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleProgress.Progress++;
             }
-            
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.user_avatar_files)].LastSyncedOn = DateTime.Now;
+
             //files
             for (int count = 0; count < Sync.SyncDBmodels.filesList.Count; count++)
             {
@@ -394,6 +414,8 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.files)].LastSyncedOn = DateTime.Now;
         }        
 
         #endregion
@@ -454,6 +476,10 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Students)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.students)].LastSyncedOn = DateTime.Now;
+
+
             //parents
             Sync.SyncDBmodels.parentsList = SyncManager.GetParentsFromOnline();
             for (int count = 0; count < Sync.SyncDBmodels.parentsList.Count; count++)
@@ -465,6 +491,8 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Students)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.parents)].LastSyncedOn = DateTime.Now;
         }
 
         #endregion
@@ -529,6 +557,9 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Grades)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.grades)].LastSyncedOn = DateTime.Now;
+
             //sections                
             for (int count = 0; count < Sync.SyncDBmodels.sectionsList.Count; count++)
             {
@@ -539,6 +570,9 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Grades)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.sections)].LastSyncedOn = DateTime.Now;
+
             //sessions                
             for (int count = 0; count < Sync.SyncDBmodels.sessionsList.Count; count++)
             {
@@ -549,6 +583,9 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Grades)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.sessions)].LastSyncedOn = DateTime.Now;
+
             //student_grade_session_log                
             for (int count = 0; count < Sync.SyncDBmodels.student_grade_session_logList.Count; count++)
             {
@@ -559,6 +596,8 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Grades)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.student_grade_session_log)].LastSyncedOn = DateTime.Now;
         }
 
         #endregion
@@ -626,6 +665,9 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Transportation)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.vehicles)].LastSyncedOn = DateTime.Now;
+
             //routes
             for (int count = 0; count < Sync.SyncDBmodels.routesList.Count; count++)
             {
@@ -636,6 +678,9 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Transportation)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.routes)].LastSyncedOn = DateTime.Now;
+
             //route_stops
             for (int count = 0; count < Sync.SyncDBmodels.route_stopsList.Count; count++)
             {
@@ -646,6 +691,9 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Transportation)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.route_stops)].LastSyncedOn = DateTime.Now;
+
             //route_vehicles
             for (int count = 0; count < Sync.SyncDBmodels.route_vehiclesList.Count; count++)
             {
@@ -656,6 +704,9 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Transportation)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.route_vehicles)].LastSyncedOn = DateTime.Now;
+
             //route_vehicle_stops
             for (int count = 0; count < Sync.SyncDBmodels.route_vehicle_stopsList.Count; count++)
             {
@@ -666,6 +717,9 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Transportation)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.route_vehicle_stops)].LastSyncedOn = DateTime.Now;
+
             //trip_stops
             for (int count = 0; count < Sync.SyncDBmodels.trip_stopsList.Count; count++)
             {
@@ -676,6 +730,8 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Transportation)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.trip_stops)].LastSyncedOn = DateTime.Now;
         }
         #endregion
 
@@ -745,6 +801,9 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.fee_categories)].LastSyncedOn = DateTime.Now;
+
             //fees               
             for (int count = 0; count < Sync.SyncDBmodels.feesList.Count; count++)
             {
@@ -755,6 +814,9 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.fees)].LastSyncedOn = DateTime.Now;
+
             //grade_fees               
             for (int count = 0; count < Sync.SyncDBmodels.grade_feesList.Count; count++)
             {
@@ -765,6 +827,9 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.grade_fees)].LastSyncedOn = DateTime.Now;
+
             //student_fees               
             for (int count = 0; count < Sync.SyncDBmodels.student_feesList.Count; count++)
             {
@@ -775,6 +840,10 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            //Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.student_fees)].LastSyncedOn = DateTime.Now;
+            //Update Last Sync when syn is done both online and offline
+
             //route_vehicle_stops_fee_logs               
             for (int count = 0; count < Sync.SyncDBmodels.route_vehicle_stops_fee_logsList.Count; count++)
             {
@@ -785,6 +854,8 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.route_vehicle_stops)].LastSyncedOn = DateTime.Now;
         }
         private void GetFeesDataFromOffline()
         {
@@ -808,6 +879,8 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.student_fees)].LastSyncedOn = DateTime.Now;
         }
 
         
@@ -871,6 +944,9 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            //Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.student_payments)].LastSyncedOn = DateTime.Now;
+            //Update Last Sync when syn is done both online and offline
         }
         private void GetPaymentsDataFromOffline()
         {
@@ -895,8 +971,27 @@ namespace School_Universe.Controllers
                 Thread.Sleep(10);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleProgress.Progress++;
             }
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.student_payments)].LastSyncedOn = DateTime.Now;
         }
         #endregion
+
+        private Boolean UpdateLastSyncDateForModules()
+        {
+            try
+            {
+                return SyncManager.UpdateSyncTableInfo(Sync.SyncTableInfoList);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            
+        }
 
         #endregion
 

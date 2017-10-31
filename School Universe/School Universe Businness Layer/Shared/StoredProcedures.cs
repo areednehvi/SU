@@ -22,5 +22,7 @@ namespace School_Universe_Businness_Layer.Shared
         public static string SaveSettings = "SaveSettings";
         public static string GetSettings = "GetSettings";
         public static string GetSyncTableInfo = "GetSyncTableInfo";
+        public static string UpdateSyncTableInfo = "UpdateSyncTableInfo";
+        
     }
 }

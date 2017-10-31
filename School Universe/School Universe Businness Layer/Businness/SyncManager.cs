@@ -529,7 +529,7 @@ namespace School_Universe_Businness_Layer.Businness
         #endregion
 
         #region Last Sync Info from SyncTableInfo
-        public static ObservableCollection<SyncTableInfoModel> GetSyncTableInfo()
+        public static List<SyncTableInfoModel> GetSyncTableInfo()
         {            
             try
             {
@@ -546,9 +546,9 @@ namespace School_Universe_Businness_Layer.Businness
             }
         }
 
-        private static ObservableCollection<SyncTableInfoModel> MapDatatableToSyncTableInfoList(DataTable objDatatable)
+        private static List<SyncTableInfoModel> MapDatatableToSyncTableInfoList(DataTable objDatatable)
         {
-            ObservableCollection<SyncTableInfoModel> lstSyncTableInfoList = new ObservableCollection<SyncTableInfoModel>();
+            List<SyncTableInfoModel> lstSyncTableInfoList = new List<SyncTableInfoModel>();
             try
             {
                 foreach (DataRow row in objDatatable.Rows)
@@ -573,6 +573,36 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstSyncTableInfoList;
         }
+
+        public static Boolean UpdateSyncTableInfo(List<SyncTableInfoModel> objSyncTableInfoList)
+        {
+            Boolean IsSuccess = false;
+            try
+            {
+                foreach(SyncTableInfoModel objSyncTableInfo in objSyncTableInfoList)
+                {
+                    List<SqlParameter> lstSqlParameters = new List<SqlParameter>()
+                    {
+                        new SqlParameter() {ParameterName = "@ID",     SqlDbType = SqlDbType.NVarChar, Value = objSyncTableInfo.id_offline},
+                        new SqlParameter() {ParameterName = "@LastSyncedOn",  SqlDbType = SqlDbType.NVarChar, Value = objSyncTableInfo.LastSyncedOn}
+                    };
+                    IsSuccess = DataAccess.ExecuteNonQuery(StoredProcedures.UpdateSyncTableInfo, lstSqlParameters);
+                }                
+                
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return IsSuccess;
+        }
+
+
         #endregion
     }
 

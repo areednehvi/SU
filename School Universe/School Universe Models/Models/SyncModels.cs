@@ -17,7 +17,7 @@ namespace School_Universe.Models
         private string _SyncStatus;
         private bool _IsSyncInProgress;
         private SyncDBmodels _SyncDBModels;
-        private ObservableCollection<SyncTableInfoModel> _SyncTableInfoList;
+        private List<SyncTableInfoModel> _SyncTableInfoList;
 
         public bool IsSyncInProgress
         {
@@ -80,7 +80,7 @@ namespace School_Universe.Models
             }
         }
 
-        public ObservableCollection<SyncTableInfoModel> SyncTableInfoList
+        public List<SyncTableInfoModel> SyncTableInfoList
         {
             get { return _SyncTableInfoList; }
             set
