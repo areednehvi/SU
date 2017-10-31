@@ -1,6 +1,7 @@
 ﻿using School_Universe.Views;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -17,7 +18,7 @@ namespace School_Universe.Shared
             winNotification.Show();
         }
 
-        public static void CreateGlobalObject(string globalObjectName,object objObject)
+        public static void CreateGlobalObject(string globalObjectName, object objObject)
         {
             Application.Current.Properties[globalObjectName] = objObject;
         }
@@ -26,7 +27,7 @@ namespace School_Universe.Shared
             return Application.Current.Properties[globalObjectName];
         }
 
-        public static bool IsInternetAvailable()
+        public static Boolean IsInternetAvailable()
         {
             try
             {
@@ -37,6 +38,38 @@ namespace School_Universe.Shared
             {
                 return false;
             }
+        }
+        public static Boolean Log(string line,Boolean IsHeading = false, Boolean append = true)
+        {
+            Boolean IsSuccess = false;
+            string fileName = @"Logs\log.txt";
+            if (!File.Exists(fileName))
+                Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            using (StreamWriter objStreamWriter = new StreamWriter(fileName, append))
+            {
+                if(IsHeading)
+                    objStreamWriter.WriteLine("--------------------------------------------------------------------------------------");
+                objStreamWriter.WriteLine(line);
+                if (!IsHeading)
+                    objStreamWriter.WriteLine();
+                if (IsHeading)
+                    objStreamWriter.WriteLine("--------------------------------------------------------------------------------------");
+                IsSuccess = true;
+            }
+
+
+            // Read and show each line from the file.
+            //string line = "";
+            //using (StreamReader sr = new StreamReader("names.txt"))
+            //{
+            //    while ((line = sr.ReadLine()) != null)
+            //    {
+            //        Console.WriteLine(line);
+            //    }
+            //}
+
+            return IsSuccess;
+
         }
     }
 }
