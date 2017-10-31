@@ -49,6 +49,7 @@ namespace School_Universe.Shared
         public static string SyncStarted = "Sync Started...";
         public static string GettingDataFromOnline = "Getting Data from Online...";
         public static string SendingDataToOnline = "Sending Data To Online...";
+        public static string SyncInProgress = "Syncing ";
         public static string SyncCompleted = "Sync Completed";
         public static string SyncingModule = "Syncing Module ";
         public static string InternetNotAvailable = "Internet Not Available";
