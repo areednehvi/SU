@@ -485,6 +485,7 @@ namespace School_Universe.Controllers
                 switch ((string)obj)
                 {
                     case "Pay":
+                        MakePayment.Payment.recept_no = DateTime.Now.ToString("ddMMyyyyHHmmss");
                         PendingMonthlyFeesMaterialDesignCard.Visibility = Visibility.Collapsed;
                         MakePaymentScreenMaterialDesignCard.Visibility = Visibility.Visible;
                         this.CalculatePaymentTotals();
