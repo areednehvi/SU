@@ -10,6 +10,7 @@ namespace School_Universe.Shared
     {
         public static string NoOfRowsInGrids = "NoOfRowsInGrids";
         public static string AlwaysShowMenuBar = "AlwaysShowMenuBar";
-        
+        public static string DisableSUAdminAccount = "DisableSUAdminAccount";
+
     }
 }

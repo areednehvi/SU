@@ -12,6 +12,7 @@ namespace School_Universe.Models
     {     
         private ObservableCollection<NoOfRowsInGridsModel> _NoOfRowsInGrids;
         private Boolean _AlwaysShowMenuBar;
+        private Boolean _DisableSUAdminAccount;
         public ObservableCollection<NoOfRowsInGridsModel> NoOfRowsInGrids
         {
             get
@@ -35,6 +36,19 @@ namespace School_Universe.Models
             {
                 _AlwaysShowMenuBar = value;
                 OnPropertyChanged("AlwaysShowMenuBar");
+            }
+        }
+
+        public Boolean DisableSUAdminAccount
+        {
+            get
+            {
+                return _DisableSUAdminAccount;
+            }
+            set
+            {
+                _DisableSUAdminAccount = value;
+                OnPropertyChanged("DisableSUAdminAccount");
             }
         }
 
