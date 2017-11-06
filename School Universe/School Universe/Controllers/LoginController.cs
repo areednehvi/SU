@@ -18,7 +18,8 @@ namespace School_Universe.Controllers
         #region Fields
         private LoginModel _login;
         private SchoolModel _SchoolInfo;
-        private Window _window;        
+        private Window _window;
+        private Boolean IsSUAdminDisabled;       
         private ICommand _loginCommand;
         private ICommand _closeCommand;
         private ICommand _minimizeCommand;
@@ -28,6 +29,9 @@ namespace School_Universe.Controllers
         public LoginController()
         {
             _login = new LoginModel();
+            //Get Settings
+            this.GetSettings();
+            //Initialize commands
             _loginCommand = new RelayCommand(AuthenticateUser, CanLogin);
             _closeCommand = new RelayCommand(CloseLogin, CanClose);
             _minimizeCommand = new RelayCommand(MinimizeLogin, CanMinimize);
@@ -94,6 +98,11 @@ namespace School_Universe.Controllers
             {
                 PasswordBox pwBox = obj as PasswordBox;
                 Login.Password = pwBox.Password;
+                if(Login.Username.ToUpper() == "SUADMIN" && IsSUAdminDisabled)
+                {
+                    Login.Message = "SU Admin Account is disabled";
+                    return;
+                }
                 if (LoginManager.ValidateUser(Login))
                 {
                     //Create Global Objects
@@ -169,6 +178,12 @@ namespace School_Universe.Controllers
             //Maintain state of School Info
             SchoolInfo = LoginManager.GetSchooInfo();
             GeneralMethods.CreateGlobalObject(GlobalObjects.SchoolInfo, SchoolInfo);
+        }
+        private void GetSettings()
+        {
+            //DisableSUAdminAccount
+            var disableSUAdminAccount = SettingsManager.GetSetting(SettingDefinitions.DisableSUAdminAccount);
+            IsSUAdminDisabled = disableSUAdminAccount == null ? false : Convert.ToBoolean(disableSUAdminAccount);
         }
         #endregion  
 
