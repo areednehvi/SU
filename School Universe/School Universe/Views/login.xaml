@@ -36,7 +36,7 @@
                 </Canvas>
             </Viewbox>
         </Button>
-        <Label x:Name="lblMsg" ToolTip="{Binding Login.Message}" Content="{Binding Login.Message}" HorizontalAlignment="Left" Margin="220,442,0,0" VerticalAlignment="Top" Width="252" Foreground="#DDFF0C0C" IsManipulationEnabled="True" FontSize="14" Height="43" FontWeight="Medium"/>
+        <Label x:Name="lblMsg" ToolTip="{Binding Login.Message}" Content="{Binding Login.Message}" HorizontalAlignment="Left" Margin="220,442,0,0" VerticalAlignment="Top" Width="252" Foreground="OrangeRed" IsManipulationEnabled="True" FontSize="14" Height="43" FontWeight="Medium"/>
 
 
 

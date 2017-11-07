@@ -23,6 +23,6 @@ namespace School_Universe_Businness_Layer.Shared
         public static string GetSettings = "GetSettings";
         public static string GetSyncTableInfo = "GetSyncTableInfo";
         public static string UpdateSyncTableInfo = "UpdateSyncTableInfo";
-        
+        public static string SyncStudent_payments = "SyncStudent_payments";
     }
 }

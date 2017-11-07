@@ -529,11 +529,23 @@ namespace School_Universe_Businness_Layer.Businness
         #endregion
 
         #region Sync Data from Online
-        public static Boolean SyncUsersFromOnline(usersModel objusers)
+        public static Boolean SyncStudent_paymentsFromOnline(student_paymentsModel objStudent_payments)
         {
             Boolean IsSuccess = false;
             try
             {
+                objStudent_payments.id_offline = new Guid().ToString();
+                objStudent_payments.school_id = "18";
+                objStudent_payments.student_fees_id = "1121";
+                objStudent_payments.recept_no = "ssss";
+                objStudent_payments.payment_mode = "Cash";
+                objStudent_payments.updated_by = "1";
+                objStudent_payments.created_by = "1";
+                DataTable objDatatable = MapStudent_paymentsToDataTable(objStudent_payments);
+                SqlParameter objSqlParameter = new SqlParameter("@Model", SqlDbType.Structured);
+                objSqlParameter.TypeName = "dbo.student_payments";
+                objSqlParameter.Value = objDatatable;
+                IsSuccess = DataAccess.ExecuteNonQuery(StoredProcedures.SyncStudent_payments, objSqlParameter);
 
             }
             catch(Exception ex)
@@ -546,7 +558,57 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return IsSuccess;            
         }
-     
+
+        private static DataTable MapStudent_paymentsToDataTable(student_paymentsModel objPaymentHistoryModel)
+        {
+            try
+            {
+                DataTable table = new DataTable();
+                table.Columns.Add("id_offline", typeof(Guid));
+                table.Columns.Add("id", typeof(string));
+                table.Columns.Add("school_id", typeof(string));
+                table.Columns.Add("student_fees_id", typeof(string));
+                table.Columns.Add("amount", typeof(Double));
+                table.Columns.Add("fine", typeof(Double));
+                table.Columns.Add("comment", typeof(string));
+                table.Columns.Add("recept_no", typeof(string));
+                table.Columns.Add("payment_mode", typeof(string));
+                table.Columns.Add("payment_date", typeof(DateTime));
+                table.Columns.Add("ip", typeof(string));
+                table.Columns.Add("created_by", typeof(string));
+                table.Columns.Add("created_on", typeof(DateTime));
+                table.Columns.Add("updated_by", typeof(string));
+                table.Columns.Add("updated_on", typeof(DateTime));
+
+                table.Rows.Add(
+                                objPaymentHistoryModel.id_offline,
+                                objPaymentHistoryModel.id,
+                                objPaymentHistoryModel.school_id,
+                                objPaymentHistoryModel.student_fees_id,
+                                objPaymentHistoryModel.amount,
+                                objPaymentHistoryModel.fine,
+                                objPaymentHistoryModel.comment,
+                                objPaymentHistoryModel.recept_no,
+                                objPaymentHistoryModel.payment_mode,
+                                objPaymentHistoryModel.payment_date,
+                                objPaymentHistoryModel.ip,
+                                objPaymentHistoryModel.created_by,
+                                objPaymentHistoryModel.created_on,
+                                objPaymentHistoryModel.updated_by,
+                                objPaymentHistoryModel.updated_on
+                             );
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
+
         #endregion
 
         #region Last Sync Info from SyncTableInfo
