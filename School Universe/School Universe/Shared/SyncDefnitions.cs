@@ -80,4 +80,5 @@ namespace School_Universe.Shared
         public static string users = "users";
         public static string vehicles = "vehicles";
     }
+    
 }

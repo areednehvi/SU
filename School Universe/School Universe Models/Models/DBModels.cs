@@ -26,7 +26,7 @@ namespace School_Universe_Models.Models
         {
             public string id { get; set; }
             public string school_id { get; set; }
-            public string fee_category { get; set; }
+            public string fee_category_id { get; set; }
             public string session_id { get; set; }
             public Double amount { get; set; }
             public string fee_cources { get; set; }
