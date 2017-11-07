@@ -78,6 +78,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controllers\SchoolSetupController.cs" />
     <Compile Include="Controllers\FeeCollectController.cs" />
     <Compile Include="Controllers\FeeCollectionListController.cs" />
     <Compile Include="Controllers\SyncController.cs" />
@@ -91,6 +92,9 @@
     <Compile Include="Shared\SyncDefnitions.cs" />
     <Compile Include="Shared\SettingDefinitions.cs" />
     <Compile Include="Shared\ViewDefinitions.cs" />
+    <Compile Include="Views\SchoolSetup.xaml.cs">
+      <DependentUpon>SchoolSetup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FeeCollect.xaml.cs">
       <DependentUpon>FeeCollect.xaml</DependentUpon>
     </Compile>
@@ -109,6 +113,10 @@
     <Compile Include="Views\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\SchoolSetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\FeeCollect.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
