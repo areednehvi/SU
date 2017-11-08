@@ -19,6 +19,7 @@ namespace School_Universe_Businness_Layer.Shared
         public static string UpdateFeeDue = "UpdateFeeDue";
         public static string DeleteRecord = "DeleteRecord";
         public static string GetSchoolInfo = "GetSchoolInfo";
+        public static string SetSchoolInfo = "SetSchoolInfo";
         public static string SaveSettings = "SaveSettings";
         public static string GetSettings = "GetSettings";
         public static string GetSyncTableInfo = "GetSyncTableInfo";
@@ -44,5 +45,6 @@ namespace School_Universe_Businness_Layer.Shared
         public static string SyncUser_avatar_files = "SyncUser_avatar_files";
         public static string SyncUsers = "SyncUsers";
         public static string SyncVehicles = "SyncVehicles";
+        public static string IsSchoolSetup = "IsSchoolSetup";
     }
 }

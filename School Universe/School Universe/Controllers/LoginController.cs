@@ -105,13 +105,26 @@ namespace School_Universe.Controllers
                 }
                 if (LoginManager.ValidateUser(Login))
                 {
-                    //Create Global Objects
-                    CreateGlobalObjects();
-                                        
-                    //open window after authentication
-                    Main objMainWindow = new Main(Login);
-                    objMainWindow.Show();
-                    Window.Close();
+
+                    CreateLoginGlobalObject();
+
+                    if (SchoolSetupManager.IsSchoolSetup())
+                    {
+                        
+                        CreateSchoolGlobalObject();
+
+                        //open Main window after authentication
+                        Main objMainWindow = new Main(Login);
+                        objMainWindow.Show();
+                        Window.Close();
+                    }
+                    else
+                    {
+                        //open School Setup window after authentication
+                        SchoolSetup objSchoolSetupWindow = new SchoolSetup();
+                        objSchoolSetupWindow.Show();
+                        Window.Close();
+                    }
                 }
                 else
                     Login.Message = "Username and password are incorrect";
@@ -171,12 +184,15 @@ namespace School_Universe.Controllers
         #endregion
 
         #region Private Functions
-        private void CreateGlobalObjects()
+        private void CreateLoginGlobalObject()
         {
             //Maintain state of Login
             GeneralMethods.CreateGlobalObject(GlobalObjects.CurrentLogin, Login);
+        }
+        private void CreateSchoolGlobalObject()
+        {
             //Maintain state of School Info
-            SchoolInfo = LoginManager.GetSchooInfo();
+            SchoolInfo = SchoolSetupManager.GetSchooInfo();
             GeneralMethods.CreateGlobalObject(GlobalObjects.SchoolInfo, SchoolInfo);
         }
         private void GetSettings()

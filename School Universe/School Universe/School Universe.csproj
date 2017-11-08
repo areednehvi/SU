@@ -88,6 +88,7 @@
     <Compile Include="Shared\RelayCommand.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Shared\GlobalObjects.cs" />
+    <Compile Include="Shared\SchoolSetupDefnitions.cs" />
     <Compile Include="Shared\WindowDefnitions.cs" />
     <Compile Include="Shared\SyncDefnitions.cs" />
     <Compile Include="Shared\SettingDefinitions.cs" />

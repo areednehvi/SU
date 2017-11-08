@@ -44,6 +44,7 @@
     <Compile Include="Models\FeeCollectionListModels.cs" />
     <Compile Include="Models\FeeCollectModels.cs" />
     <Compile Include="Models\GetListModels.cs" />
+    <Compile Include="Models\SchoolSetup.cs" />
     <Compile Include="Models\SyncModels.cs" />
     <Compile Include="Models\SettingsModels.cs" />
     <Compile Include="Models\LoginModels.cs" />

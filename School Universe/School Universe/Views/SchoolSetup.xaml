@@ -19,7 +19,7 @@
         <WindowChrome CaptionHeight="30" />
     </WindowChrome.WindowChrome>
     <DockPanel LastChildFill="True" DataContext="{Binding Source={StaticResource SchoolSetupController}}">
-        <materialDesign:Card DockPanel.Dock="Top"  Margin="0,0,0,5" Background="#FF009688" Height="70">
+        <materialDesign:Card DockPanel.Dock="Top"  Background="#FF009688" Height="70">
             <Grid>
                 <TextBlock Grid.Column="0" Padding="5,12,0,0" Style="{StaticResource MaterialDesignTitleTextBlock}"  Foreground="White" Margin="10,0,0,0" Text="School Setup">
                     <TextBlock.Effect>
@@ -45,7 +45,7 @@
             </Grid>
         </materialDesign:Card>
 
-        <Grid Background="AliceBlue" x:Name="grdSchoolSetup">
+        <Grid x:Name="grdSchoolSetup">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -55,9 +55,10 @@
             <TextBlock Grid.Row="0" Margin="0,10,0,0" Text="Welcome to School Universe!" Style="{StaticResource MaterialDesignTitleTextBlock}" Foreground="#FF009688" HorizontalAlignment="Center" FontSize="30" />
             <TextBlock Grid.Row="1" Margin="0,20,0,0" Text="Enter key to setup up your School" HorizontalAlignment="Center" FontSize="20" />
             <StackPanel Grid.Row="2" Margin="0,50,0,30" Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBox HorizontalAlignment="Center" Foreground="#FF009688" Margin="0,0,30,0" Width="300" FontSize="25" />
-                <Button Content="Setup" Width="150" Height="60" FontSize="20" />
+                <TextBox HorizontalAlignment="Center" Foreground="#FF009688" Margin="0,0,30,0" Width="300" FontSize="25" ToolTip="Enter Key" Text="{Binding  SchoolSetup.Key}" />
+                <Button Content="Setup" Width="150" Height="60" FontSize="20" Command="{Binding SetupSchoolCommand}" ToolTip="Setup your School Account" />
             </StackPanel>
+            <Label Grid.Row="3" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding SchoolSetup.SetupStatus,Mode=TwoWay}" Width="Auto" FontSize="11" FontStyle="Italic" />
         </Grid>
     </DockPanel>
 

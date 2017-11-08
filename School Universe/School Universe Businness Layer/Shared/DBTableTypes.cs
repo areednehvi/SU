@@ -29,5 +29,6 @@ namespace School_Universe_Businness_Layer.Shared
         public static string user_avatar_files = "dbo.user_avatar_files";
         public static string users = "dbo.users";
         public static string vehicles = "dbo.vehicles";
+        public static string schools = "dbo.schools";
     }
 }
