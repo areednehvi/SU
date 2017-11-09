@@ -11,8 +11,8 @@ namespace School_Universe_Data_Layer.DataAccess
     public class DataAccess
     {
         static string path = System.IO.Path.GetFullPath(Environment.CurrentDirectory);
-        //static SqlConnection objSqlConnection = new SqlConnection(@"Data Source=(localdb)\v11.0;AttachDbFilename=" + path + @"\SchoolUniverse.mdf;Integrated Security=True;");
-        static SqlConnection objSqlConnection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;AttachDbFilename=" + path + @"\SchoolUniverse.mdf;Integrated Security=True;");
+        static SqlConnection objSqlConnection = new SqlConnection(@"Data Source=(localdb)\v11.0;AttachDbFilename=" + path + @"\SchoolUniverse.mdf;Integrated Security=True;");
+        //static SqlConnection objSqlConnection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;AttachDbFilename=" + path + @"\SchoolUniverse.mdf;Integrated Security=True;");
 
         public DataAccess()
         {            
