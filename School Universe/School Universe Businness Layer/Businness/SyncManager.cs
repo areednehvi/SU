@@ -6,8 +6,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using static School_Universe_Models.Models.DBModels;
 
@@ -440,12 +444,27 @@ namespace School_Universe_Businness_Layer.Businness
             List<usersModel> lstUsers = new List<usersModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
+                string json = "{\"user\":\"test\"," +
+                      "\"password\":\"bla\"}";
+
+                var url = "http://cbsc.schooluniverse.in/web-services/users";
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                httpWebRequest.ContentType = "application/json; charset=utf-8";
+                //request.ContentLength = json.Length;
+                httpWebRequest.Method = "POST";
+
+                using (var stream = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
-                    usersModel objUser = new usersModel();
-                    objUser.id = (i).ToString();
-                    lstUsers.Add(objUser);
+                    stream.Write(json);
                 }
+
+                var response = (HttpWebResponse)httpWebRequest.GetResponse();
+
+                using (var sr = new StreamReader(response.GetResponseStream()))
+                {
+                    json = sr.ReadToEnd();
+                }
+                lstUsers = JsonConvert.DeserializeObject<List<usersModel>>(json);
             }
             catch (Exception ex)
             {

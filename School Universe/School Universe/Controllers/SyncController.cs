@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿
 using School_Universe.Models;
 using School_Universe.Shared;
 using School_Universe.Views;
@@ -7,16 +6,8 @@ using School_Universe_Businness_Layer.Businness;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-
 
 namespace School_Universe.Controllers
 {
@@ -383,66 +374,14 @@ namespace School_Universe.Controllers
 
         private void SyncUsersOnlineData()
         {
-            //Get API Request
-            /*string url = "http://arifnazir.000webhostapp.com/api/api.php";
-            WebRequest request = WebRequest.Create(url);
-            request.ContentType = "application/json; charset=utf-8";
-            request.Method = "GET";
-            string responseString;
-            var response = (HttpWebResponse)request.GetResponse();
-
-            using (var sr = new StreamReader(response.GetResponseStream()))
-            {
-                responseString = sr.ReadToEnd();
-            }
-
-            var obj = JObject.Parse(responseString);
-            var data = obj["data"];
-            SchoolClass objSchoolClass = JsonConvert.DeserializeObject<SchoolClass>(data.ToString());*/
-
-            //POST API Request
-            /*var values = new Dictionary<string, string>
-            {
-               { "thing1", "hello" },
-               { "thing2", "world" }
-            };*/
-
-
-            //var json = JsonConvert.SerializeObject(values);
-
-            string json = "{\"user\":\"test\"," +
-                  "\"password\":\"bla\"}";
-
-            var url = "http://arifnazir.000webhostapp.com/api/api.php";
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.ContentType = "application/json; charset=utf-8";
-            //request.ContentLength = json.Length;
-            httpWebRequest.Method = "POST";
-
-            using (var stream = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-                stream.Write(json);
-            }
-
-            var response = (HttpWebResponse)httpWebRequest.GetResponse();
-
-            using (var sr = new StreamReader(response.GetResponseStream()))
-            {
-                json = sr.ReadToEnd();
-            }
-            var obj = JObject.Parse(json);
-            var data = obj["data"];
-            SchoolClass objSchoolClass = new SchoolClass();
-            objSchoolClass = JsonConvert.DeserializeObject<SchoolClass>(data.ToString());
 
             //users
             for (int count = 0; count < Sync.SyncDBmodels.usersList.Count; count++)
             {
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleStatus = SyncNotifications.SyncInProgress + " Table: " + Tables.users + " Record: " + count;
-                GeneralMethods.Log(Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleStatus);                
+                GeneralMethods.Log(Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleStatus);
 
-                string i = Sync.SyncDBmodels.usersList[count].id;
-                //Thread.Sleep(1);
+                SyncManager.SyncUsersFromOnline(Sync.SyncDBmodels.usersList[count]);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleProgress.Progress++;
             }
             //update LastSyncDate
@@ -1051,10 +990,5 @@ namespace School_Universe.Controllers
 
         #endregion
 
-    }
-
-    public class SchoolClass {
-        public string java { get; set; }
-        public string php { get; set; }
     }
 }

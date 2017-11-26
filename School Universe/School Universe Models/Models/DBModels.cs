@@ -306,7 +306,7 @@ namespace School_Universe_Models.Models
             public string gender { get; set; }
             public string blood_group { get; set; }
             public string password { get; set; }
-            public DateTime birth_date { get; set; }
+            public DateTime? birth_date { get; set; }
             public string other_phones { get; set; }
             public string default_phone_number_id { get; set; }
             public string adhaar_number { get; set; }
@@ -315,12 +315,12 @@ namespace School_Universe_Models.Models
             public string bank_account_number { get; set; }
             public string bank_ifsc_code { get; set; }
             public string flags { get; set; }
-            public DateTime last_login_time { get; set; }
+            public DateTime? last_login_time { get; set; }
             public string user_avatar_file_id { get; set; }
             public string status { get; set; }
-            public DateTime created_on { get; set; }
+            public DateTime? created_on { get; set; }
             public string created_by { get; set; }
-            public DateTime updated_on { get; set; }
+            public DateTime? updated_on { get; set; }
             public string updated_by { get; set; }
 
         }
