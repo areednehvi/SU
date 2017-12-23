@@ -251,14 +251,14 @@ namespace School_Universe_Models.Models
             public string registration_id { get; set; }
             public string roll_number { get; set; }
             public string exam_roll_number { get; set; }
-            public DateTime enrollment_date { get; set; }
+            public DateTime? enrollment_date { get; set; }
             public string status { get; set; }
             public string dc_number { get; set; }
-            public DateTime dc_date_of_issue { get; set; }
+            public DateTime? dc_date_of_issue { get; set; }
             public string created_by { get; set; }
-            public DateTime created_on { get; set; }
+            public DateTime? created_on { get; set; }
             public string updated_by { get; set; }
-            public DateTime updated_on { get; set; }
+            public DateTime? updated_on { get; set; }
 
         }
         public class trip_stopsModel

@@ -54,6 +54,15 @@ namespace School_Universe.Models
             }
         }
 
+        public SchoolModel SchoolInfo
+        {
+            get; set;
+        }
+        public LoginModel CurrentLogin
+        {
+            get; set;
+        }
+
         public bool IsSyncNotInProgress
         {
             get

@@ -109,17 +109,26 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstgrade_fees;
         }
-        public static List<gradesModel> GetGradesFromOnline()
+        public static List<gradesModel> GetGradesFromOnline(string APIUri, DateTime LastSyncedOn)
         {
-            List<gradesModel> lstgrades = new List<gradesModel>();
+            List<gradesModel> lstGrades = new List<gradesModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
+                string returnedJSON;
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/grades?date=" + LastSyncedOn.ToString("dd-MM-yyyy");
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(APIUri);
+                httpWebRequest.ContentType = "application/json; charset=utf-8";
+                httpWebRequest.Method = "GET";
+
+                var response = (HttpWebResponse)httpWebRequest.GetResponse();
+
+                using (var sr = new StreamReader(response.GetResponseStream()))
                 {
-                    gradesModel objgrades = new gradesModel();
-                    objgrades.id = (i).ToString();
-                    lstgrades.Add(objgrades);
+                    returnedJSON = sr.ReadToEnd();
                 }
+                lstGrades = JsonConvert.DeserializeObject<List<gradesModel>>(returnedJSON);
             }
             catch (Exception ex)
             {
@@ -129,7 +138,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
 
             }
-            return lstgrades;
+            return lstGrades;
         }
         public static List<parentsModel> GetParentsFromOnline()
         {
@@ -263,17 +272,26 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstroutes;
         }
-        public static List<sectionsModel> GetSectionsFromOnline()
+        public static List<sectionsModel> GetSectionsFromOnline(string APIUri, DateTime LastSyncedOn)
         {
-            List<sectionsModel> lstsections = new List<sectionsModel>();
+            List<sectionsModel> lstSections = new List<sectionsModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
+                string returnedJSON;
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/sections?date=" + LastSyncedOn.ToString("dd-MM-yyyy");
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(APIUri);
+                httpWebRequest.ContentType = "application/json; charset=utf-8";
+                httpWebRequest.Method = "GET";
+
+                var response = (HttpWebResponse)httpWebRequest.GetResponse();
+
+                using (var sr = new StreamReader(response.GetResponseStream()))
                 {
-                    sectionsModel objsections = new sectionsModel();
-                    objsections.id = (i).ToString();
-                    lstsections.Add(objsections);
+                    returnedJSON = sr.ReadToEnd();
                 }
+                lstSections = JsonConvert.DeserializeObject<List<sectionsModel>>(returnedJSON);
             }
             catch (Exception ex)
             {
@@ -283,7 +301,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
 
             }
-            return lstsections;
+            return lstSections;
         }
         public static List<sessionsModel> GetSessionsFromOnline()
         {
@@ -373,17 +391,26 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lststudent_payments;
         }
-        public static List<studentsModel> GetStudentsFromOnline()
+        public static List<studentsModel> GetStudentsFromOnline(string APIUri,DateTime LastSyncedOn)
         {
-            List<studentsModel> lststudents = new List<studentsModel>();
+            List<studentsModel> lstStudents = new List<studentsModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
+                string returnedJSON;
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/students?date=" + LastSyncedOn.ToString("dd-MM-yyyy");
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(APIUri);
+                httpWebRequest.ContentType = "application/json; charset=utf-8";
+                httpWebRequest.Method = "GET";
+
+                var response = (HttpWebResponse)httpWebRequest.GetResponse();
+
+                using (var sr = new StreamReader(response.GetResponseStream()))
                 {
-                    studentsModel objstudents = new studentsModel();
-                    objstudents.id = (i).ToString();
-                    lststudents.Add(objstudents);
+                    returnedJSON = sr.ReadToEnd();
                 }
+                lstStudents = JsonConvert.DeserializeObject<List<studentsModel>>(returnedJSON);
             }
             catch (Exception ex)
             {
@@ -393,7 +420,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
 
             }
-            return lststudents;
+            return lstStudents;
         }
         public static List<trip_stopsModel> GetTripStopsFromOnline()
         {
@@ -439,32 +466,34 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstuser_avatar_files;
         }
-        public static List<usersModel> GetUsersFromOnline()
+        public static List<usersModel> GetUsersFromOnline(string APIUri,DateTime LastSyncedOn)
         {
             List<usersModel> lstUsers = new List<usersModel>();
             try
             {
-                string json = "{\"user\":\"test\"," +
-                      "\"password\":\"bla\"}";
-
-                var url = "http://cbsc.schooluniverse.in/web-services/users";
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                string returnedJSON;
+                //string json = "{\"user\":\"test\"," +
+                //      "\"password\":\"bla\"}";
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/users?date="+ LastSyncedOn.ToString("dd-MM-yyyy");
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(APIUri);
                 httpWebRequest.ContentType = "application/json; charset=utf-8";
                 //request.ContentLength = json.Length;
-                httpWebRequest.Method = "POST";
+                httpWebRequest.Method = "GET";
 
-                using (var stream = new StreamWriter(httpWebRequest.GetRequestStream()))
+                /*using (var stream = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
                     stream.Write(json);
-                }
+                }*/
 
                 var response = (HttpWebResponse)httpWebRequest.GetResponse();
 
                 using (var sr = new StreamReader(response.GetResponseStream()))
                 {
-                    json = sr.ReadToEnd();
+                    returnedJSON = sr.ReadToEnd();
                 }
-                lstUsers = JsonConvert.DeserializeObject<List<usersModel>>(json);
+                lstUsers = JsonConvert.DeserializeObject<List<usersModel>>(returnedJSON);
             }
             catch (Exception ex)
             {
