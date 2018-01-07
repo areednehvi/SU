@@ -258,6 +258,7 @@ namespace School_Universe.Controllers
             }
             catch(Exception ex)
             {
+                GeneralMethods.Log(ex.Message);
                 throw ex;
             }
             finally
