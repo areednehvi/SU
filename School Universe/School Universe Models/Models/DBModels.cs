@@ -18,9 +18,9 @@ namespace School_Universe_Models.Models
             public string is_transport { get; set; }
             public string order { get; set; }
             public string created_by { get; set; }
-            public DateTime created_on { get; set; }
+            public DateTime? created_on { get; set; }
             public string updated_by { get; set; }
-            public DateTime updated_on { get; set; }
+            public DateTime? updated_on { get; set; }
         }
         public class feesModel
         {
@@ -28,17 +28,17 @@ namespace School_Universe_Models.Models
             public string school_id { get; set; }
             public string fee_category_id { get; set; }
             public string session_id { get; set; }
-            public Double amount { get; set; }
+            public Double? amount { get; set; }
             public string fee_cources { get; set; }
             public string last_date { get; set; }
             public string last_day { get; set; }
-            public Double fine_per_day { get; set; }
+            public Double? fine_per_day { get; set; }
             public string is_allocated { get; set; }
             public string remarks { get; set; }
             public string created_by { get; set; }
-            public DateTime created_on { get; set; }
+            public DateTime? created_on { get; set; }
             public string updated_by { get; set; }
-            public DateTime updated_on { get; set; }
+            public DateTime? updated_on { get; set; }
 
         }
         public class filesModel
@@ -49,7 +49,7 @@ namespace School_Universe_Models.Models
             public string size { get; set; }
             public string school_id { get; set; }
             public string owner_user_id { get; set; }
-            public DateTime created { get; set; }
+            public DateTime? created { get; set; }
 
         }
         public class grade_feesModel
@@ -59,9 +59,9 @@ namespace School_Universe_Models.Models
             public string fees_id { get; set; }
             public string grade_id { get; set; }
             public string created_by { get; set; }
-            public DateTime created_on { get; set; }
+            public DateTime? created_on { get; set; }
             public string updated_by { get; set; }
-            public DateTime updated_on { get; set; }
+            public DateTime? updated_on { get; set; }
         }
         public class gradesModel
         {
@@ -71,9 +71,9 @@ namespace School_Universe_Models.Models
             public string name { get; set; }
             public string order { get; set; }
             public string created_by { get; set; }
-            public DateTime created_on { get; set; }
+            public DateTime? created_on { get; set; }
             public string updated_by { get; set; }
-            public DateTime updated_on { get; set; }
+            public DateTime? updated_on { get; set; }
 
         }
         public class parentsModel
@@ -108,9 +108,9 @@ namespace School_Universe_Models.Models
             public string latitude { get; set; }
             public string longitude { get; set; }
             public string created_by { get; set; }
-            public DateTime created_on { get; set; }
+            public DateTime? created_on { get; set; }
             public string updated_by { get; set; }
-            public DateTime updated_on { get; set; }
+            public DateTime? updated_on { get; set; }
 
         }
         public class route_vehicle_stopsModel
@@ -144,9 +144,9 @@ namespace School_Universe_Models.Models
             public string start_location { get; set; }
             public string end_location { get; set; }
             public string created_by { get; set; }
-            public DateTime created_on { get; set; }
+            public DateTime? created_on { get; set; }
             public string updated_by { get; set; }
-            public DateTime updated_on { get; set; }
+            public DateTime? updated_on { get; set; }
 
         }
         public class schoolsModel
@@ -158,7 +158,7 @@ namespace School_Universe_Models.Models
             public string name { get; set; }
             public string address { get; set; }
             public string theme { get; set; }
-            public DateTime created_on { get; set; }
+            public DateTime? created_on { get; set; }
 
         }
         public class sectionsModel
@@ -168,7 +168,7 @@ namespace School_Universe_Models.Models
             public string name { get; set; }
             public string capacity { get; set; }
             public string created_by { get; set; }
-            public DateTime created_on { get; set; }
+            public DateTime? created_on { get; set; }
 
         }
         public class sessionsModel
@@ -177,10 +177,10 @@ namespace School_Universe_Models.Models
             public string school_id { get; set; }
             public string name { get; set; }
             public string order { get; set; }
-            public DateTime from_date { get; set; }
-            public DateTime to_date { get; set; }
+            public DateTime? from_date { get; set; }
+            public DateTime? to_date { get; set; }
             public string created_by { get; set; }
-            public DateTime created_on { get; set; }
+            public DateTime? created_on { get; set; }
 
         }
         public class student_feesModel
@@ -190,15 +190,15 @@ namespace School_Universe_Models.Models
             public string grade_fees_id { get; set; }
             public string student_id { get; set; }
             public string route_vehicle_stops_fee_log_id { get; set; }
-            public DateTime apply_from { get; set; }
-            public DateTime apply_to { get; set; }
-            public Double fine { get; set; }
-            public Double concession_amount { get; set; }
+            public DateTime? apply_from { get; set; }
+            public DateTime? apply_to { get; set; }
+            public Double? fine { get; set; }
+            public Double? concession_amount { get; set; }
             public string no_fine { get; set; }
             public string created_by { get; set; }
-            public DateTime created_on { get; set; }
+            public DateTime? created_on { get; set; }
             public string updated_by { get; set; }
-            public DateTime updated_on { get; set; }
+            public DateTime? updated_on { get; set; }
 
         }
         public class student_grade_session_logModel
@@ -214,9 +214,9 @@ namespace School_Universe_Models.Models
             public string session_id { get; set; }
             public string sgsl_status { get; set; }
             public string created_by { get; set; }
-            public DateTime created_on { get; set; }
+            public DateTime? created_on { get; set; }
             public string updated_by { get; set; }
-            public DateTime updated_on { get; set; }
+            public DateTime? updated_on { get; set; }
 
         }
         public class student_paymentsModel   
@@ -225,17 +225,17 @@ namespace School_Universe_Models.Models
             public string id { get; set; }
             public string school_id { get; set; }
             public string student_fees_id { get; set; }
-            public Double amount { get; set; }
-            public Double fine { get; set; }
+            public Double? amount { get; set; }
+            public Double? fine { get; set; }
             public string comment { get; set; }
             public string recept_no { get; set; }
             public string payment_mode { get; set; }
-            public DateTime payment_date { get; set; }
+            public DateTime? payment_date { get; set; }
             public string ip { get; set; }
             public string created_by { get; set; }
-            public DateTime created_on { get; set; }
+            public DateTime? created_on { get; set; }
             public string updated_by { get; set; }
-            public DateTime updated_on { get; set; }
+            public DateTime? updated_on { get; set; }
 
         }
         public class studentsModel
@@ -334,9 +334,9 @@ namespace School_Universe_Models.Models
             public string insurance_renew_date { get; set; }
             public string staff_id { get; set; }
             public string created_by { get; set; }
-            public DateTime created_on { get; set; }
+            public DateTime? created_on { get; set; }
             public string updated_by { get; set; }
-            public DateTime updated_on { get; set; }
+            public DateTime? updated_on { get; set; }
 
         }
 

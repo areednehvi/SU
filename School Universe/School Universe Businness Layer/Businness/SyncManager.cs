@@ -21,17 +21,15 @@ namespace School_Universe_Businness_Layer.Businness
     {
 
         #region Get Data from Online
-        public static List<fee_categoriesModel> GetFeeCategoriesFromOnline()
+        public static List<fee_categoriesModel> GetFeeCategoriesFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<fee_categoriesModel> lstFeeCategories = new List<fee_categoriesModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    fee_categoriesModel objfee_categories = new fee_categoriesModel();
-                    objfee_categories.id = (i).ToString();
-                    lstFeeCategories.Add(objfee_categories);
-                }
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/fee_categories?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstFeeCategories = JsonConvert.DeserializeObject<List<fee_categoriesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -43,17 +41,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstFeeCategories;
         }
-        public static List<feesModel> GetFeesFromOnline()
+        public static List<feesModel> GetFeesFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<feesModel> lstFees = new List<feesModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    feesModel objfees = new feesModel();
-                    objfees.id = (i).ToString();
-                    lstFees.Add(objfees);
-                }
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/fees?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstFees = JsonConvert.DeserializeObject<List<feesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -65,17 +61,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstFees;
         }
-        public static List<filesModel> GetFilesFromOnline()
+        public static List<filesModel> GetFilesFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<filesModel> lstFiles = new List<filesModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    filesModel objfiles = new filesModel();
-                    objfiles.id = (i).ToString();
-                    lstFiles.Add(objfiles);
-                }
+                //if (!APIUri.EndsWith("/"))
+                //    APIUri += "/";
+                //APIUri += "web-services/files?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                //lstFiles = JsonConvert.DeserializeObject<List<filesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -87,17 +81,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstFiles;
         }
-        public static List<grade_feesModel> GetGradeFeesFromOnline()
+        public static List<grade_feesModel> GetGradeFeesFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<grade_feesModel> lstgrade_fees = new List<grade_feesModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    grade_feesModel objgrade_fees = new grade_feesModel();
-                    objgrade_fees.id = (i).ToString();
-                    lstgrade_fees.Add(objgrade_fees);
-                }
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/grade_fees?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstgrade_fees = JsonConvert.DeserializeObject<List<grade_feesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -114,21 +106,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<gradesModel> lstGrades = new List<gradesModel>();
             try
             {
-                string returnedJSON;
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/grades?date=" + LastSyncedOn.ToString("dd-MM-yyyy");
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(APIUri);
-                httpWebRequest.ContentType = "application/json; charset=utf-8";
-                httpWebRequest.Method = "GET";
-
-                var response = (HttpWebResponse)httpWebRequest.GetResponse();
-
-                using (var sr = new StreamReader(response.GetResponseStream()))
-                {
-                    returnedJSON = sr.ReadToEnd();
-                }
-                lstGrades = JsonConvert.DeserializeObject<List<gradesModel>>(returnedJSON);
+                APIUri += "web-services/grades?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstGrades = JsonConvert.DeserializeObject<List<gradesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -140,17 +121,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstGrades;
         }
-        public static List<parentsModel> GetParentsFromOnline()
+        public static List<parentsModel> GetParentsFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<parentsModel> lstparents = new List<parentsModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    parentsModel objparents = new parentsModel();
-                    objparents.id = (i).ToString();
-                    lstparents.Add(objparents);
-                }
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/parents?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstparents = JsonConvert.DeserializeObject<List<parentsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -162,17 +141,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstparents;
         }
-        public static List<route_stopsModel> GetRouteStopsFromOnline()
+        public static List<route_stopsModel> GetRouteStopsFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<route_stopsModel> lstroute_stops = new List<route_stopsModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    route_stopsModel objroute_stops = new route_stopsModel();
-                    objroute_stops.id = (i).ToString();
-                    lstroute_stops.Add(objroute_stops);
-                }
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/route_stops?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstroute_stops = JsonConvert.DeserializeObject<List<route_stopsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -184,17 +161,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstroute_stops;
         }
-        public static List<route_vehicle_stopsModel> GetRouteVehicleStopsFromOnline()
+        public static List<route_vehicle_stopsModel> GetRouteVehicleStopsFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<route_vehicle_stopsModel> lstroute_vehicle_stops = new List<route_vehicle_stopsModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    route_vehicle_stopsModel objroute_vehicle_stops = new route_vehicle_stopsModel();
-                    objroute_vehicle_stops.id = (i).ToString();
-                    lstroute_vehicle_stops.Add(objroute_vehicle_stops);
-                }
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/route_vehicle_stops?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstroute_vehicle_stops = JsonConvert.DeserializeObject<List<route_vehicle_stopsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -206,17 +181,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstroute_vehicle_stops;
         }
-        public static List<route_vehicle_stops_fee_logsModel> GetRouteVehicleStopsFeeLogsFromOnline()
+        public static List<route_vehicle_stops_fee_logsModel> GetRouteVehicleStopsFeeLogsFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<route_vehicle_stops_fee_logsModel> lstroute_vehicle_stops_fee_logs = new List<route_vehicle_stops_fee_logsModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    route_vehicle_stops_fee_logsModel objroute_vehicle_stops_fee_log = new route_vehicle_stops_fee_logsModel();
-                    objroute_vehicle_stops_fee_log.id = (i).ToString();
-                    lstroute_vehicle_stops_fee_logs.Add(objroute_vehicle_stops_fee_log);
-                }
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/route_vehicle_stops_fee_logs?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstroute_vehicle_stops_fee_logs = JsonConvert.DeserializeObject<List<route_vehicle_stops_fee_logsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -228,17 +201,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstroute_vehicle_stops_fee_logs;
         }
-        public static List<route_vehiclesModel> GetRouteVehiclesFromOnline()
+        public static List<route_vehiclesModel> GetRouteVehiclesFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<route_vehiclesModel> lstroute_vehicles = new List<route_vehiclesModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    route_vehiclesModel objroute_vehicles = new route_vehiclesModel();
-                    objroute_vehicles.id = (i).ToString();
-                    lstroute_vehicles.Add(objroute_vehicles);
-                }
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/route_vehicles?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstroute_vehicles = JsonConvert.DeserializeObject<List<route_vehiclesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -250,17 +221,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstroute_vehicles;
         }
-        public static List<routesModel> GetRoutesFromOnline()
+        public static List<routesModel> GetRoutesFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<routesModel> lstroutes = new List<routesModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    routesModel objroutes = new routesModel();
-                    objroutes.id = (i).ToString();
-                    lstroutes.Add(objroutes);
-                }
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/routes?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstroutes = JsonConvert.DeserializeObject<List<routesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -277,21 +246,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<sectionsModel> lstSections = new List<sectionsModel>();
             try
             {
-                string returnedJSON;
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/sections?date=" + LastSyncedOn.ToString("dd-MM-yyyy");
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(APIUri);
-                httpWebRequest.ContentType = "application/json; charset=utf-8";
-                httpWebRequest.Method = "GET";
-
-                var response = (HttpWebResponse)httpWebRequest.GetResponse();
-
-                using (var sr = new StreamReader(response.GetResponseStream()))
-                {
-                    returnedJSON = sr.ReadToEnd();
-                }
-                lstSections = JsonConvert.DeserializeObject<List<sectionsModel>>(returnedJSON);
+                APIUri += "web-services/sections?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstSections = JsonConvert.DeserializeObject<List<sectionsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -303,17 +261,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstSections;
         }
-        public static List<sessionsModel> GetSessionsFromOnline()
+        public static List<sessionsModel> GetSessionsFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<sessionsModel> lstsessions = new List<sessionsModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    sessionsModel objsessions = new sessionsModel();
-                    objsessions.id = (i).ToString();
-                    lstsessions.Add(objsessions);
-                }
+                //if (!APIUri.EndsWith("/"))
+                //    APIUri += "/";
+                //APIUri += "web-services/sessions?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                //lstsessions = JsonConvert.DeserializeObject<List<sessionsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -325,17 +281,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstsessions;
         }
-        public static List<student_feesModel> GetStudentFeesFromOnline()
+        public static List<student_feesModel> GetStudentFeesFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<student_feesModel> lststudent_fees = new List<student_feesModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    student_feesModel objstudent_fees = new student_feesModel();
-                    objstudent_fees.id = (i).ToString();
-                    lststudent_fees.Add(objstudent_fees);
-                }
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/student_fees?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lststudent_fees = JsonConvert.DeserializeObject<List<student_feesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -347,17 +301,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lststudent_fees;
         }
-        public static List<student_grade_session_logModel> GetStudentGradeSessionLogFromOnline()
+        public static List<student_grade_session_logModel> GetStudentGradeSessionLogFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<student_grade_session_logModel> lststudent_grade_session_log = new List<student_grade_session_logModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    student_grade_session_logModel objstudent_grade_session_log = new student_grade_session_logModel();
-                    objstudent_grade_session_log.id = (i).ToString();
-                    lststudent_grade_session_log.Add(objstudent_grade_session_log);
-                }
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/student_grade_session_log?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lststudent_grade_session_log = JsonConvert.DeserializeObject<List<student_grade_session_logModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -369,17 +321,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lststudent_grade_session_log;
         }
-        public static List<student_paymentsModel> GetStudentPaymentsFromOnline()
+        public static List<student_paymentsModel> GetStudentPaymentsFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<student_paymentsModel> lststudent_payments = new List<student_paymentsModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    student_paymentsModel objstudent_payments = new student_paymentsModel();
-                    objstudent_payments.id = (i).ToString();
-                    lststudent_payments.Add(objstudent_payments);
-                }
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/student_payments?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lststudent_payments = JsonConvert.DeserializeObject<List<student_paymentsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -396,21 +346,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<studentsModel> lstStudents = new List<studentsModel>();
             try
             {
-                string returnedJSON;
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/students?date=" + LastSyncedOn.ToString("dd-MM-yyyy");
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(APIUri);
-                httpWebRequest.ContentType = "application/json; charset=utf-8";
-                httpWebRequest.Method = "GET";
-
-                var response = (HttpWebResponse)httpWebRequest.GetResponse();
-
-                using (var sr = new StreamReader(response.GetResponseStream()))
-                {
-                    returnedJSON = sr.ReadToEnd();
-                }
-                lstStudents = JsonConvert.DeserializeObject<List<studentsModel>>(returnedJSON);
+                APIUri += "web-services/students?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstStudents = JsonConvert.DeserializeObject<List<studentsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -422,17 +361,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstStudents;
         }
-        public static List<trip_stopsModel> GetTripStopsFromOnline()
+        public static List<trip_stopsModel> GetTripStopsFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<trip_stopsModel> lsttrip_stops = new List<trip_stopsModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    trip_stopsModel objtrip_stops = new trip_stopsModel();
-                    objtrip_stops.id = (i).ToString();
-                    lsttrip_stops.Add(objtrip_stops);
-                }
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/trip_stops?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lsttrip_stops = JsonConvert.DeserializeObject<List<trip_stopsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -444,17 +381,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lsttrip_stops;
         }
-        public static List<user_avatar_filesModel> GetUserAvatarFilesFromOnline()
+        public static List<user_avatar_filesModel> GetUserAvatarFilesFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<user_avatar_filesModel> lstuser_avatar_files = new List<user_avatar_filesModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    user_avatar_filesModel objuser_avatar_files = new user_avatar_filesModel();
-                    objuser_avatar_files.id = (i).ToString();
-                    lstuser_avatar_files.Add(objuser_avatar_files);
-                }
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/user_avatar_files?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstuser_avatar_files = JsonConvert.DeserializeObject<List<user_avatar_filesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -471,29 +406,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<usersModel> lstUsers = new List<usersModel>();
             try
             {
-                string returnedJSON;
-                //string json = "{\"user\":\"test\"," +
-                //      "\"password\":\"bla\"}";
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/users?date="+ LastSyncedOn.ToString("dd-MM-yyyy");
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(APIUri);
-                httpWebRequest.ContentType = "application/json; charset=utf-8";
-                //request.ContentLength = json.Length;
-                httpWebRequest.Method = "GET";
-
-                /*using (var stream = new StreamWriter(httpWebRequest.GetRequestStream()))
-                {
-                    stream.Write(json);
-                }*/
-
-                var response = (HttpWebResponse)httpWebRequest.GetResponse();
-
-                using (var sr = new StreamReader(response.GetResponseStream()))
-                {
-                    returnedJSON = sr.ReadToEnd();
-                }
-                lstUsers = JsonConvert.DeserializeObject<List<usersModel>>(returnedJSON);
+                APIUri += "web-services/users?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstUsers = JsonConvert.DeserializeObject<List<usersModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -505,17 +421,15 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstUsers;
         }
-        public static List<vehiclesModel> GetVehiclesFromOnline()
+        public static List<vehiclesModel> GetVehiclesFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<vehiclesModel> lstvehicles = new List<vehiclesModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    vehiclesModel objvehicles = new vehiclesModel();
-                    objvehicles.id = (i).ToString();
-                    lstvehicles.Add(objvehicles);
-                }
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/vehicles?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstvehicles = JsonConvert.DeserializeObject<List<vehiclesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -2027,6 +1941,32 @@ namespace School_Universe_Businness_Layer.Businness
         }
 
 
+        #endregion
+
+        #region HttpGetRequet
+        public static string httpGetWebRequest(string APIUri)
+        {
+            string returnedJSON;
+            try
+            {
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(APIUri);
+                httpWebRequest.ContentType = "application/json; charset=utf-8";
+                httpWebRequest.Method = "GET";
+
+                var response = (HttpWebResponse)httpWebRequest.GetResponse();
+
+                using (var sr = new StreamReader(response.GetResponseStream()))
+                {
+                    returnedJSON = sr.ReadToEnd();
+                }
+                return string.IsNullOrEmpty(returnedJSON) ? "[]" : returnedJSON;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }            
+            
+        }
         #endregion
     }
 
