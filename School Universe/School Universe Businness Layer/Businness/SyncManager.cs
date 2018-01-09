@@ -1789,12 +1789,6 @@ namespace School_Universe_Businness_Layer.Businness
             try
             {
                 objStudent_payments.id_offline = new Guid().ToString();
-                objStudent_payments.school_id = "18";
-                objStudent_payments.student_fees_id = "1121";
-                objStudent_payments.recept_no = "ssss";
-                objStudent_payments.payment_mode = "Cash";
-                objStudent_payments.updated_by = "1";
-                objStudent_payments.created_by = "1";
                 DataTable objDatatable = MapStudent_paymentsToDataTable(objStudent_payments);
                 SqlParameter objSqlParameter = new SqlParameter("@Model", SqlDbType.Structured);
                 objSqlParameter.TypeName = DBTableTypes.student_payments;

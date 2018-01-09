@@ -56,7 +56,7 @@ namespace School_Universe_Businness_Layer.Businness
                     FeeCollectionStudentListModel objFeeCollectionStudent = new FeeCollectionStudentListModel();
                     objFeeCollectionStudent.id = row["id"] != DBNull.Value ?  Convert.ToInt64(row["id"]) : 0;
                     objFeeCollectionStudent.school_id = row["school_id"] != DBNull.Value ? Convert.ToInt64(row["school_id"]) : 0;
-                    objFeeCollectionStudent.registration_id = row["registration_id"] != DBNull.Value ? Convert.ToInt64(row["registration_id"]) : 0;
+                    objFeeCollectionStudent.registration_id = row["registration_id"] != DBNull.Value ? Convert.ToString(row["registration_id"]) : string.Empty;
                     objFeeCollectionStudent.status = row["status"] != DBNull.Value ? row["status"].ToString() : string.Empty;
                     objFeeCollectionStudent.file_id = row["file_id"] != DBNull.Value ? row["file_id"].ToString() : string.Empty;
                     objFeeCollectionStudent.session_id = row["session_id"] != DBNull.Value ? Convert.ToInt64(row["session_id"]) : 0;

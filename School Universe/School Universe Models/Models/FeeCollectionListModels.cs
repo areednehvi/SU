@@ -12,7 +12,7 @@ namespace School_Universe.Models
     {
         public Int64 id { get; set; } // student ID
         public Int64 school_id { get; set; }
-        public Int64 registration_id { get; set; }
+        public string registration_id { get; set; }
         public string status { get; set; }
         public string file_id { get; set; }
         public Int64 session_id { get; set; }
