@@ -1943,6 +1943,8 @@ namespace School_Universe_Businness_Layer.Businness
             string returnedJSON;
             try
             {
+                if (!APIUri.StartsWith("http"))
+                    APIUri = "http://" + APIUri;
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(APIUri);
                 httpWebRequest.ContentType = "application/json; charset=utf-8";
                 httpWebRequest.Method = "GET";
@@ -1969,6 +1971,8 @@ namespace School_Universe_Businness_Layer.Businness
             string returnedJSON;
             try
             {
+                if (!APIUri.StartsWith("http"))
+                    APIUri = "http://" + APIUri;
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(APIUri);
                 httpWebRequest.ContentType = "application/json; charset=utf-8";
                 httpWebRequest.Method = "POST";

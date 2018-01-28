@@ -113,11 +113,11 @@ namespace School_Universe.Models
 
     public class SyncProgressModel : INotifyPropertyChanged
     {
-        int _Progress;
+        Int64 _Progress;
         Decimal _ProgressPercentage;
-        int _Minimum = 0, _Maximum = 1;
+        Int64 _Minimum = 0, _Maximum = 1;
 
-        public int Maximum
+        public Int64 Maximum
         {
             get
             {
@@ -130,7 +130,7 @@ namespace School_Universe.Models
             }
         }
 
-        public int Minimum
+        public Int64 Minimum
         {
             get
             {
@@ -156,7 +156,7 @@ namespace School_Universe.Models
             }
         }
 
-        public int Progress
+        public Int64 Progress
         {
             get { return _Progress; }
             set

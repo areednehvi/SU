@@ -32,38 +32,38 @@ namespace School_Universe.Views
 
             try
             {
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://volcanix.schooluniverse.in/web-services/student_payments");
-                httpWebRequest.ContentType = "application/json; charset=utf-8";
-                httpWebRequest.Method = "GET";
+                //var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://volcanix.schooluniverse.in/web-services/student_payments");
+                //httpWebRequest.ContentType = "application/json; charset=utf-8";
+                //httpWebRequest.Method = "GET";
 
-                var response = (HttpWebResponse)httpWebRequest.GetResponse();
-                string returnedJSON;
-                using (var sr = new StreamReader(response.GetResponseStream()))
-                {
-                    returnedJSON = sr.ReadToEnd();
-                }
+                //var response = (HttpWebResponse)httpWebRequest.GetResponse();
+                //string returnedJSON;
+                //using (var sr = new StreamReader(response.GetResponseStream()))
+                //{
+                //    returnedJSON = sr.ReadToEnd();
+                //}
 
 
-                var request = (HttpWebRequest)WebRequest.Create("http://volcanix.schooluniverse.in/web-services/fees_payments_post");
+                //var request = (HttpWebRequest)WebRequest.Create("http://volcanix.schooluniverse.in/web-services/fees_payments_post");
 
-                //var postData = "data=hello";
-                var postData = "data=";
-                //postData += "[{\"id\" : \"2344\"}]";
-                postData += returnedJSON;
-                var data = Encoding.ASCII.GetBytes(postData);
+                ////var postData = "data=hello";
+                //var postData = "data=";
+                ////postData += "[{\"id\" : \"2344\"}]";
+                //postData += returnedJSON;
+                //var data = Encoding.ASCII.GetBytes(postData);
 
-                request.Method = "POST";
-                request.ContentType = "application/x-www-form-urlencoded";
-                request.ContentLength = data.Length;
+                //request.Method = "POST";
+                //request.ContentType = "application/x-www-form-urlencoded";
+                //request.ContentLength = data.Length;
 
-                using (var stream = request.GetRequestStream())
-                {
-                    stream.Write(data, 0, data.Length);
-                }
+                //using (var stream = request.GetRequestStream())
+                //{
+                //    stream.Write(data, 0, data.Length);
+                //}
 
-                response = (HttpWebResponse)request.GetResponse();
+                //response = (HttpWebResponse)request.GetResponse();
 
-                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                //var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
 
             }

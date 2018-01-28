@@ -71,5 +71,61 @@ namespace School_Universe.Shared
             return IsSuccess;
 
         }
+
+        #region HttpGetRequet
+        public static string httpGetWebRequest(string APIUri)
+        {
+            string returnedJSON;
+            try
+            {
+                if (!APIUri.StartsWith("http"))
+                    APIUri = "http://" + APIUri;
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(APIUri);
+                httpWebRequest.ContentType = "application/json; charset=utf-8";
+                httpWebRequest.Method = "GET";
+
+                var response = (HttpWebResponse)httpWebRequest.GetResponse();
+
+                using (var sr = new StreamReader(response.GetResponseStream()))
+                {
+                    returnedJSON = sr.ReadToEnd();
+                }
+                return string.IsNullOrEmpty(returnedJSON) ? "[]" : returnedJSON;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        #endregion
+
+        #region HttpPostRequet
+        public static string httpPostWebRequest(string APIUri)
+        {
+            string returnedJSON;
+            try
+            {
+                if (!APIUri.StartsWith("http"))
+                    APIUri = "http://" + APIUri;
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(APIUri);
+                httpWebRequest.ContentType = "application/json; charset=utf-8";
+                httpWebRequest.Method = "POST";
+
+                var response = (HttpWebResponse)httpWebRequest.GetResponse();
+
+                using (var sr = new StreamReader(response.GetResponseStream()))
+                {
+                    returnedJSON = sr.ReadToEnd();
+                }
+                return string.IsNullOrEmpty(returnedJSON) ? "[]" : returnedJSON;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        #endregion
     }
 }

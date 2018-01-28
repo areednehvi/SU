@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Newtonsoft.Json;
 using School_Universe.Models;
 using School_Universe.Shared;
 using School_Universe.Views;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static School_Universe_Models.Models.DBModels;
 
 namespace School_Universe.Controllers
 {
@@ -165,6 +167,7 @@ namespace School_Universe.Controllers
         #region Private Functions
         private void Setup(object sender, DoWorkEventArgs e)
         {
+            string APIURI;
             try
             {
                 //BackgroundWorker worker = sender as BackgroundWorker;
@@ -176,11 +179,16 @@ namespace School_Universe.Controllers
                     return;
                 }
                 SchoolSetup.SetupStatus = SchoolSetupNotifications.SetupStarted;
-                Thread.Sleep(100);
                 SchoolSetup.SchoolInfo = new SchoolModel();
                 //get School Info from online API
                 //.....
-                //SchoolSetupManager.SetSchooInfo(SchoolSetup.SchoolInfo);
+
+                if (!SchoolSetup.Domain.EndsWith("/"))
+                    SchoolSetup.Domain += "/";
+
+                APIURI = SchoolSetup.Domain + "web-services/initial_setup?licence=" + SchoolSetup.Key;
+                SchoolSetup.SchoolInfo = JsonConvert.DeserializeObject<SchoolModel>(GeneralMethods.httpGetWebRequest(APIURI));
+                SchoolSetupManager.SetSchooInfo(SchoolSetup.SchoolInfo);
                 //....
 
                 SchoolSetup.SetupStatus = SchoolSetupNotifications.SetupCompleted;
@@ -188,7 +196,8 @@ namespace School_Universe.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                var errorMessage = "Please notify about the error to Admin \n\nERROR : " + ex.Message + "\n\nSTACK TRACE : " + ex.StackTrace;
+                MessageBox.Show(errorMessage);
             }
             finally
             {

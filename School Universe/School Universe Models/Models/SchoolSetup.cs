@@ -14,6 +14,7 @@ namespace School_Universe.Models
         private bool _IsSetupInProgress;
         private string _SetupStatus;
         private string _Key;
+        private string _Domain;
         private SchoolModel _SchoolInfo;
 
         public bool IsSetupInProgress
@@ -48,6 +49,18 @@ namespace School_Universe.Models
             {
                 _Key = value;
                 OnPropertyChanged("Key");
+            }
+        }
+        public string Domain
+        {
+            get
+            {
+                return _Domain;
+            }
+            set
+            {
+                _Domain = value;
+                OnPropertyChanged("Domain");
             }
         }
 

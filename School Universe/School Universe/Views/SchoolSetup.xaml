@@ -7,11 +7,11 @@
              xmlns:vm="clr-namespace:School_Universe.Controllers"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:School_Universe.Views"
-             mc:Ignorable="d" Width="679.97" Height="350" 
+             mc:Ignorable="d" Width="679.97" Height="440" 
              WindowStyle="None" 
              AllowsTransparency="True" 
              WindowStartupLocation="CenterScreen" 
-             Title="School Setup" d:DesignHeight="333.872">
+             Title="School Setup">
     <Window.Resources>
         <vm:SchoolSetupController x:Key="SchoolSetupController" />
     </Window.Resources>
@@ -51,14 +51,23 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Margin="0,10,0,0" Text="Welcome to School Universe!" Style="{StaticResource MaterialDesignTitleTextBlock}" Foreground="#FF009688" HorizontalAlignment="Center" FontSize="30" />
             <TextBlock Grid.Row="1" Margin="0,20,0,0" Text="Enter key to setup up your School" HorizontalAlignment="Center" FontSize="20" />
-            <StackPanel Grid.Row="2" Margin="0,50,0,30" Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBox HorizontalAlignment="Center" Foreground="#FF009688" Margin="0,0,30,0" Width="300" FontSize="25" ToolTip="Enter Key" Text="{Binding  SchoolSetup.Key}" />
+            <StackPanel Grid.Row="2" Margin="0,20,0,30" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Foreground="#FF009688" Content="Link : " FontSize="25" />
+                <TextBox HorizontalAlignment="Center" Margin="0,0,30,0" Width="365" FontSize="20" ToolTip="Enter School Link" Text="{Binding  SchoolSetup.Domain}" />
+            </StackPanel>
+            <StackPanel Grid.Row="3" Margin="0,0,0,30" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Foreground="#FF009688" Content="License : " FontSize="25" />
+                <TextBox HorizontalAlignment="Center" Margin="0,0,30,0" Width="330" FontSize="20" ToolTip="Enter License" Text="{Binding  SchoolSetup.Key}" />
+            </StackPanel>
+            <StackPanel Grid.Row="4" Margin="0,0,0,20" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="Setup" Width="150" Height="60" FontSize="20" Command="{Binding SetupSchoolCommand}" ToolTip="Setup your School Account" />
             </StackPanel>
-            <Label Grid.Row="3" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding SchoolSetup.SetupStatus,Mode=TwoWay}" Width="Auto" FontSize="11" FontStyle="Italic" />
+            <Label Grid.Row="5" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding SchoolSetup.SetupStatus,Mode=TwoWay}" Width="Auto" FontSize="11" FontStyle="Italic" />
         </Grid>
     </DockPanel>
 
