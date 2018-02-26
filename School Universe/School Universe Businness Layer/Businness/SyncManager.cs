@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using static School_Universe_Models.Models.DBModels;
+using School_Universe_Models.Models;
 
 namespace School_Universe_Businness_Layer.Businness
 {
@@ -266,10 +267,10 @@ namespace School_Universe_Businness_Layer.Businness
             List<sessionsModel> lstsessions = new List<sessionsModel>();
             try
             {
-                //if (!APIUri.EndsWith("/"))
-                //    APIUri += "/";
-                //APIUri += "web-services/sessions?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
-                //lstsessions = JsonConvert.DeserializeObject<List<sessionsModel>>(httpGetWebRequest(APIUri));
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/sessions?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                lstsessions = JsonConvert.DeserializeObject<List<sessionsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
             {
@@ -341,7 +342,7 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lststudent_payments;
         }
-        public static List<studentsModel> GetStudentsFromOnline(string APIUri,DateTime LastSyncedOn)
+        public static List<studentsModel> GetStudentsFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<studentsModel> lstStudents = new List<studentsModel>();
             try
@@ -401,7 +402,7 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return lstuser_avatar_files;
         }
-        public static List<usersModel> GetUsersFromOnline(string APIUri,DateTime LastSyncedOn)
+        public static List<usersModel> GetUsersFromOnline(string APIUri, DateTime LastSyncedOn)
         {
             List<usersModel> lstUsers = new List<usersModel>();
             try
@@ -444,17 +445,16 @@ namespace School_Universe_Businness_Layer.Businness
         #endregion
 
         #region Get Data from Offline        
-        public static List<student_feesModel> GetStudentFeesFromOffline()
+        public static List<student_feesModel> GetStudentFeesFromOffline(DateTime LastSyncedOn)
         {
-            List<student_feesModel> lststudent_fees = new List<student_feesModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
+                List<SqlParameter> lstSqlParameters = new List<SqlParameter>()
                 {
-                    student_feesModel objstudent_fees = new student_feesModel();
-                    objstudent_fees.id = (i).ToString();
-                    lststudent_fees.Add(objstudent_fees);
-                }
+                    new SqlParameter() {ParameterName = "@Date", SqlDbType = SqlDbType.Date, Value = LastSyncedOn},
+                };
+                DataTable objDatatable = DataAccess.GetDataTable(StoredProcedures.GetStudentFeesForSync, lstSqlParameters);
+                return MapDatatableToStudentFeesListObject(objDatatable);
             }
             catch (Exception ex)
             {
@@ -464,19 +464,35 @@ namespace School_Universe_Businness_Layer.Businness
             {
 
             }
-            return lststudent_fees;
         }
-        public static List<student_paymentsModel> GetStudentPaymentsFromOffline()
+
+        private static List<student_feesModel> MapDatatableToStudentFeesListObject(DataTable objDatatable)
         {
-            List<student_paymentsModel> lststudent_payments = new List<student_paymentsModel>();
+
+            List<student_feesModel> objStudentFeesList = new List<student_feesModel>();
             try
             {
-                for (int i = 0; i < 100; i++)
+                foreach (DataRow row in objDatatable.Rows)
                 {
-                    student_paymentsModel objstudent_payments = new student_paymentsModel();
-                    objstudent_payments.id = (i).ToString();
-                    lststudent_payments.Add(objstudent_payments);
+                    student_feesModel obj = new student_feesModel();
+                    obj.id = row["id"] != DBNull.Value ? Convert.ToString(row["id"]) : string.Empty;
+                    obj.school_id = row["school_id"] != DBNull.Value ? Convert.ToString(row["school_id"]) : string.Empty;
+                    obj.grade_fees_id = row["grade_fees_id"] != DBNull.Value ? Convert.ToString(row["grade_fees_id"]) : string.Empty;
+                    obj.student_id = row["student_id"] != DBNull.Value ? row["student_id"].ToString() : string.Empty;
+                    obj.route_vehicle_stops_fee_log_id = row["route_vehicle_stops_fee_log_id"] != DBNull.Value ? row["route_vehicle_stops_fee_log_id"].ToString() : string.Empty;
+                    obj.apply_from = row["apply_from"] != DBNull.Value ? Convert.ToDateTime(row["apply_from"]) : (DateTime?)null;
+                    obj.apply_to = row["apply_to"] != DBNull.Value ? Convert.ToDateTime(row["apply_to"]) : (DateTime?)null;
+                    obj.fine = row["fine"] != DBNull.Value ? Convert.ToDouble(row["fine"]) : 0;
+                    obj.concession_amount = row["concession_amount"] != DBNull.Value ? Convert.ToDouble(row["concession_amount"]) : 0;
+                    obj.no_fine = row["no_fine"] != DBNull.Value ? Convert.ToString(row["no_fine"]) : string.Empty;
+                    obj.created_by = row["created_by"] != DBNull.Value ? row["created_by"].ToString() : string.Empty;
+                    obj.created_on = row["created_on"] != DBNull.Value ? Convert.ToDateTime(row["created_on"]) : (DateTime?)null;
+                    obj.updated_by = row["updated_by"] != DBNull.Value ? Convert.ToString(row["updated_by"]) : string.Empty;
+                    obj.updated_on = row["updated_on"] != DBNull.Value ? Convert.ToDateTime(row["updated_on"]) : (DateTime?)null;
+
+                    objStudentFeesList.Add(obj);
                 }
+
             }
             catch (Exception ex)
             {
@@ -486,7 +502,67 @@ namespace School_Universe_Businness_Layer.Businness
             {
 
             }
-            return lststudent_payments;
+            return objStudentFeesList;
+        }
+
+
+        public static List<student_paymentsModel> GetStudentPaymentsFromOffline(DateTime LastSyncedOn)
+        {
+            try
+            {
+                List<SqlParameter> lstSqlParameters = new List<SqlParameter>()
+                {
+                    new SqlParameter() {ParameterName = "@Date", SqlDbType = SqlDbType.Date, Value = LastSyncedOn},
+                };
+                DataTable objDatatable = DataAccess.GetDataTable(StoredProcedures.GetStudentPaymentsForSync, lstSqlParameters);
+                return MapDatatableToStudentPaymentsListObject(objDatatable);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
+        private static List<student_paymentsModel> MapDatatableToStudentPaymentsListObject(DataTable objDatatable)
+        {
+
+            List<student_paymentsModel> objStudentPaymentsList = new List<student_paymentsModel>();
+            try
+            {
+                foreach (DataRow row in objDatatable.Rows)
+                {
+                    student_paymentsModel obj = new student_paymentsModel();
+                    obj.id = row["id"] != DBNull.Value ? Convert.ToString(row["id"]) : string.Empty;
+                    obj.school_id = row["school_id"] != DBNull.Value ? Convert.ToString(row["school_id"]) : string.Empty;
+                    obj.student_fees_id = row["student_fees_id"] != DBNull.Value ? Convert.ToString(row["student_fees_id"]) : string.Empty;
+                    obj.fine = row["fine"] != DBNull.Value ? Convert.ToDouble(row["fine"]) : 0;
+                    obj.amount = row["amount"] != DBNull.Value ? Convert.ToDouble(row["amount"]) : 0;
+                    obj.comment = row["comment"] != DBNull.Value ? Convert.ToString(row["comment"]) : string.Empty;
+                    obj.recept_no = row["recept_no"] != DBNull.Value ? Convert.ToString(row["recept_no"]) : string.Empty;
+                    obj.payment_mode = row["payment_mode"] != DBNull.Value ? Convert.ToString(row["payment_mode"]) : string.Empty;
+                    obj.ip = row["ip"] != DBNull.Value ? Convert.ToString(row["ip"]) : string.Empty;
+                    obj.payment_date = row["payment_date"] != DBNull.Value ? Convert.ToDateTime(row["payment_date"]) : (DateTime?)null;
+                    obj.created_by = row["created_by"] != DBNull.Value ? row["created_by"].ToString() : string.Empty;
+                    obj.created_on = row["created_on"] != DBNull.Value ? Convert.ToDateTime(row["created_on"]) : (DateTime?)null;
+                    obj.updated_by = row["updated_by"] != DBNull.Value ? Convert.ToString(row["updated_by"]) : string.Empty;
+                    obj.updated_on = row["updated_on"] != DBNull.Value ? Convert.ToDateTime(row["updated_on"]) : (DateTime?)null;
+
+                    objStudentPaymentsList.Add(obj);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return objStudentPaymentsList;
         }
         #endregion
 
@@ -700,7 +776,7 @@ namespace School_Universe_Businness_Layer.Businness
                                 obj.size,
                                 obj.school_id,
                                 obj.owner_user_id,
-                                obj.created                             );
+                                obj.created);
                 return table;
             }
             catch (Exception ex)
@@ -843,25 +919,25 @@ namespace School_Universe_Businness_Layer.Businness
                 table.Columns.Add("g_email", typeof(string));
 
                 table.Rows.Add(
-								obj.id,
-								obj.school_id,
-								obj.f_first_name,
-								obj.f_middle_name,
-								obj.f_last_name,
-								obj.f_mobile,
-								obj.f_phone,
-								obj.f_office,
-								obj.f_email,
-								obj.m_first_name,
-								obj.m_middle_name,
-								obj.m_last_name,
-								obj.m_mobile,
-								obj.m_phone,
-								obj.m_office,
-								obj.m_email,
-								obj.g_fullname,
-								obj.g_mobile,
-								obj.g_email
+                                obj.id,
+                                obj.school_id,
+                                obj.f_first_name,
+                                obj.f_middle_name,
+                                obj.f_last_name,
+                                obj.f_mobile,
+                                obj.f_phone,
+                                obj.f_office,
+                                obj.f_email,
+                                obj.m_first_name,
+                                obj.m_middle_name,
+                                obj.m_last_name,
+                                obj.m_mobile,
+                                obj.m_phone,
+                                obj.m_office,
+                                obj.m_email,
+                                obj.g_fullname,
+                                obj.g_mobile,
+                                obj.g_email
                               );
                 return table;
             }
@@ -925,7 +1001,7 @@ namespace School_Universe_Businness_Layer.Businness
                                 obj.created_on,
                                 obj.updated_by,
                                 obj.updated_on
-                                
+
                               );
                 return table;
             }
@@ -1052,7 +1128,7 @@ namespace School_Universe_Businness_Layer.Businness
 
             }
         }
-     
+
         public static Boolean SyncStudent_grade_session_logFromOnline(student_grade_session_logModel objStudent_grade_session_log)
         {
             Boolean IsSuccess = false;
@@ -1075,7 +1151,7 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return IsSuccess;
         }
-        private static DataTable MapStudent_grade_session_logToDataTable(student_grade_session_logModel  obj)
+        private static DataTable MapStudent_grade_session_logToDataTable(student_grade_session_logModel obj)
         {
             try
             {
@@ -1685,6 +1761,29 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return IsSuccess;
         }
+        public static Boolean SyncStudent_feesFromOffline(string APIUri, List<student_feesModel> lstStudent_fees)
+        {
+            Boolean IsSuccess = false;
+            try
+            {
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/student_fees_post";
+                var postData = "data=";
+                postData += JsonConvert.SerializeObject(lstStudent_fees);
+                httpPostWebRequest(APIUri, postData);
+                IsSuccess = true;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+
+            }
+            return IsSuccess;
+        }
         private static DataTable MapStudent_feesToDataTable(student_feesModel obj)
         {
             try
@@ -1806,6 +1905,29 @@ namespace School_Universe_Businness_Layer.Businness
             }
             return IsSuccess;
         }
+        public static Boolean SyncStudent_paymentsFromOffline(string APIUri, List<student_paymentsModel> lstStudent_payments)
+        {
+            Boolean IsSuccess = false;
+            try
+            {
+                if (!APIUri.EndsWith("/"))
+                    APIUri += "/";
+                APIUri += "web-services/fees_payments_post";
+                var postData = "data=";
+                postData += JsonConvert.SerializeObject(lstStudent_payments);
+                httpPostWebRequest(APIUri, postData);
+                IsSuccess = true;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+
+            }
+            return IsSuccess;
+        }
 
         private static DataTable MapStudent_paymentsToDataTable(student_paymentsModel objPaymentHistoryModel)
         {
@@ -1862,7 +1984,7 @@ namespace School_Universe_Businness_Layer.Businness
 
         #region Last Sync Info from SyncTableInfo
         public static List<SyncTableInfoModel> GetSyncTableInfo()
-        {            
+        {
             try
             {
                 DataTable objDataTable = DataAccess.GetDataTable(StoredProcedures.GetSyncTableInfo);
@@ -1911,7 +2033,7 @@ namespace School_Universe_Businness_Layer.Businness
             Boolean IsSuccess = false;
             try
             {
-                foreach(SyncTableInfoModel objSyncTableInfo in objSyncTableInfoList)
+                foreach (SyncTableInfoModel objSyncTableInfo in objSyncTableInfoList)
                 {
                     List<SqlParameter> lstSqlParameters = new List<SqlParameter>()
                     {
@@ -1919,8 +2041,8 @@ namespace School_Universe_Businness_Layer.Businness
                         new SqlParameter() {ParameterName = "@LastSyncedOn",  SqlDbType = SqlDbType.NVarChar, Value = objSyncTableInfo.LastSyncedOn}
                     };
                     IsSuccess = DataAccess.ExecuteNonQuery(StoredProcedures.UpdateSyncTableInfo, lstSqlParameters);
-                }                
-                
+                }
+
 
             }
             catch (Exception ex)
@@ -1957,38 +2079,40 @@ namespace School_Universe_Businness_Layer.Businness
                 }
                 return string.IsNullOrEmpty(returnedJSON) ? "[]" : returnedJSON;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
-            }            
-            
+            }
+
         }
         #endregion
 
         #region HttpPostRequet
-        public static string httpPostWebRequest(string APIUri)
+        public static string httpPostWebRequest(string APIUri,string postData)
         {
-            string returnedJSON;
+            string returnedJSON = "";
             try
             {
                 if (!APIUri.StartsWith("http"))
                     APIUri = "http://" + APIUri;
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(APIUri);
-                httpWebRequest.ContentType = "application/json; charset=utf-8";
+                var data = Encoding.ASCII.GetBytes(postData);
+
+                //httpWebRequest.ContentType = "application/json; charset=utf-8";
+                httpWebRequest.ContentType = "application/x-www-form-urlencoded";
                 httpWebRequest.Method = "POST";
+                httpWebRequest.ContentLength = data.Length;
 
-                var response = (HttpWebResponse)httpWebRequest.GetResponse();
-
-                using (var sr = new StreamReader(response.GetResponseStream()))
+                using (var stream = httpWebRequest.GetRequestStream())
                 {
-                    returnedJSON = sr.ReadToEnd();
+                    stream.Write(data, 0, data.Length);
                 }
-                return string.IsNullOrEmpty(returnedJSON) ? "[]" : returnedJSON;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+            return returnedJSON;
 
         }
         #endregion

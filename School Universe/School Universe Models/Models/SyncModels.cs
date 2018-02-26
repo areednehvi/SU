@@ -176,7 +176,7 @@ namespace School_Universe.Models
                 {
                     _Progress = _Maximum;
                 }
-                ProgressPercentage = Decimal.Round(((Decimal)_Progress / (Decimal)Maximum) * 100, 2);
+                ProgressPercentage = Decimal.Round(((Decimal)_Progress / ((Decimal)Maximum == 0 ? 1 : (Decimal)Maximum)) * 100, 2);
                 OnPropertyChanged("Progress");
             }
         }

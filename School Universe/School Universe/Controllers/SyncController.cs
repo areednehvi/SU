@@ -347,6 +347,8 @@ namespace School_Universe.Controllers
                 GeneralMethods.Log(SyncNotifications.SyncCompleted, true);
 
                 Sync.SyncAllProgress.Progress++;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Users)].SyncModuleProgress.ProgressPercentage = 100;
+
                 IsSuccess = true;
             }
             catch (Exception ex)
@@ -435,6 +437,8 @@ namespace School_Universe.Controllers
                 GeneralMethods.Log(SyncNotifications.SyncCompleted, true);
 
                 Sync.SyncAllProgress.Progress++;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Students)].SyncModuleProgress.ProgressPercentage = 100;
+
                 IsSuccess = true;
             }
             catch (Exception ex)
@@ -509,6 +513,8 @@ namespace School_Universe.Controllers
                 GeneralMethods.Log(SyncNotifications.SyncCompleted, true);
 
                 Sync.SyncAllProgress.Progress++;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Grades)].SyncModuleProgress.ProgressPercentage = 100;
+
                 IsSuccess = true;
             }
             catch (Exception ex)
@@ -609,6 +615,8 @@ namespace School_Universe.Controllers
                 GeneralMethods.Log(SyncNotifications.SyncCompleted, true);
 
                 Sync.SyncAllProgress.Progress++;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Transportation)].SyncModuleProgress.ProgressPercentage = 100;
+
                 IsSuccess = true;
             }
             catch (Exception ex)
@@ -728,18 +736,18 @@ namespace School_Universe.Controllers
                 Sync.SyncStatus = SyncNotifications.SyncingModule + SyncModules.Fees;
                 GeneralMethods.Log(Sync.SyncStatus, true);
 
-                GetFeesDataFromOnline();
-
-                SyncFeesOnlineData();
-
                 GetFeesDataFromOffline();
-
                 SyncFeesOfflineData();
+
+                GetFeesDataFromOnline();
+                SyncFeesOnlineData();                
 
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleStatus = SyncNotifications.SyncCompleted;
                 GeneralMethods.Log(SyncNotifications.SyncCompleted, true);
 
                 Sync.SyncAllProgress.Progress++;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleProgress.ProgressPercentage = 100;
+
                 IsSuccess = true;
                
             }
@@ -821,8 +829,7 @@ namespace School_Universe.Controllers
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleProgress.Progress++;
             }
             //update LastSyncDate
-            //Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.student_fees)].LastSyncedOn = DateTime.Now;
-            //Update Last Sync when syn is done both online and offline
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.student_fees)].LastSyncedOn = DateTime.Now;
 
             //route_vehicle_stops_fee_logs               
             for (int count = 0; count < Sync.SyncDBmodels.route_vehicle_stops_fee_logsList.Count; count++)
@@ -841,21 +848,19 @@ namespace School_Universe.Controllers
             Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleStatus = SyncNotifications.SendingDataToOnline;
             GeneralMethods.Log(Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleStatus);
 
-            //Thread.Sleep(1);
+            Sync.SyncDBmodels.student_feesList = SyncManager.GetStudentFeesFromOffline(Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.student_fees)].LastSyncedOn);
 
-            Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleProgress.Maximum =
-               Sync.SyncDBmodels.student_feesList.Count;
+            //Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleProgress.Maximum =
+            //    Sync.SyncDBmodels.student_feesList.Count;
         }
         private void SyncFeesOfflineData()
         {
             //student_fees
-            for (int count = 0; count < Sync.SyncDBmodels.student_feesList.Count; count++)
-            {
-                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleStatus = SyncNotifications.SyncInProgress + " Offline Data - Table: " + Tables.student_fees + "... ";
-                GeneralMethods.Log(Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleStatus);
-            }
-            //update LastSyncDate
-            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.student_fees)].LastSyncedOn = DateTime.Now;
+            Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleStatus = SyncNotifications.SyncInProgress + " Offline Data - Table: " + Tables.student_fees + "... ";
+            GeneralMethods.Log(Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleStatus);
+
+            SyncManager.SyncStudent_feesFromOffline(Sync.SchoolInfo.domain, Sync.SyncDBmodels.student_feesList);
+                                  
         }
 
         
@@ -870,18 +875,18 @@ namespace School_Universe.Controllers
                 Sync.SyncStatus = SyncNotifications.SyncingModule + SyncModules.Payments;
                 GeneralMethods.Log(Sync.SyncStatus, true);
 
-                GetPaymentsDataFromOnline();
-
-                SyncPaymentsOnlineData();
-
                 GetPaymentsDataFromOffline();
-
                 SyncPaymentsOfflineData();
+
+                GetPaymentsDataFromOnline();
+                SyncPaymentsOnlineData();
 
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleStatus = SyncNotifications.SyncCompleted;
                 GeneralMethods.Log(SyncNotifications.SyncCompleted, true);
 
                 Sync.SyncAllProgress.Progress++;
+                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleProgress.ProgressPercentage = 100;
+
                 IsSuccess = true;
                 
             }
@@ -918,29 +923,30 @@ namespace School_Universe.Controllers
                 SyncManager.SyncStudent_paymentsFromOnline(Sync.SyncDBmodels.student_paymentsList[count]);
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleProgress.Progress++;
             }
-            
+
+            //update LastSyncDate
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.student_payments)].LastSyncedOn = DateTime.Now;
+
         }
         private void GetPaymentsDataFromOffline()
         {
             Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleStatus = SyncNotifications.SendingDataToOnline;
             GeneralMethods.Log(Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleStatus);
 
-            //Thread.Sleep(1);
+            Sync.SyncDBmodels.student_paymentsList = SyncManager.GetStudentPaymentsFromOffline(Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.student_payments)].LastSyncedOn);
 
-            Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleProgress.Maximum =
-                Sync.SyncDBmodels.student_paymentsList.Count;
+            //Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleProgress.Maximum =
+            //    Sync.SyncDBmodels.student_paymentsList.Count;
         }
 
         private void SyncPaymentsOfflineData()
         {
             //student_payments
-            for (int count = 0; count < Sync.SyncDBmodels.student_paymentsList.Count; count++)
-            {
-                Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleStatus = SyncNotifications.SyncInProgress + " Offline Data - Table: " + Tables.student_payments + "...";
-                GeneralMethods.Log(Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleStatus);
-            }
-            //update LastSyncDate
-            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.student_payments)].LastSyncedOn = DateTime.Now;
+            Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleStatus = SyncNotifications.SyncInProgress + " Offline Data - Table: " + Tables.student_payments + "...";
+            GeneralMethods.Log(Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Payments)].SyncModuleStatus);
+
+            SyncManager.SyncStudent_paymentsFromOffline(Sync.SchoolInfo.domain, Sync.SyncDBmodels.student_paymentsList);
+
         }
         #endregion
 

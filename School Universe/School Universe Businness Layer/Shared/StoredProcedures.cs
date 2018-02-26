@@ -13,7 +13,9 @@ namespace School_Universe_Businness_Layer.Shared
         public static string GetList = "GetList";
         public static string GetStudentPaymentHistory = "GetStudentPaymentHistory";
         public static string GetStudentFeeDue = "GetStudentFeeDue";
-        public static string GetStudentBalances = "GetStudentBalances";
+        public static string GetStudentBalances = "GetStudentBalances"; 
+        public static string GetStudentPaymentsForSync = "GetStudentPaymentsForSync";
+        public static string GetStudentFeesForSync = "GetStudentFeesForSync";
         public static string UpdatePayment = "UpdatePayment";
         public static string MakePayment = "MakePayment";
         public static string UpdateFeeDue = "UpdateFeeDue";
