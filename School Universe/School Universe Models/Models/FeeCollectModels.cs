@@ -124,7 +124,7 @@ namespace School_Universe.Models
         private string _payment_mode;
 
         public string id { get; set; }
-        public Guid id_offline { get; set; }
+        public Guid offline_payment_id { get; set; }
         public string school_id { get; set; }
         public string student_fees_id { get; set; }
         public Double amount

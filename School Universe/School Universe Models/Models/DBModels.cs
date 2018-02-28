@@ -221,7 +221,7 @@ namespace School_Universe_Models.Models
         }
         public class student_paymentsModel   
         {
-            public string id_offline { get; set; }
+            public string offline_payment_id { get; set; }
             public string id { get; set; }
             public string school_id { get; set; }
             public string student_fees_id { get; set; }

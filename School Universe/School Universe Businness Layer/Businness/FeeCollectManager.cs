@@ -1,4 +1,6 @@
-﻿using School_Universe.Models;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using School_Universe.Models;
 using School_Universe_Businness_Layer.Shared;
 using School_Universe_Data_Layer.DataAccess;
 using System;
@@ -6,6 +8,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -148,7 +152,7 @@ namespace School_Universe_Businness_Layer.Businness
             try
             {
                 DataTable table = new DataTable();
-                table.Columns.Add("id_offline", typeof(Guid));
+                table.Columns.Add("offline_payment_id", typeof(Guid));
                 table.Columns.Add("id", typeof(string));
                 table.Columns.Add("school_id", typeof(string));
                 table.Columns.Add("student_fees_id", typeof(string));
@@ -165,7 +169,7 @@ namespace School_Universe_Businness_Layer.Businness
                 table.Columns.Add("updated_on", typeof(DateTime));
 
                 table.Rows.Add(
-                                objPaymentHistoryModel.id_offline,
+                                objPaymentHistoryModel.offline_payment_id,
                                 objPaymentHistoryModel.id,
                                 objPaymentHistoryModel.school_id,
                                 objPaymentHistoryModel.student_fees_id,
@@ -229,7 +233,7 @@ namespace School_Universe_Businness_Layer.Businness
                 {
                     PaymentModel objPaymentHistory = new PaymentModel();
                     objPaymentHistory.id = row["id"] != DBNull.Value ? row["id"].ToString() : string.Empty;
-                    objPaymentHistory.id_offline = row["id_offline"] != DBNull.Value ? Guid.Parse(row["id_offline"].ToString()) : Guid.Empty;
+                    objPaymentHistory.offline_payment_id = row["offline_payment_id"] != DBNull.Value ? Guid.Parse(row["offline_payment_id"].ToString()) : Guid.Empty;
                     objPaymentHistory.school_id = row["school_id"] != DBNull.Value ? row["school_id"].ToString() : string.Empty;
                     objPaymentHistory.student_fees_id = row["student_fees_id"] != DBNull.Value ? row["student_fees_id"].ToString() : string.Empty;
                     objPaymentHistory.amount = row["amount"] != DBNull.Value ? Convert.ToDouble(row["amount"]) : 0;
@@ -438,5 +442,195 @@ namespace School_Universe_Businness_Layer.Businness
             }
         }
         #endregion
+
+        public static Boolean PrintReceipt(MakePaymentModel objMakePayment, LoginModel CurrentLogin, SchoolModel SchoolInfo, FeeCollectionStudentListModel Student)
+        {
+            Boolean IsSuccess = false;
+            try
+            {
+                string receipt = @"Receipts\" + objMakePayment.Payment.recept_no + ".pdf";
+                if (!File.Exists(receipt))
+                    Directory.CreateDirectory(Path.GetDirectoryName(receipt));
+                using (FileStream fs = new FileStream(receipt, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (Document doc = new Document(PageSize.A6, 0f, 0f, 10f, 0f))
+                using (PdfWriter writer = PdfWriter.GetInstance(doc, fs))
+                {
+                    Font fontTableHeading = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.BOLD);
+                    Font fontTableCell = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.NORMAL);
+                    Font fontHeading = new Font(Font.FontFamily.COURIER, 16, Font.BOLD);
+
+                    writer.PageEvent = new PDFWriterEvents("School Universe", fontSize: 30f, xPosition: 150, yPosition: 250);
+                    doc.Open();
+
+                    //Header with logo
+                    {
+                        PdfPTable tableHeader = new PdfPTable(4);
+
+                        Image logo = Image.GetInstance("../assets/images/receiptLogo.jpg");
+                        logo.ScalePercent(30f);
+
+                        PdfPCell cell = new PdfPCell(logo)
+                        {
+                            HorizontalAlignment = PdfPCell.ALIGN_LEFT,
+                            Border = Rectangle.NO_BORDER,
+                        };
+                        tableHeader.AddCell(cell);
+
+                        PdfPHeaderCell headerCell = new PdfPHeaderCell()
+                        {
+                            Phrase = new Phrase("School Universe", font: fontHeading),
+                            Border = Rectangle.NO_BORDER,
+                            Colspan = 3
+                        };
+                        tableHeader.AddCell(headerCell);
+
+                        doc.Add(tableHeader);
+
+                        doc.Add(new Paragraph("\n"));
+                    }
+                    //Student and Payment Details
+                    {
+                        PdfPTable table = new PdfPTable(2);
+                        PdfPCell cell = new PdfPCell(new Phrase("Student : " + Student.full_name, font: fontTableCell))
+                        {
+                            Border = Rectangle.NO_BORDER,
+                            HorizontalAlignment = PdfPCell.ALIGN_LEFT
+                        };
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase("Grade : " + Student.grade_section, font: fontTableCell))
+                        {
+                            Border = Rectangle.NO_BORDER,
+                            HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                        };
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase("Roll Number : " + Student.roll_number, font: fontTableCell))
+                        {
+                            Border = Rectangle.NO_BORDER,
+                            HorizontalAlignment = PdfPCell.ALIGN_LEFT
+                        };
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase("Payment Mode : " + objMakePayment.SelectedPaymentMode.name, font: fontTableCell))
+                        {
+                            Border = Rectangle.NO_BORDER,
+                            HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                        };
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase("Date : " + String.Format("{0:dd-MMM-yyyy}", objMakePayment.Payment.payment_date), font: fontTableCell))
+                        {
+                            Border = Rectangle.NO_BORDER,
+                            HorizontalAlignment = PdfPCell.ALIGN_LEFT
+                        };
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase("Receipt # : " + objMakePayment.Payment.recept_no, font: fontTableCell))
+                        {
+                            Border = Rectangle.NO_BORDER,
+                            HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                        };
+                        table.AddCell(cell);
+
+                        doc.Add(table);
+
+                        doc.Add(new Paragraph("\n"));
+                    }
+                    //Fee Months
+                    {
+                        PdfPTable table = new PdfPTable(5);
+
+                        PdfPHeaderCell headerCell = new PdfPHeaderCell() { Phrase = new Phrase("Fee", font: fontTableHeading) };
+                        table.AddCell(headerCell);
+
+                        headerCell = new PdfPHeaderCell() { Phrase = new Phrase("Amount", font: fontTableHeading) };
+                        table.AddCell(headerCell);
+
+                        headerCell = new PdfPHeaderCell() { Phrase = new Phrase("Concession", font: fontTableHeading) };
+                        table.AddCell(headerCell);
+
+                        headerCell = new PdfPHeaderCell() { Phrase = new Phrase("Fine", font: fontTableHeading) };
+                        table.AddCell(headerCell);
+
+                        headerCell = new PdfPHeaderCell() { Phrase = new Phrase("Total", font: fontTableHeading) };
+                        table.AddCell(headerCell);
+
+                        foreach (FeeBalancesModel objFeeBalance in objMakePayment.SelectedFeeBalances)
+                        {
+                            PaymentModel objPayment = new PaymentModel();
+                            objPayment.id = Guid.NewGuid().ToString();
+                            objPayment.offline_payment_id = Guid.Empty;
+                            objPayment.school_id = SchoolInfo.id;
+                            objPayment.student_fees_id = objFeeBalance.id;
+                            objPayment.payment_mode = objMakePayment.SelectedPaymentMode.name;
+                            objPayment.amount = objFeeBalance.balance_amount;
+                            objPayment.fine = objFeeBalance.fine;
+                            objPayment.concession_amount = objFeeBalance.concession_amount;
+                            objPayment.comment = objMakePayment.Payment.comment;
+                            objPayment.recept_no = objMakePayment.Payment.recept_no;
+                            objPayment.ip = null;
+                            objPayment.created_by = CurrentLogin.ID != null ? CurrentLogin.ID : Guid.Empty.ToString();
+                            objPayment.updated_by = CurrentLogin.ID != null ? CurrentLogin.ID : Guid.Empty.ToString();
+                            objPayment.created_on = DateTime.Now;
+                            objPayment.updated_on = DateTime.Now;
+                            objPayment.payment_date = objMakePayment.Payment.payment_date;
+
+
+                            PdfPCell cell = new PdfPCell(new Phrase(objFeeBalance.fees_category + "\n" + String.Format("{0:dd-MMM-yyyy}", objFeeBalance.apply_from), font: fontTableCell));
+                            table.AddCell(cell);
+
+                            cell = new PdfPCell(new Phrase(objFeeBalance.amount_to_pay.ToString(), font: fontTableCell)) { HorizontalAlignment = PdfPCell.ALIGN_RIGHT };
+                            table.AddCell(cell);
+
+                            cell = new PdfPCell(new Phrase(objFeeBalance.concession_amount.ToString(), font: fontTableCell)) { HorizontalAlignment = PdfPCell.ALIGN_RIGHT };
+                            table.AddCell(cell);
+
+                            cell = new PdfPCell(new Phrase(objPayment.fine.ToString(), font: fontTableCell)) { HorizontalAlignment = PdfPCell.ALIGN_RIGHT };
+                            table.AddCell(cell);
+
+                            cell = new PdfPCell(new Phrase(objFeeBalance.balance_amount.ToString(), font: fontTableCell)) { HorizontalAlignment = PdfPCell.ALIGN_RIGHT };
+                            table.AddCell(cell);
+
+                        }
+                        doc.Add(table);
+                    }
+                    // Payment Totals
+                    {
+                        PdfPTable table = new PdfPTable(1);
+
+                        PdfPHeaderCell headerCell = new PdfPHeaderCell()
+                        {
+                            Phrase = new Phrase("Total : Rs " + objMakePayment.TotalOfSelectedFeeBalancesGrandTotal, font: fontTableHeading),
+                            HorizontalAlignment = PdfPHeaderCell.ALIGN_RIGHT
+                        };
+                        table.AddCell(headerCell);
+
+                        doc.Add(table);
+                    }
+
+                    doc.Close();
+
+                    Process process = new Process();
+                    if (File.Exists(receipt))
+                    {
+                        process.StartInfo.FileName = Path.GetFullPath(receipt);
+                        process.Start();
+                        //process.WaitForExit();
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return IsSuccess;
+        }
     }
 }

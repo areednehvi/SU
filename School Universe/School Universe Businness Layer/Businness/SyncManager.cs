@@ -536,6 +536,7 @@ namespace School_Universe_Businness_Layer.Businness
                 {
                     student_paymentsModel obj = new student_paymentsModel();
                     obj.id = row["id"] != DBNull.Value ? Convert.ToString(row["id"]) : string.Empty;
+                    obj.offline_payment_id = row["offline_payment_id"] != DBNull.Value ? Convert.ToString(row["offline_payment_id"]) : string.Empty;
                     obj.school_id = row["school_id"] != DBNull.Value ? Convert.ToString(row["school_id"]) : string.Empty;
                     obj.student_fees_id = row["student_fees_id"] != DBNull.Value ? Convert.ToString(row["student_fees_id"]) : string.Empty;
                     obj.fine = row["fine"] != DBNull.Value ? Convert.ToDouble(row["fine"]) : 0;
@@ -1887,7 +1888,7 @@ namespace School_Universe_Businness_Layer.Businness
             Boolean IsSuccess = false;
             try
             {
-                objStudent_payments.id_offline = new Guid().ToString();
+                objStudent_payments.offline_payment_id = new Guid().ToString();
                 DataTable objDatatable = MapStudent_paymentsToDataTable(objStudent_payments);
                 SqlParameter objSqlParameter = new SqlParameter("@Model", SqlDbType.Structured);
                 objSqlParameter.TypeName = DBTableTypes.student_payments;
@@ -1934,7 +1935,7 @@ namespace School_Universe_Businness_Layer.Businness
             try
             {
                 DataTable table = new DataTable();
-                table.Columns.Add("id_offline", typeof(Guid));
+                table.Columns.Add("offline_payment_id", typeof(Guid));
                 table.Columns.Add("id", typeof(string));
                 table.Columns.Add("school_id", typeof(string));
                 table.Columns.Add("student_fees_id", typeof(string));
@@ -1951,7 +1952,7 @@ namespace School_Universe_Businness_Layer.Businness
                 table.Columns.Add("updated_on", typeof(DateTime));
 
                 table.Rows.Add(
-                                objPaymentHistoryModel.id_offline,
+                                objPaymentHistoryModel.offline_payment_id,
                                 objPaymentHistoryModel.id,
                                 objPaymentHistoryModel.school_id,
                                 objPaymentHistoryModel.student_fees_id,

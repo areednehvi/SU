@@ -531,7 +531,13 @@ namespace School_Universe.Controllers
             try
             {
                 if(FeeCollectManager.MakePayments(MakePayment,CurrentLogin,SchoolInfo))
-                    GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");               
+                {
+                    GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");
+                    if (FeeCollectManager.PrintReceipt(MakePayment, CurrentLogin, SchoolInfo, FeeCollectionStudentList))
+                    {
+
+                    }
+                }
             }
             catch (Exception ex)
             {
