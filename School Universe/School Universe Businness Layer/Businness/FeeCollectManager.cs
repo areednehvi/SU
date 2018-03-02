@@ -466,7 +466,12 @@ namespace School_Universe_Businness_Layer.Businness
                     {
                         PdfPTable tableHeader = new PdfPTable(4);
 
-                        Image logo = Image.GetInstance("../assets/images/receiptLogo.jpg");
+                        string logoPath;
+                        if (Debugger.IsAttached)
+                            logoPath = "../assets/images/receiptLogo.jpg";
+                        else
+                            logoPath = "assets/images/receiptLogo.jpg";
+                        Image logo = Image.GetInstance(logoPath);
                         logo.ScalePercent(30f);
 
                         PdfPCell cell = new PdfPCell(logo)

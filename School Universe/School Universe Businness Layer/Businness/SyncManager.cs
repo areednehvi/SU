@@ -1889,7 +1889,7 @@ namespace School_Universe_Businness_Layer.Businness
             try
             {
                 if(objStudent_payments.offline_payment_id == null)
-                    objStudent_payments.offline_payment_id = new Guid().ToString();
+                    objStudent_payments.offline_payment_id = Guid.NewGuid().ToString();
                 DataTable objDatatable = MapStudent_paymentsToDataTable(objStudent_payments);
                 SqlParameter objSqlParameter = new SqlParameter("@Model", SqlDbType.Structured);
                 objSqlParameter.TypeName = DBTableTypes.student_payments;
