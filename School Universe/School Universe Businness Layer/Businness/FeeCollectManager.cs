@@ -452,7 +452,7 @@ namespace School_Universe_Businness_Layer.Businness
                 if (!File.Exists(receipt))
                     Directory.CreateDirectory(Path.GetDirectoryName(receipt));
                 using (FileStream fs = new FileStream(receipt, FileMode.Create, FileAccess.Write, FileShare.None))
-                using (Document doc = new Document(PageSize.A6, 0f, 0f, 10f, 0f))
+                using (Document doc = new Document(PageSize.A4.Rotate(), 0f, 0f, 10f, 0f))
                 using (PdfWriter writer = PdfWriter.GetInstance(doc, fs))
                 {
                     Font fontTableHeading = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.BOLD);
@@ -464,7 +464,9 @@ namespace School_Universe_Businness_Layer.Businness
 
                     //Header with logo
                     {
-                        PdfPTable tableHeader = new PdfPTable(4);
+                        PdfPTable tableHeader = new PdfPTable(3);
+                        PdfPTable tableHeader1 = new PdfPTable(4);
+                        PdfPTable tableHeader2 = new PdfPTable(4);
 
                         string logoPath;
                         if (Debugger.IsAttached)
@@ -479,15 +481,25 @@ namespace School_Universe_Businness_Layer.Businness
                             HorizontalAlignment = PdfPCell.ALIGN_LEFT,
                             Border = Rectangle.NO_BORDER,
                         };
-                        tableHeader.AddCell(cell);
+                        tableHeader1.AddCell(cell);
+                        tableHeader2.AddCell(cell);
 
                         PdfPHeaderCell headerCell = new PdfPHeaderCell()
                         {
-                            Phrase = new Phrase("School Universe", font: fontHeading),
+                            Phrase = new Phrase(SchoolInfo.name, font: fontHeading),
                             Border = Rectangle.NO_BORDER,
                             Colspan = 3
                         };
-                        tableHeader.AddCell(headerCell);
+                        tableHeader1.AddCell(headerCell);
+                        tableHeader2.AddCell(headerCell);
+
+                        tableHeader.AddCell(tableHeader1);
+                        tableHeader.AddCell(new PdfPCell(new Phrase(" "))
+                        {
+                            HorizontalAlignment = PdfPCell.ALIGN_LEFT,
+                            Border = Rectangle.NO_BORDER
+                        });
+                        tableHeader.AddCell(tableHeader2);
 
                         doc.Add(tableHeader);
 
