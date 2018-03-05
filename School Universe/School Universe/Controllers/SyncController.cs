@@ -841,7 +841,7 @@ namespace School_Universe.Controllers
                 Sync.SyncModuleList[SyncModules.GetSyncModuleID(SyncModules.Fees)].SyncModuleProgress.Progress++;
             }
             //update LastSyncDate
-            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.route_vehicle_stops)].LastSyncedOn = DateTime.Now;
+            Sync.SyncTableInfoList[Sync.SyncTableInfoList.FindIndex(r => r.TableName == Tables.route_vehicle_stops_fee_logs)].LastSyncedOn = DateTime.Now;
         }
         private void GetFeesDataFromOffline()
         {
