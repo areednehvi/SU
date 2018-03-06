@@ -452,7 +452,7 @@ namespace School_Universe_Businness_Layer.Businness
                 if (!File.Exists(receipt))
                     Directory.CreateDirectory(Path.GetDirectoryName(receipt));
                 using (FileStream fs = new FileStream(receipt, FileMode.Create, FileAccess.Write, FileShare.None))
-                using (Document doc = new Document(PageSize.A4.Rotate(), 0f, 0f, 10f, 0f))
+                using (Document doc = new Document(PageSize.A4.Rotate(), 0f, 50f, 0f, 0f))
                 using (PdfWriter writer = PdfWriter.GetInstance(doc, fs))
                 {
                     Font fontTableHeading = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.BOLD);
@@ -465,7 +465,7 @@ namespace School_Universe_Businness_Layer.Businness
                     //Header with logo
                     {
                         PdfPTable tableHeader = new PdfPTable(3);
-                        float[] widths = new float[] { 45, 10, 45 };
+                        float[] widths = new float[] { 40, 20, 40 };
                         tableHeader.SetWidths(widths);
                         tableHeader.DefaultCell.Border = Rectangle.NO_BORDER;
                         PdfPTable tableHeader1 = new PdfPTable(3);
@@ -511,7 +511,7 @@ namespace School_Universe_Businness_Layer.Businness
                     //Student and Payment Details
                     {
                         PdfPTable studentPaymentDetailsTable = new PdfPTable(3);
-                        float[] widths = new float[] { 45, 10, 45 };
+                        float[] widths = new float[] { 40, 20, 40 };
                         studentPaymentDetailsTable.SetWidths(widths);
                         studentPaymentDetailsTable.DefaultCell.Border = Rectangle.NO_BORDER;
                         PdfPTable studentPaymentDetailsTable1 = new PdfPTable(2);
@@ -579,7 +579,7 @@ namespace School_Universe_Businness_Layer.Businness
                     //Fee Months
                     {
                         PdfPTable feeMonthsTable = new PdfPTable(3);
-                        float[] widths = new float[] { 45, 10, 45 };
+                        float[] widths = new float[] { 40, 20, 40 };
                         feeMonthsTable.SetWidths(widths);
                         feeMonthsTable.DefaultCell.Border = Rectangle.NO_BORDER;
                         PdfPTable feeMonthsTable1 = new PdfPTable(5);
@@ -660,7 +660,7 @@ namespace School_Universe_Businness_Layer.Businness
                     // Payment Totals
                     {
                         PdfPTable paymentTotalTable = new PdfPTable(3);
-                        float[] widths = new float[] { 45, 10, 45 };
+                        float[] widths = new float[] { 40, 20, 40 };
                         paymentTotalTable.SetWidths(widths);
                         paymentTotalTable.DefaultCell.Border = Rectangle.NO_BORDER;
                         PdfPTable paymentTotalTable1 = new PdfPTable(1);
