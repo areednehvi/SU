@@ -336,6 +336,7 @@ namespace School_Universe_Businness_Layer.Businness
                     objFeeDue.apply_to = row["apply_to"] != DBNull.Value ? Convert.ToDateTime(row["apply_to"]) : DateTime.MinValue;
                     objFeeDue.fine = row["fine"] != DBNull.Value ? Convert.ToDouble(row["fine"]) : 0;
                     objFeeDue.category_name = row["category_name"] != DBNull.Value ? row["category_name"].ToString() : string.Empty;
+                    objFeeDue.period = row["period"] != DBNull.Value ? row["period"].ToString() : string.Empty;
                     objFeeDue.created_by = row["created_by"] != DBNull.Value ? row["created_by"].ToString() : string.Empty;
                     objFeeDue.created_on = row["created_on"] != DBNull.Value ? Convert.ToDateTime(row["created_on"]) : DateTime.MinValue;
                     objFeeDue.updated_by = row["updated_by"] != DBNull.Value ? row["updated_by"].ToString() : string.Empty;

@@ -537,9 +537,13 @@
                                 </DataGridTemplateColumn>
                                 <DataGridTextColumn Width="*" Header="Fee">
                                     <DataGridTextColumn.Binding>
-                                        <MultiBinding StringFormat="{}{0} &#x0a;{1:MMMM yyyy}">
+                                        <!--<MultiBinding StringFormat="{}{0} &#x0a;{1:MMMM yyyy}">
                                             <Binding Path="category_name" />
                                             <Binding Path="apply_from" />
+                                        </MultiBinding>-->
+                                        <MultiBinding StringFormat="{}{0} &#x0a;{1}">
+                                            <Binding Path="category_name" />
+                                            <Binding Path="period" />
                                         </MultiBinding>
                                     </DataGridTextColumn.Binding>
                                 </DataGridTextColumn>
