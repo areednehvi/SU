@@ -471,7 +471,7 @@ namespace School_Universe.Controllers
 
         public bool CanShowHideMakePaymentScreen(object obj)
         {
-            if (SumOfAllSelectedFees > 0)
+            if (SumOfAllSelectedFees != 0)
                 return true;
             else
                 return false;
@@ -519,7 +519,7 @@ namespace School_Universe.Controllers
 
         public bool CanMakePayment(object obj)
         {
-            if (MakePayment.TotalOfSelectedFeeBalancesGrandTotal > 0 && MakePayment.Payment.payment_date != null && MakePayment.Payment.recept_no !=null)
+            if (MakePayment.TotalOfSelectedFeeBalancesGrandTotal != 0 && MakePayment.Payment.payment_date != null && MakePayment.Payment.recept_no !=null)
                 return true;
             else
                 return false;
@@ -535,7 +535,7 @@ namespace School_Universe.Controllers
                     GeneralMethods.ShowNotification("Notification", "Payment Saved Successfully!");
                     if (FeeCollectManager.PrintReceipt(MakePayment, CurrentLogin, SchoolInfo, FeeCollectionStudentList))
                     {
-
+                        Window.Close();
                     }
                 }
             }
