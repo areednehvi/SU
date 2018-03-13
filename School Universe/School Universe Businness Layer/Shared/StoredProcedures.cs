@@ -48,5 +48,6 @@ namespace School_Universe_Businness_Layer.Shared
         public static string SyncUsers = "SyncUsers";
         public static string SyncVehicles = "SyncVehicles";
         public static string IsSchoolSetup = "IsSchoolSetup";
+        public static string CheckIfStudentFeesCanBeDeleted = "CheckIfStudentFeesCanBeDeleted";
     }
 }

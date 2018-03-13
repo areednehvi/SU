@@ -424,13 +424,27 @@ namespace School_Universe_Businness_Layer.Businness
         {
             try
             {
+                Boolean CanDelete;
+                Boolean IsSuccess = false;
                 List<SqlParameter> lstSqlParameters = new List<SqlParameter>()
                 {
-                    new SqlParameter() {ParameterName = "@key",     SqlDbType = SqlDbType.NVarChar, Value = "id"},
-                    new SqlParameter() {ParameterName = "@value",     SqlDbType = SqlDbType.NVarChar, Value = objFeeDueModel.id},
-                    new SqlParameter() {ParameterName = "@tableName",  SqlDbType = SqlDbType.NVarChar, Value = "student_fees"}                
+                    new SqlParameter() {ParameterName = "@Id",  SqlDbType = SqlDbType.NVarChar, Value = objFeeDueModel.id},
                 };
-                return DataAccess.ExecuteNonQuery(StoredProcedures.DeleteRecord, lstSqlParameters);
+                CanDelete = Convert.ToBoolean(DataAccess.GetScalar(StoredProcedures.CheckIfStudentFeesCanBeDeleted, lstSqlParameters));
+
+                if (CanDelete)
+                {
+                    lstSqlParameters = new List<SqlParameter>()
+                    {
+                        new SqlParameter() {ParameterName = "@key",     SqlDbType = SqlDbType.NVarChar, Value = "id"},
+                        new SqlParameter() {ParameterName = "@value",     SqlDbType = SqlDbType.NVarChar, Value = objFeeDueModel.id},
+                        new SqlParameter() {ParameterName = "@tableName",  SqlDbType = SqlDbType.NVarChar, Value = "student_fees"}
+                    };
+
+                    IsSuccess = DataAccess.ExecuteNonQuery(StoredProcedures.DeleteRecord, lstSqlParameters);
+                }
+                return IsSuccess;
+
             }
             catch (Exception ex)
             {
@@ -439,7 +453,6 @@ namespace School_Universe_Businness_Layer.Businness
             }
             finally
             {
-
             }
         }
         #endregion

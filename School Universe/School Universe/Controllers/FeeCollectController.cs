@@ -624,7 +624,7 @@ namespace School_Universe.Controllers
         {
             try
             {
-                Boolean showNotification = false;
+                Boolean showNotification = false, showCannotDeleteNotification = false;
                 MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Delete Confirmation", MessageBoxButton.OKCancel);
                 if (messageBoxResult == MessageBoxResult.OK)
                 {
@@ -634,11 +634,15 @@ namespace School_Universe.Controllers
                         {
                             if (FeeCollectManager.DeleteFeeDue(objFeeDueModel))
                                 showNotification = true;
+                            else
+                                showCannotDeleteNotification = true;
                         }
 
                     }
                     if(showNotification)
                         GeneralMethods.ShowNotification("Notification", "Fee Due(s) Deleted Successfully!");
+                    if (showCannotDeleteNotification)
+                         MessageBox.Show("Few Fee Due(s) in the selected list cannot be deleted as these are associated to payments!");
                     this.GetStudentFeeDueList();
                 }
 
