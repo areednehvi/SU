@@ -29,7 +29,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/fee_categories?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/fee_categories?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstFeeCategories = JsonConvert.DeserializeObject<List<fee_categoriesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -49,7 +49,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/fees?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/fees?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstFees = JsonConvert.DeserializeObject<List<feesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -69,7 +69,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 //if (!APIUri.EndsWith("/"))
                 //    APIUri += "/";
-                //APIUri += "web-services/files?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                //APIUri += "web-services/files?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 //lstFiles = JsonConvert.DeserializeObject<List<filesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -89,7 +89,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/grade_fees?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/grade_fees?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstgrade_fees = JsonConvert.DeserializeObject<List<grade_feesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -109,7 +109,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/grades?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/grades?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstGrades = JsonConvert.DeserializeObject<List<gradesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -129,7 +129,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/parents?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/parents?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstparents = JsonConvert.DeserializeObject<List<parentsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -149,7 +149,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/route_stops?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/route_stops?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstroute_stops = JsonConvert.DeserializeObject<List<route_stopsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -169,7 +169,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/route_vehicle_stops?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/route_vehicle_stops?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstroute_vehicle_stops = JsonConvert.DeserializeObject<List<route_vehicle_stopsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -189,7 +189,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/route_vehicle_stops_fee_logs?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/route_vehicle_stops_fee_logs?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstroute_vehicle_stops_fee_logs = JsonConvert.DeserializeObject<List<route_vehicle_stops_fee_logsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -209,7 +209,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/route_vehicles?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/route_vehicles?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstroute_vehicles = JsonConvert.DeserializeObject<List<route_vehiclesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -229,7 +229,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/routes?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/routes?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstroutes = JsonConvert.DeserializeObject<List<routesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -249,7 +249,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/sections?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/sections?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstSections = JsonConvert.DeserializeObject<List<sectionsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -269,7 +269,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/sessions?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/sessions?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstsessions = JsonConvert.DeserializeObject<List<sessionsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -289,7 +289,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/student_fees?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/student_fees?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lststudent_fees = JsonConvert.DeserializeObject<List<student_feesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -309,7 +309,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/student_grade_session_log?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/student_grade_session_log?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lststudent_grade_session_log = JsonConvert.DeserializeObject<List<student_grade_session_logModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -329,7 +329,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/student_payments?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/student_payments?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lststudent_payments = JsonConvert.DeserializeObject<List<student_paymentsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -349,7 +349,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/students?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/students?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstStudents = JsonConvert.DeserializeObject<List<studentsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -369,7 +369,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/trip_stops?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/trip_stops?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lsttrip_stops = JsonConvert.DeserializeObject<List<trip_stopsModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -389,7 +389,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/user_avatar_files?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/user_avatar_files?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstuser_avatar_files = JsonConvert.DeserializeObject<List<user_avatar_filesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -409,7 +409,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/users?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/users?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstUsers = JsonConvert.DeserializeObject<List<usersModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
@@ -429,7 +429,7 @@ namespace School_Universe_Businness_Layer.Businness
             {
                 if (!APIUri.EndsWith("/"))
                     APIUri += "/";
-                APIUri += "web-services/vehicles?date=" + LastSyncedOn.ToString("yyyy-MM-dd");
+                APIUri += "web-services/vehicles?date=" + LastSyncedOn.ToString("yyyy-MM-dd HH:mm:ss");
                 lstvehicles = JsonConvert.DeserializeObject<List<vehiclesModel>>(httpGetWebRequest(APIUri));
             }
             catch (Exception ex)
