@@ -706,7 +706,7 @@ namespace School_Universe_Businness_Layer.Businness
                     {
                         process.StartInfo.FileName = Path.GetFullPath(receipt);
                         process.Start();
-                        process.WaitForExit();
+                        //process.WaitForExit();
                     }
 
                 }

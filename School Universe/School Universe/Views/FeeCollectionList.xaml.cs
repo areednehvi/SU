@@ -30,5 +30,10 @@ namespace School_Universe.Views
             ((FeeCollectionListController)grdFeeCollectionList.DataContext).FeeCollectionListDataGrid = this.dataGridFeeCollectionList;
             //((FeeCollectionListController)grdFeeCollectionList.DataContext).Window = this;
         }
+
+        private void dataGridFeeCollectionList_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ((FeeCollectionListController)grdFeeCollectionList.DataContext).loadCollectFeeWindow();
+        }
     }
 }

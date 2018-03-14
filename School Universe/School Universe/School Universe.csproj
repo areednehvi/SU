@@ -219,6 +219,7 @@
   <ItemGroup>
     <Resource Include="assets\images\userProfile.png" />
     <Resource Include="assets\images\receiptLogo.jpg" />
+    <Resource Include="assets\images\newLogin.png" />
     <Content Include="SchoolUniverse.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

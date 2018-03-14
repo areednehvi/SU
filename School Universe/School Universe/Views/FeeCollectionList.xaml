@@ -68,7 +68,7 @@
                 </Viewbox>
             </Button>
         </StackPanel>
-        <DataGrid Grid.Row="2" Cursor="Hand" x:Name="dataGridFeeCollectionList" AlternationCount="2" AlternatingRowBackground="#FFD7FDFA" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding FeeCollectionStudentList}"  Margin="10,0,10,0"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="14" SelectedItem="{Binding SelectedItemInFeeCollectionStudentList}">
+        <DataGrid Grid.Row="2" Cursor="Hand" x:Name="dataGridFeeCollectionList" AlternationCount="2" AlternatingRowBackground="#FFD7FDFA" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding FeeCollectionStudentList}"  Margin="10,0,10,0"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="14" SelectedItem="{Binding SelectedItemInFeeCollectionStudentList}" MouseUp="dataGridFeeCollectionList_MouseUp" >
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#FF009688"/>

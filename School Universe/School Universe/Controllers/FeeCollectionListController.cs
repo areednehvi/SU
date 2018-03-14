@@ -85,7 +85,7 @@ namespace School_Universe.Controllers
             set
             {
                 _selectedItemInFeeCollectionStudentList = value;
-                loadCollectFeeWindow();
+                //loadCollectFeeWindow();
             }
 
         }
@@ -314,7 +314,7 @@ namespace School_Universe.Controllers
             }
         }
 
-        private void loadCollectFeeWindow()
+        public void loadCollectFeeWindow()
         {
             if (SelectedItemInFeeCollectionStudentList != null)
             {
